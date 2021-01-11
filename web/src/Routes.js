@@ -8,10 +8,14 @@
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
 import { Router, Route } from '@redwoodjs/router'
+import GlobalLayout from './layouts/GlobalLayout/GlobalLayout'
 
 const Routes = () => {
   return (
     <Router>
+      <Route path="/plan" page={PlanPage} name="plan" />
+      <Route path="/me" page={MePage} name="me" />
+      <Route path="/" page={HomePage} name="home" />
       <Route notfound page={NotFoundPage} />
     </Router>
   )
