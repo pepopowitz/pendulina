@@ -1,16 +1,19 @@
-import ReactDOM from 'react-dom'
+import { ChakraProvider } from '@chakra-ui/react'
 import { RedwoodProvider, FatalErrorBoundary } from '@redwoodjs/web'
-import FatalErrorPage from 'src/pages/FatalErrorPage'
+import ReactDOM from 'react-dom'
 
+import FatalErrorPage from 'src/pages/FatalErrorPage'
 import Routes from 'src/Routes'
 
 import './index.css'
 
 ReactDOM.render(
   <FatalErrorBoundary page={FatalErrorPage}>
-    <RedwoodProvider>
-      <Routes />
-    </RedwoodProvider>
+    <ChakraProvider>
+      <RedwoodProvider>
+        <Routes />
+      </RedwoodProvider>
+    </ChakraProvider>
   </FatalErrorBoundary>,
   document.getElementById('redwood-app')
 )
