@@ -2612,6 +2612,11 @@
   resolved "https://registry.yarnpkg.com/@redwoodjs/auth/-/auth-0.22.1.tgz#381c30f01d94637dde7cf826ccef61ae5ec86aeb"
   integrity sha512-Xvig/Sfh3Bm04283IXifurCNftd04JJ8wwh71Gw3UxdFZ47dslQqEP0/6vpGbV07fpy+2g5U3KJLLlbhrNkd7w==
 
+"@redwoodjs/auth@^0.23.0":
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/@redwoodjs/auth/-/auth-0.23.0.tgz#78bfb53d52502ddaa85d56c92e1285bc40d15628"
+  integrity sha512-kjIjmiwvxJR2VSX9c2JQwE7PBQbKnvcEmE+rIHJY7geHd9C22nXM8gBG1wA3Waqv01eeSn6qN+LSS9eVSgdUAw==
+
 "@redwoodjs/cli@^0.22.1":
   version "0.22.1"
   resolved "https://registry.yarnpkg.com/@redwoodjs/cli/-/cli-0.22.1.tgz#894c2a54b6de05e1f9d7dc84e1db0d1bc93bb454"
@@ -11582,6 +11587,11 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+
+netlify-identity-widget@^1.9.1:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/netlify-identity-widget/-/netlify-identity-widget-1.9.1.tgz#9e716c4b92b9f0cc041074eb86fc962f35295b46"
+  integrity sha512-9oIWjwUSdRk3SkREcZNjZaVuDDx9T/wSIXZNQsQeY4qoXic/FiXVEGgu2RU3IuA4OI3L2652xY1o+PpS03Ugaw==
 
 new-github-issue-url@^0.2.1:
   version "0.2.1"
