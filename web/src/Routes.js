@@ -7,15 +7,17 @@
 // 'src/pages/HomePage/HomePage.js'         -> HomePage
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
-import { Router, Route } from '@redwoodjs/router'
+import { Private, Router, Route } from '@redwoodjs/router'
 import GlobalLayout from './layouts/GlobalLayout/GlobalLayout'
 
 const Routes = () => {
   return (
     <Router>
       <Route path="/plan" page={PlanPage} name="plan" />
-      <Route path="/me" page={MePage} name="me" />
       <Route path="/" page={HomePage} name="home" />
+      <Private unauthenticated="home">
+        <Route path="/me" page={MePage} name="me" />
+      </Private>
       <Route notfound page={NotFoundPage} />
     </Router>
   )
