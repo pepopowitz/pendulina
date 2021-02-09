@@ -122,6 +122,9 @@ export const getCurrentUser = async (decoded, { _token, _type }) => {
  * requireAuth({ role: ['publisher'] })
  */
 export const requireAuth = ({ role } = {}) => {
+  console.log('sjhsjhsjh', context)
+  // fffffuuuuuu context doesn't have a current user. Why not????
+  debugger
   if (!context.currentUser) {
     throw new AuthenticationError("You don't have permission to do that.")
   }

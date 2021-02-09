@@ -46,7 +46,7 @@ const AuthorizedLinks = () => {
 
 const LogInOrLogOut = () => {
   const { currentUser, isAuthenticated, logIn, logOut } = useAuth()
-  console.log(currentUser)
+  console.log('sjh currentuser', currentUser)
   if (isAuthenticated) {
     return (
       <>
