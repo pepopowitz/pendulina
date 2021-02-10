@@ -12,7 +12,6 @@ export const activity = ({ id }) => {
 }
 
 export const createActivity = ({ input }) => {
-  debugger
   requireAuth()
   return db.activity.create({
     data: input,
