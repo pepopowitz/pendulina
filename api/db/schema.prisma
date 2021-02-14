@@ -11,7 +11,28 @@ generator client {
 }
 
 model Activity {
-  id   Int    @id @default(autoincrement())
-  name String
-  icon String
+  id          Int           @id @default(autoincrement())
+  name        String
+  icon        String
+  PlanWorkout PlanWorkout[]
+}
+
+model PlanWorkout {
+  id          Int       @id @default(autoincrement())
+  dayOfWeek   DayOfWeek
+  activity    Activity  @relation(fields: [activityId], references: [id])
+  targetMiles String
+  targetTime  String
+  targetNotes String
+  activityId  Int
+}
+
+enum DayOfWeek {
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
 }
