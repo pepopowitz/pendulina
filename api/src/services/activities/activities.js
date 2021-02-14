@@ -6,7 +6,7 @@ export const activities = () => {
 }
 
 export const activity = ({ id }) => {
-  return db.activity.findOne({
+  return db.activity.findUnique({
     where: { id },
   })
 }
