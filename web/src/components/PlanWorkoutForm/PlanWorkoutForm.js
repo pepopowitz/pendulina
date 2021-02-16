@@ -32,13 +32,21 @@ const PlanWorkoutForm = (props) => {
         >
           Day of week
         </Label>
-        <TextField
+        <SelectField
           name="dayOfWeek"
           defaultValue={props.planWorkout?.dayOfWeek}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
-        />
+        >
+          <option>MONDAY</option>
+          <option>TUESDAY</option>
+          <option>WEDNESDAY</option>
+          <option>THURSDAY</option>
+          <option>FRIDAY</option>
+          <option>SATURDAY</option>
+          <option>SUNDAY</option>
+        </SelectField>
         <FieldError name="dayOfWeek" className="rw-field-error" />
 
         <Label
