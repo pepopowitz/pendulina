@@ -2,7 +2,15 @@ import { useMutation, useFlash } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
 import PlanWorkoutForm from 'src/components/PlanWorkoutForm'
 
-import { QUERY } from 'src/components/PlanWorkoutsCell'
+export const QUERY = gql`
+  query NEW_PLAN_WORKOUT_QUERY {
+    activities {
+      id
+      icon
+      name
+    }
+  }
+`
 
 const CREATE_PLAN_WORKOUT_MUTATION = gql`
   mutation CreatePlanWorkoutMutation($input: CreatePlanWorkoutInput!) {
@@ -12,7 +20,9 @@ const CREATE_PLAN_WORKOUT_MUTATION = gql`
   }
 `
 
-const NewPlanWorkout = () => {
+export const Loading = () => <div>Loading...</div>
+
+export const Success = ({ activities }) => {
   const { addMessage } = useFlash()
   const [createPlanWorkout, { loading, error }] = useMutation(
     CREATE_PLAN_WORKOUT_MUTATION,
@@ -37,10 +47,13 @@ const NewPlanWorkout = () => {
         <h2 className="rw-heading rw-heading-secondary">New PlanWorkout</h2>
       </header>
       <div className="rw-segment-main">
-        <PlanWorkoutForm onSave={onSave} loading={loading} error={error} />
+        <PlanWorkoutForm
+          activities={activities}
+          onSave={onSave}
+          loading={loading}
+          error={error}
+        />
       </div>
     </div>
   )
 }
-
-export default NewPlanWorkout

@@ -1,8 +1,6 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { Link, routes, navigate } from '@redwoodjs/router'
 
-import { QUERY } from 'src/components/PlanWorkoutsCell'
-
 const DELETE_PLAN_WORKOUT_MUTATION = gql`
   mutation DeletePlanWorkoutMutation($id: Int!) {
     deletePlanWorkout(id: $id) {

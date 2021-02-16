@@ -3,14 +3,18 @@ import { Link, routes } from '@redwoodjs/router'
 import PlanWorkouts from 'src/components/PlanWorkouts'
 
 export const QUERY = gql`
-  query PLAN_WORKOUTS {
+  query PLAN_WORKOUTS_QUERY {
     planWorkouts {
       id
       dayOfWeek
       targetMiles
       targetTime
       targetNotes
-      activityId
+      activity {
+        id
+        icon
+        name
+      }
     }
   }
 `

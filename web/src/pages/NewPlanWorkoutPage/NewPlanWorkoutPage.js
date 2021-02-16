@@ -1,10 +1,10 @@
 import PlanWorkoutsLayout from 'src/layouts/PlanWorkoutsLayout'
-import NewPlanWorkout from 'src/components/NewPlanWorkout'
+import NewPlanWorkoutCell from 'src/components/NewPlanWorkoutCell'
 
 const NewPlanWorkoutPage = () => {
   return (
     <PlanWorkoutsLayout>
-      <NewPlanWorkout />
+      <NewPlanWorkoutCell />
     </PlanWorkoutsLayout>
   )
 }

@@ -37,7 +37,7 @@ const checkboxInputTag = (checked) => {
   return <input type="checkbox" checked={checked} disabled />
 }
 
-const PlanWorkoutsList = ({ planWorkouts }) => {
+const PlanWorkoutsList = ({ activities, planWorkouts }) => {
   const { addMessage } = useFlash()
   const [deletePlanWorkout] = useMutation(DELETE_PLAN_WORKOUT_MUTATION, {
     onCompleted: () => {
@@ -66,7 +66,7 @@ const PlanWorkoutsList = ({ planWorkouts }) => {
             <th>Target miles</th>
             <th>Target time</th>
             <th>Target notes</th>
-            <th>Activity id</th>
+            <th>Activity</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -78,7 +78,11 @@ const PlanWorkoutsList = ({ planWorkouts }) => {
               <td>{truncate(planWorkout.targetMiles)}</td>
               <td>{truncate(planWorkout.targetTime)}</td>
               <td>{truncate(planWorkout.targetNotes)}</td>
-              <td>{truncate(planWorkout.activityId)}</td>
+              <td>
+                {truncate(
+                  `${planWorkout.activity.icon} ${planWorkout.activity.name}`
+                )}
+              </td>
               <td>
                 <nav className="rw-table-actions">
                   <Link

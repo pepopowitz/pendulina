@@ -8,6 +8,7 @@ import {
   NumberField,
   Submit,
 } from '@redwoodjs/forms'
+import { ActivityOptions } from '../ActivityOptions'
 
 const PlanWorkoutForm = (props) => {
   const onSubmit = (data) => {
@@ -102,7 +103,7 @@ const PlanWorkoutForm = (props) => {
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
         >
-          <option value={1}>Running</option>
+          <ActivityOptions activities={props.activities} />
         </SelectField>
         <FieldError name="activityId" className="rw-field-error" />
 
