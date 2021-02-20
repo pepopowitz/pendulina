@@ -67,8 +67,8 @@ const PlanWorkout = ({ planWorkout }) => {
               <td>{planWorkout.targetMiles}</td>
             </tr>
             <tr>
-              <th>Target time (seconds)</th>
-              <td>{planWorkout.targetTimeInSeconds}</td>
+              <th>Target time (minutes)</th>
+              <td>{planWorkout.targetTimeInMinutes}</td>
             </tr>
             <tr>
               <th>Target notes</th>

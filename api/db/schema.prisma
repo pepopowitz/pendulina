@@ -26,8 +26,8 @@ model Plan {
 model PlanWeek {
   id           Int           @id @default(autoincrement())
   planWorkouts PlanWorkout[]
-  weekNumber   Int           @default(0)
-  intention    String
+  weekNumber   Int
+  intention    String?
   Plan         Plan?         @relation(fields: [planId], references: [id])
   planId       Int?
 }
@@ -36,9 +36,9 @@ model PlanWorkout {
   id                  Int       @id @default(autoincrement())
   dayOfWeek           DayOfWeek
   activity            Activity  @relation(fields: [activityId], references: [id])
-  targetMiles         String
-  targetTimeInSeconds String    @default("")
-  targetNotes         String
+  targetMiles         String?
+  targetTimeInMinutes String?
+  targetNotes         String?
   activityId          Int
   PlanWeek            PlanWeek? @relation(fields: [planWeekId], references: [id])
   planWeekId          Int?

@@ -3,7 +3,7 @@ export const standard = defineScenario({
     one: {
       dayOfWeek: 'SUNDAY',
       targetMiles: 'String',
-      targetTimeInSeconds: 'String',
+      targetTimeInMinutes: 'String',
       targetNotes: 'String',
       activity: { create: { name: 'String', icon: 'String' } },
     },
@@ -11,7 +11,7 @@ export const standard = defineScenario({
     two: {
       dayOfWeek: 'SUNDAY',
       targetMiles: 'String',
-      targetTimeInSeconds: 'String',
+      targetTimeInMinutes: 'String',
       targetNotes: 'String',
       activity: { create: { name: 'String', icon: 'String' } },
     },
