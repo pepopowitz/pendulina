@@ -17,11 +17,19 @@ model Activity {
   PlanWorkout PlanWorkout[]
 }
 
+model Plan {
+  id        Int        @id @default(autoincrement())
+  name      String
+  planWeeks PlanWeek[]
+}
+
 model PlanWeek {
   id           Int           @id @default(autoincrement())
   planWorkouts PlanWorkout[]
   weekNumber   Int           @default(0)
   intention    String
+  Plan         Plan?         @relation(fields: [planId], references: [id])
+  planId       Int?
 }
 
 model PlanWorkout {
