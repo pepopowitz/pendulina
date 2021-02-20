@@ -17,6 +17,12 @@ model Activity {
   PlanWorkout PlanWorkout[]
 }
 
+model PlanWeek {
+  id           Int           @id @default(autoincrement())
+  planWorkouts PlanWorkout[]
+  intention    String
+}
+
 model PlanWorkout {
   id                  Int       @id @default(autoincrement())
   dayOfWeek           DayOfWeek
@@ -25,6 +31,8 @@ model PlanWorkout {
   targetTimeInSeconds String    @default("")
   targetNotes         String
   activityId          Int
+  PlanWeek            PlanWeek? @relation(fields: [planWeekId], references: [id])
+  planWeekId          Int?
 }
 
 enum DayOfWeek {
