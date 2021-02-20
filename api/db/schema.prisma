@@ -20,6 +20,7 @@ model Activity {
 model PlanWeek {
   id           Int           @id @default(autoincrement())
   planWorkouts PlanWorkout[]
+  weekNumber   Int           @default(0)
   intention    String
 }
 
