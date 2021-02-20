@@ -66,20 +66,20 @@ const PlanWorkoutForm = (props) => {
         <FieldError name="targetMiles" className="rw-field-error" />
 
         <Label
-          name="targetTime"
+          name="targetTimeInSeconds"
           className="rw-label"
           errorClassName="rw-label rw-label-error"
         >
-          Target time
+          Target time (seconds)
         </Label>
         <TextField
-          name="targetTime"
-          defaultValue={props.planWorkout?.targetTime}
+          name="targetTimeInSeconds"
+          defaultValue={props.planWorkout?.targetTimeInSeconds}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
         />
-        <FieldError name="targetTime" className="rw-field-error" />
+        <FieldError name="targetTimeInSeconds" className="rw-field-error" />
 
         <Label
           name="targetNotes"

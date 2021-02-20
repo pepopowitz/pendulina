@@ -8,7 +8,7 @@ export const QUERY = gql`
       id
       dayOfWeek
       targetMiles
-      targetTime
+      targetTimeInSeconds
       targetNotes
       activityId
     }
@@ -28,7 +28,7 @@ const UPDATE_PLAN_WORKOUT_MUTATION = gql`
       id
       dayOfWeek
       targetMiles
-      targetTime
+      targetTimeInSeconds
       targetNotes
       activityId
     }

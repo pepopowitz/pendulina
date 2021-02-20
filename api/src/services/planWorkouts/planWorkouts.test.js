@@ -24,7 +24,7 @@ describe('planWorkouts', () => {
       input: {
         dayOfWeek: 'SUNDAY',
         targetMiles: 'String',
-        targetTime: 'String',
+        targetTimeInSeconds: 'String',
         targetNotes: 'String',
         activityId: 'scenario.planWorkout.two.activityId',
       },
@@ -32,7 +32,7 @@ describe('planWorkouts', () => {
 
     expect(result.dayOfWeek).toEqual('SUNDAY')
     expect(result.targetMiles).toEqual('String')
-    expect(result.targetTime).toEqual('String')
+    expect(result.targetTimeInSeconds).toEqual('String')
     expect(result.targetNotes).toEqual('String')
     expect(result.activityId).toEqual('scenario.planWorkout.two.activityId')
   })

@@ -18,13 +18,13 @@ model Activity {
 }
 
 model PlanWorkout {
-  id          Int       @id @default(autoincrement())
-  dayOfWeek   DayOfWeek
-  activity    Activity  @relation(fields: [activityId], references: [id])
-  targetMiles String
-  targetTime  String
-  targetNotes String
-  activityId  Int
+  id                  Int       @id @default(autoincrement())
+  dayOfWeek           DayOfWeek
+  activity            Activity  @relation(fields: [activityId], references: [id])
+  targetMiles         String
+  targetTimeInSeconds String    @default("")
+  targetNotes         String
+  activityId          Int
 }
 
 enum DayOfWeek {

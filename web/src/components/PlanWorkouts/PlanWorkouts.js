@@ -64,7 +64,7 @@ const PlanWorkoutsList = ({ activities, planWorkouts }) => {
             <th>Id</th>
             <th>Day of week</th>
             <th>Target miles</th>
-            <th>Target time</th>
+            <th>Target time (seconds)</th>
             <th>Target notes</th>
             <th>Activity</th>
             <th>&nbsp;</th>
@@ -76,7 +76,7 @@ const PlanWorkoutsList = ({ activities, planWorkouts }) => {
               <td>{truncate(planWorkout.id)}</td>
               <td>{truncate(planWorkout.dayOfWeek)}</td>
               <td>{truncate(planWorkout.targetMiles)}</td>
-              <td>{truncate(planWorkout.targetTime)}</td>
+              <td>{truncate(planWorkout.targetTimeInSeconds)}</td>
               <td>{truncate(planWorkout.targetNotes)}</td>
               <td>
                 {truncate(

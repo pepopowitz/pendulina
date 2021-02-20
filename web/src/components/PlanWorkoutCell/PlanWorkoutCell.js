@@ -6,7 +6,7 @@ export const QUERY = gql`
       id
       dayOfWeek
       targetMiles
-      targetTime
+      targetTimeInSeconds
       targetNotes
       activityId
     }
