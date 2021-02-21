@@ -21,6 +21,7 @@ const Routes = () => {
         <Route path="/admin/plan-workouts/{id:Int}/edit" page={EditPlanWorkoutPage} name="editPlanWorkout" />
         <Route path="/admin/plan-workouts/{id:Int}" page={PlanWorkoutPage} name="planWorkout" />
         <Route path="/admin/plan-workouts" page={PlanWorkoutsPage} name="planWorkouts" />
+        <Route path="/admin/plan/{id:Int}/edit" page={EditPlanPage} name="editPlan" />
       </Private>
       {/* I'd like to wrap some of these routes in Private but when I do the pages don't render */}
       {/* <Private unauthenticated="">
