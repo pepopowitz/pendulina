@@ -3,8 +3,8 @@ export const schema = gql`
     id: Int!
     dayOfWeek: DayOfWeek!
     activity: Activity!
-    targetMiles: String!
-    targetTimeInMinutes: String!
+    targetMiles: String
+    targetTimeInMinutes: String
     targetNotes: String!
     activityId: Int!
   }
@@ -26,8 +26,8 @@ export const schema = gql`
 
   input CreatePlanWorkoutInput {
     dayOfWeek: DayOfWeek!
-    targetMiles: String!
-    targetTimeInMinutes: String!
+    targetMiles: String
+    targetTimeInMinutes: String
     targetNotes: String!
     activityId: Int!
   }

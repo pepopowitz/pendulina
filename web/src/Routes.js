@@ -25,7 +25,7 @@ const Routes = () => {
       {/* I'd like to wrap some of these routes in Private but when I do the pages don't render */}
       {/* <Private unauthenticated="">
       </Private> */}
-      <Route path="/plan" page={PlanPage} name="plan" />
+      <Route path="/my-plan" page={MyPlanPage} name="myPlan" />
       <Route path="/me" page={MePage} name="me" />
       <Route path="/" page={HomePage} name="home" />
       <Route notfound page={NotFoundPage} />

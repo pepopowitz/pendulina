@@ -39,7 +39,7 @@ const AuthorizedLinks = () => {
   return (
     <>
       <Link to={routes.me()}>Me</Link>
-      <Link to={routes.plan()}>My Plan</Link>
+      <Link to={routes.myPlan()}>My Plan</Link>
     </>
   )
 }
