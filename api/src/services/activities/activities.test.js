@@ -27,13 +27,12 @@ describe('activities', () => {
     const result = await createActivity({
       input: {
         name: 'String',
-        body: 'String',
-        postId: scenario.activity.one.post.id,
+        icon: 'String',
       },
     })
 
     expect(result.name).toEqual('String')
-    expect(result.body).toEqual('String')
+    expect(result.icon).toEqual('String')
   })
 
   scenario('updates a activity', async (scenario) => {

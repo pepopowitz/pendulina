@@ -26,7 +26,7 @@ describe('planWorkouts', () => {
         targetMiles: 'String',
         targetTimeInMinutes: 'String',
         targetNotes: 'String',
-        activityId: 'scenario.planWorkout.two.activityId',
+        activityId: scenario.planWorkout.two.activityId,
       },
     })
 
@@ -34,7 +34,7 @@ describe('planWorkouts', () => {
     expect(result.targetMiles).toEqual('String')
     expect(result.targetTimeInMinutes).toEqual('String')
     expect(result.targetNotes).toEqual('String')
-    expect(result.activityId).toEqual('scenario.planWorkout.two.activityId')
+    expect(result.activityId).toEqual(scenario.planWorkout.two.activityId)
   })
 
   scenario('updates a planWorkout', async (scenario) => {
