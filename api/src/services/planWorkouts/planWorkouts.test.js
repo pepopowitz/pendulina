@@ -7,6 +7,10 @@ import {
 } from './planWorkouts'
 
 describe('planWorkouts', () => {
+  beforeEach(() => {
+    mockCurrentUser({ roles: ['admin'] })
+  })
+
   scenario('returns all planWorkouts', async (scenario) => {
     const result = await planWorkouts()
 

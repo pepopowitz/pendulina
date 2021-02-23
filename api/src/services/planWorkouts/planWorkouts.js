@@ -1,4 +1,5 @@
 import { db } from 'src/lib/db'
+import { requireAuth } from 'src/lib/auth'
 
 export const planWorkouts = () => {
   return db.planWorkout.findMany()
@@ -11,12 +12,14 @@ export const planWorkout = ({ id }) => {
 }
 
 export const createPlanWorkout = ({ input }) => {
+  requireAuth()
   return db.planWorkout.create({
     data: input,
   })
 }
 
 export const updatePlanWorkout = ({ id, input }) => {
+  requireAuth()
   return db.planWorkout.update({
     data: input,
     where: { id },
@@ -24,6 +27,7 @@ export const updatePlanWorkout = ({ id, input }) => {
 }
 
 export const deletePlanWorkout = ({ id }) => {
+  requireAuth()
   return db.planWorkout.delete({
     where: { id },
   })
