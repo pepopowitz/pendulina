@@ -1,8 +1,8 @@
 import { render, screen } from '@redwoodjs/testing'
-import { Loading, Empty, Failure, Success } from './PlanCell'
-import { standard } from './PlanCell.mock'
+import { Loading, Empty, Failure, Success } from './EditPlanCell'
+import { standard } from './EditPlanCell.mock'
 
-describe('PlanCell', () => {
+describe('EditPlanCell', () => {
   it('renders Loading successfully', () => {
     expect(() => {
       render(<Loading />)

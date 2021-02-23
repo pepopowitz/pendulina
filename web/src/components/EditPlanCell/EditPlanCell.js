@@ -1,7 +1,15 @@
+import EditPlan from '../EditPlan'
+
 export const QUERY = gql`
-  query PlanQuery {
-    plan {
+  query EditPlanQuery($id: Int!) {
+    plan: plan(id: $id) {
       id
+      name
+      planWeeks {
+        id
+        weekNumber
+        intention
+      }
     }
   }
 `
@@ -13,5 +21,5 @@ export const Empty = () => <div>Empty</div>
 export const Failure = ({ error }) => <div>Error: {error.message}</div>
 
 export const Success = ({ plan }) => {
-  return JSON.stringify(plan)
+  return <EditPlan plan={plan}></EditPlan>
 }

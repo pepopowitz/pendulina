@@ -7,6 +7,7 @@ export const schema = gql`
 
   type Query {
     plans: [Plan!]!
+    plan(id: Int!): Plan
   }
 
   input CreatePlanInput {
