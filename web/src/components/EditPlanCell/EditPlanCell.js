@@ -9,6 +9,17 @@ export const QUERY = gql`
         id
         weekNumber
         intention
+        planWorkouts {
+          id
+          dayOfWeek
+          activity {
+            name
+            icon
+          }
+          targetMiles
+          targetTimeInMinutes
+          targetNotes
+        }
       }
     }
   }
