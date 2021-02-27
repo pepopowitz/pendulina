@@ -3,11 +3,14 @@ import { navigate, routes } from '@redwoodjs/router'
 import PlanWorkoutForm from 'src/components/PlanWorkoutForm'
 
 export const QUERY = gql`
-  query NEW_PLAN_WORKOUT_QUERY {
+  query NEW_PLAN_WORKOUT_QUERY($planWeekID: Int!) {
     activities {
       id
       icon
       name
+    }
+    planWeek(id: $planWeekID) {
+      id
     }
   }
 `
@@ -22,7 +25,8 @@ const CREATE_PLAN_WORKOUT_MUTATION = gql`
 
 export const Loading = () => <div>Loading...</div>
 
-export const Success = ({ activities }) => {
+export const Success = ({ activities, planWeek }) => {
+  console.log(activities, planWeek)
   const { addMessage } = useFlash()
   const [createPlanWorkout, { loading, error }] = useMutation(
     CREATE_PLAN_WORKOUT_MUTATION,
