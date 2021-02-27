@@ -1,15 +1,18 @@
 import {
   Box,
+  Button,
   Container,
   Divider,
   Flex,
   Heading,
   HStack,
+  Link,
   Spacer,
   Stack,
   StackDivider,
   Text,
 } from '@chakra-ui/react'
+import { Link as RouterLink, routes } from '@redwoodjs/router'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
@@ -64,14 +67,23 @@ const PlanWeeks = ({ planWeeks }) => {
     return (
       <Stack key={planWeek.id}>
         <Divider mt="3" mb="2" />
-        <HStack>
-          <Heading fontSize="lg" as="h3" color="gray.500">
-            Week {planWeek.weekNumber}:
-          </Heading>
-          <Heading fontSize="lg" as="h4">
-            {planWeek.intention}
-          </Heading>
-        </HStack>
+        <Flex direction="row" justifyContent="space-between">
+          <HStack>
+            <Heading fontSize="lg" as="h3" color="gray.500">
+              Week {planWeek.weekNumber}:
+            </Heading>
+            <Heading fontSize="lg" as="h4">
+              {planWeek.intention}
+            </Heading>
+          </HStack>
+          <Link
+            to={routes.newPlanWorkout({ planWeekID: planWeek.id })}
+            as={RouterLink}
+            color="green.600"
+          >
+            + Add a workout
+          </Link>
+        </Flex>
         <HStack spacing="2">
           {planWeekDays.map((planWeekDay) => (
             <PlanWeekDay
