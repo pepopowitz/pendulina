@@ -4,9 +4,13 @@ export const planWeeks = () => {
   return db.planWeek.findMany()
 }
 
+export const planWeek = ({ id }) => {
+  return db.planWeek.findUnique({
+    where: { id },
+  })
+}
+
 export const PlanWeek = {
-  planWorkouts: (_obj, { root }) =>
-    db.planWeek.findUnique({ where: { id: root.id } }).planWorkouts(),
-  Plan: (_obj, { root }) =>
-    db.planWeek.findUnique({ where: { id: root.id } }).Plan(),
+  planWorkouts: (_obj, { root }) => planWeek({ id: root.id }).planWorkouts(),
+  Plan: (_obj, { root }) => planWeek({ id: root.id }).Plan(),
 }
