@@ -10,6 +10,7 @@ export const schema = gql`
 
   type Query {
     planWeeks: [PlanWeek!]!
+    planWeek(id: Int!): PlanWeek
   }
 
   input CreatePlanWeekInput {
