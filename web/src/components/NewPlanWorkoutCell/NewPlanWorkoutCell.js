@@ -11,6 +11,8 @@ export const QUERY = gql`
     }
     planWeek(id: $planWeekID) {
       id
+      weekNumber
+      intention
     }
   }
 `
@@ -56,6 +58,7 @@ export const Success = ({ activities, planWeek }) => {
           onSave={onSave}
           loading={loading}
           error={error}
+          planWeek={planWeek}
         />
       </div>
     </div>

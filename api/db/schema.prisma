@@ -40,8 +40,8 @@ model PlanWorkout {
   targetTimeInMinutes String?
   targetNotes         String?
   activityId          Int
-  PlanWeek            PlanWeek? @relation(fields: [planWeekId], references: [id])
-  planWeekId          Int?
+  PlanWeek            PlanWeek  @relation(fields: [planWeekId], references: [id])
+  planWeekId          Int
 }
 
 enum DayOfWeek {
