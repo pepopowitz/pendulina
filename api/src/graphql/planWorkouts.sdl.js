@@ -7,6 +7,7 @@ export const schema = gql`
     targetTimeInMinutes: String
     targetNotes: String!
     activityId: Int!
+    planWeek: PlanWeek!
   }
 
   enum DayOfWeek {
@@ -30,6 +31,7 @@ export const schema = gql`
     targetTimeInMinutes: String
     targetNotes: String!
     activityId: Int!
+    planWeekId: Int!
   }
 
   input UpdatePlanWorkoutInput {

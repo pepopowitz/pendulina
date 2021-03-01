@@ -7,6 +7,7 @@ import {
   TextField,
   NumberField,
   Submit,
+  HiddenField,
 } from '@redwoodjs/forms'
 import { ActivityOptions } from '../ActivityOptions'
 
@@ -15,6 +16,7 @@ const PlanWorkoutForm = (props) => {
     props.onSave(data, props?.planWorkout?.id)
   }
 
+  const { planWeek } = props
   return (
     <div className="rw-form-wrapper">
       <Form onSubmit={onSubmit} error={props.error}>
@@ -24,6 +26,22 @@ const PlanWorkoutForm = (props) => {
           titleClassName="rw-form-error-title"
           listClassName="rw-form-error-list"
         />
+
+        {/*
+          HiddenField doesn't work -- `id` is an int here, but when it gets submitted to graphql it is a string;
+          `api | Error: Variable "$input" got invalid value "2" at "input.planWeekId"; Int cannot represent non-integer value: "2"`
+        */}
+        <HiddenField
+          name="planWeekId"
+          value={planWeek.id}
+          transformValue="Int"
+        />
+        <Label name="planWeekID" className="rw-label">
+          Plan Week
+        </Label>
+        <div className="rw-input">
+          Week {planWeek.weekNumber}: {planWeek.intention}
+        </div>
 
         <Label
           name="dayOfWeek"
@@ -61,7 +79,6 @@ const PlanWorkoutForm = (props) => {
           defaultValue={props.planWorkout?.targetMiles}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
         />
         <FieldError name="targetMiles" className="rw-field-error" />
 
@@ -77,7 +94,6 @@ const PlanWorkoutForm = (props) => {
           defaultValue={props.planWorkout?.targetTimeInMinutes}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
         />
         <FieldError name="targetTimeInMinutes" className="rw-field-error" />
 

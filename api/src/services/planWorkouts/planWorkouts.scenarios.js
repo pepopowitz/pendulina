@@ -16,4 +16,9 @@ export const standard = defineScenario({
       activity: { create: { name: 'String', icon: 'String' } },
     },
   },
+  planWeek: {
+    one: {
+      intention: 'do stuff',
+    },
+  },
 })
