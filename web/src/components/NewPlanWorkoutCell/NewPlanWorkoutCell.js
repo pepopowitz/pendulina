@@ -13,6 +13,9 @@ export const QUERY = gql`
       id
       weekNumber
       intention
+      plan {
+        id
+      }
     }
   }
 `
@@ -28,13 +31,15 @@ const CREATE_PLAN_WORKOUT_MUTATION = gql`
 export const Loading = () => <div>Loading...</div>
 
 export const Success = ({ activities, planWeek }) => {
-  console.log(activities, planWeek)
   const { addMessage } = useFlash()
+  const {
+    plan: { id: planID },
+  } = planWeek
   const [createPlanWorkout, { loading, error }] = useMutation(
     CREATE_PLAN_WORKOUT_MUTATION,
     {
       onCompleted: () => {
-        navigate(routes.planWorkouts())
+        navigate(routes.editPlan({ id: planID }))
         addMessage('PlanWorkout created.', { classes: 'rw-flash-success' })
       },
     }
