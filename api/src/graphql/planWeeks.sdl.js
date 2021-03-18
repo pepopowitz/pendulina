@@ -4,7 +4,7 @@ export const schema = gql`
     planWorkouts: [PlanWorkout]!
     weekNumber: Int!
     intention: String
-    Plan: Plan
+    plan: Plan
     planId: Int
   }
 

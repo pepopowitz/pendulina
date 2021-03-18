@@ -12,5 +12,5 @@ export const planWeek = ({ id }) => {
 
 export const PlanWeek = {
   planWorkouts: (_obj, { root }) => planWeek({ id: root.id }).planWorkouts(),
-  Plan: (_obj, { root }) => planWeek({ id: root.id }).Plan(),
+  plan: (_obj, { root }) => planWeek({ id: root.id }).Plan(),
 }
