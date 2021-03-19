@@ -12,5 +12,7 @@ export const plan = ({ id }) => {
 
 export const Plan = {
   planWeeks: (_obj, { root }) =>
-    db.plan.findUnique({ where: { id: root.id } }).planWeeks(),
+    db.plan
+      .findUnique({ where: { id: root.id } })
+      .planWeeks({ orderBy: { startDate: 'asc' } }),
 }

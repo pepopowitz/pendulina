@@ -8,6 +8,7 @@ export const QUERY = gql`
       planWeeks {
         id
         weekNumber
+        startDate
         intention
         planWorkouts {
           id

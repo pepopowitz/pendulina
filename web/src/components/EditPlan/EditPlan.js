@@ -63,6 +63,9 @@ const PlanWeeks = ({ planWeeks }) => {
       ...planWeekDays.map((day) => day.workouts.length)
     )
     const height = 90 * maxWorkoutsPerDay + 8 * (maxWorkoutsPerDay + 1)
+    const { startDateFormatted, endDateFormatted } = formatStartAndEndDates(
+      planWeek
+    )
 
     return (
       <Stack key={planWeek.id}>
@@ -70,7 +73,8 @@ const PlanWeeks = ({ planWeeks }) => {
         <Flex direction="row" justifyContent="space-between">
           <HStack>
             <Heading fontSize="lg" as="h3" color="gray.500">
-              Week {planWeek.weekNumber}:
+              Week {planWeek.weekNumber} ({startDateFormatted} -{' '}
+              {endDateFormatted}):
             </Heading>
             <Heading fontSize="lg" as="h4">
               {planWeek.intention}
@@ -138,6 +142,20 @@ const PlanWorkout = ({ workout }) => {
       </Flex>
     </Stack>
   )
+}
+
+function formatStartAndEndDates(planWeek) {
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'medium',
+    timeZone: 'UTC',
+  })
+  const startDate = new Date(planWeek.startDate)
+  const startDateFormatted = formatter.format(startDate)
+  const endDate = new Date(startDate)
+  endDate.setDate(startDate.getDate() + 6)
+  const endDateFormatted = formatter.format(endDate)
+
+  return { startDateFormatted, endDateFormatted }
 }
 
 export function mapPlanWorkoutsToDays(planWorkouts) {

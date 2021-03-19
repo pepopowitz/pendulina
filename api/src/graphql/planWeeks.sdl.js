@@ -3,6 +3,7 @@ export const schema = gql`
     id: Int!
     planWorkouts: [PlanWorkout]!
     weekNumber: Int!
+    startDate: DateTime!
     intention: String
     plan: Plan
     planId: Int
