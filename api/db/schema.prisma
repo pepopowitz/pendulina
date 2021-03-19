@@ -27,6 +27,7 @@ model PlanWeek {
   id           Int           @id @default(autoincrement())
   planWorkouts PlanWorkout[]
   weekNumber   Int
+  startDate    DateTime?
   intention    String?
   Plan         Plan?         @relation(fields: [planId], references: [id])
   planId       Int?
