@@ -11,6 +11,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { Link as RouterLink, routes } from '@redwoodjs/router'
+import { useState } from 'react'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
@@ -112,6 +113,9 @@ export const PlanWeekDay = ({ planWeekDay, height }) => {
 }
 
 const PlanWorkout = ({ workout }) => {
+  const [hovered, setHovered] = useState(false)
+  const borderColor = hovered ? 'green.500' : 'gray.200'
+
   const constraints = []
   if (workout.targetMiles) {
     constraints.push(`${workout.targetMiles} miles`)
@@ -128,10 +132,17 @@ const PlanWorkout = ({ workout }) => {
       p="2"
       h={`${workoutCardHeight}px`}
       spacing="1"
+      borderColor={borderColor}
+      onMouseOver={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       <Flex direction="row" justifyContent="space-between" alignItems="center">
         <Text fontSize="2xl">{workout.activity.icon}</Text>
-        <Button size="xs">Edit</Button>
+        {hovered && (
+          <Button size="xs" colorScheme="green">
+            Edit
+          </Button>
+        )}
       </Flex>
       <Stack spacing="0.5">
         <Text fontSize="sm" color="gray.600">
