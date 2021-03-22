@@ -9,6 +9,7 @@ import {
   Link,
   Stack,
   Text,
+  VisuallyHidden,
 } from '@chakra-ui/react'
 import { Link as RouterLink, routes } from '@redwoodjs/router'
 import { useState } from 'react'
@@ -121,7 +122,8 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
 
 const PlanWorkout = ({ planWeek, workout }) => {
   const [hovered, setHovered] = useState(false)
-  const borderColor = hovered ? 'green.500' : 'gray.200'
+  const borderColor = hovered ? 'green.600' : 'gray.200'
+  const ButtonWrapper = hovered ? React.Fragment : VisuallyHidden
 
   const constraints = []
   if (workout.targetMiles) {
@@ -145,7 +147,7 @@ const PlanWorkout = ({ planWeek, workout }) => {
     >
       <Flex direction="row" justifyContent="space-between" alignItems="center">
         <Text fontSize="2xl">{workout.activity.icon}</Text>
-        {hovered && (
+        <ButtonWrapper>
           <Button
             size="xs"
             colorScheme="green"
@@ -157,7 +159,7 @@ const PlanWorkout = ({ planWeek, workout }) => {
           >
             Edit
           </Button>
-        )}
+        </ButtonWrapper>
       </Flex>
       <Stack spacing="0.5">
         <Text fontSize="sm" color="gray.600">
