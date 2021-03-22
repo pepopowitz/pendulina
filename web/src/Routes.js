@@ -18,7 +18,7 @@ const Routes = () => {
         <Route path="/admin/activities/{id:Int}" page={ActivityPage} name="activity" />
         <Route path="/admin/activities" page={ActivitiesPage} name="activities" whileLoading={() => 'Loading...'} />
         <Route path="/admin/plan-weeks/{planWeekID:Int}/plan-workouts/new" page={NewPlanWorkoutPage} name="newPlanWorkout" />
-        <Route path="/admin/plan-workouts/{id:Int}/edit" page={EditPlanWorkoutPage} name="editPlanWorkout" />
+        <Route path="/admin/plan-weeks/{planWeekID:Int}/plan-workouts/{id:Int}/edit" page={EditPlanWorkoutPage} name="editPlanWorkout" />
         <Route path="/admin/plan-workouts/{id:Int}" page={PlanWorkoutPage} name="planWorkout" />
         <Route path="/admin/plan-workouts" page={PlanWorkoutsPage} name="planWorkouts" />
         <Route path="/admin/plan/{id:Int}/edit" page={EditPlanPage} name="editPlan" />

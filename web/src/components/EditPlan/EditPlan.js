@@ -91,6 +91,7 @@ const PlanWeeks = ({ planWeeks }) => {
         <HStack spacing="2">
           {planWeekDays.map((planWeekDay) => (
             <PlanWeekDay
+              planWeek={planWeek}
               planWeekDay={planWeekDay}
               height={`${height}px`}
               key={`${planWeek.id}|${planWeekDay.dayOfWeek}`}
@@ -102,17 +103,23 @@ const PlanWeeks = ({ planWeeks }) => {
   })
 }
 
-export const PlanWeekDay = ({ planWeekDay, height }) => {
+export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
   return (
     <Box w="160px" h={height} bgColor="gray.100">
       {planWeekDay?.workouts.map((workout) => {
-        return <PlanWorkout workout={workout} key={`workout-${workout.id}`} />
+        return (
+          <PlanWorkout
+            planWeek={planWeek}
+            workout={workout}
+            key={`workout-${workout.id}`}
+          />
+        )
       })}
     </Box>
   )
 }
 
-const PlanWorkout = ({ workout }) => {
+const PlanWorkout = ({ planWeek, workout }) => {
   const [hovered, setHovered] = useState(false)
   const borderColor = hovered ? 'green.500' : 'gray.200'
 
@@ -139,7 +146,15 @@ const PlanWorkout = ({ workout }) => {
       <Flex direction="row" justifyContent="space-between" alignItems="center">
         <Text fontSize="2xl">{workout.activity.icon}</Text>
         {hovered && (
-          <Button size="xs" colorScheme="green">
+          <Button
+            size="xs"
+            colorScheme="green"
+            as={RouterLink}
+            to={routes.editPlanWorkout({
+              planWeekID: planWeek.id,
+              id: workout.id,
+            })}
+          >
             Edit
           </Button>
         )}
