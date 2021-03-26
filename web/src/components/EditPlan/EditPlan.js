@@ -9,6 +9,7 @@ import {
   Link,
   Stack,
   Text,
+  Tooltip,
   VisuallyHidden,
 } from '@chakra-ui/react'
 import { Link as RouterLink, routes } from '@redwoodjs/router'
@@ -165,9 +166,11 @@ const PlanWorkout = ({ planWeek, workout }) => {
         <Text fontSize="sm" color="gray.600">
           {constraints.join(' | ')}
         </Text>
-        <Text fontSize="xs" color="gray.900" isTruncated noOfLines="1">
-          {workout.targetNotes}
-        </Text>
+        <Tooltip label={workout.targetNotes}>
+          <Text fontSize="xs" color="gray.900" isTruncated noOfLines="1">
+            {workout.targetNotes}
+          </Text>
+        </Tooltip>
       </Stack>
     </Stack>
   )
