@@ -7,12 +7,13 @@ import {
   Heading,
   HStack,
   Link,
-  Spacer,
   Stack,
-  StackDivider,
   Text,
+  Tooltip,
+  VisuallyHidden,
 } from '@chakra-ui/react'
 import { Link as RouterLink, routes } from '@redwoodjs/router'
+import { useState } from 'react'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
@@ -47,22 +48,23 @@ const EditPlan = ({ plan }) => {
   )
 }
 
+const workoutCardHeight = 100
 const PlanWeeks = ({ planWeeks }) => {
   return planWeeks.map((planWeek) => {
     const planWeekDays = mapPlanWorkoutsToDays(planWeek.planWorkouts || [])
 
     /*
       heights:
-      - 90px = card height
-      - 106px = background for one card
-        - 90 + 16
-      - 106px = background for one card plu
-        - (90*ct) + (8 * (ct + 1))
+      - 100px = card height
+      - 116px = background for one card
+        - 100 + 16
+        - (100*ct) + (8 * (ct + 1))
     */
     const maxWorkoutsPerDay = Math.max(
       ...planWeekDays.map((day) => day.workouts.length)
     )
-    const height = 90 * maxWorkoutsPerDay + 8 * (maxWorkoutsPerDay + 1)
+    const height =
+      workoutCardHeight * maxWorkoutsPerDay + 8 * (maxWorkoutsPerDay + 1)
     const { startDateFormatted, endDateFormatted } = formatStartAndEndDates(
       planWeek
     )
@@ -91,6 +93,7 @@ const PlanWeeks = ({ planWeeks }) => {
         <HStack spacing="2">
           {planWeekDays.map((planWeekDay) => (
             <PlanWeekDay
+              planWeek={planWeek}
               planWeekDay={planWeekDay}
               height={`${height}px`}
               key={`${planWeek.id}|${planWeekDay.dayOfWeek}`}
@@ -102,17 +105,27 @@ const PlanWeeks = ({ planWeeks }) => {
   })
 }
 
-const PlanWeekDay = ({ planWeekDay, height }) => {
+export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
   return (
     <Box w="160px" h={height} bgColor="gray.100">
       {planWeekDay?.workouts.map((workout) => {
-        return <PlanWorkout workout={workout} key={`workout-${workout.id}`} />
+        return (
+          <PlanWorkout
+            planWeek={planWeek}
+            workout={workout}
+            key={`workout-${workout.id}`}
+          />
+        )
       })}
     </Box>
   )
 }
 
-const PlanWorkout = ({ workout }) => {
+const PlanWorkout = ({ planWeek, workout }) => {
+  const [hovered, setHovered] = useState(false)
+  const borderColor = hovered ? 'green.600' : 'gray.200'
+  const ButtonWrapper = hovered ? React.Fragment : VisuallyHidden
+
   const constraints = []
   if (workout.targetMiles) {
     constraints.push(`${workout.targetMiles} miles`)
@@ -122,24 +135,43 @@ const PlanWorkout = ({ workout }) => {
   }
 
   return (
-    <Stack borderWidth="1px" bgColor="white" m="2" p="2" h="90px">
-      <Flex direction="row" justifyContent="space-between">
+    <Stack
+      borderWidth="1px"
+      bgColor="white"
+      m="2"
+      p="2"
+      h={`${workoutCardHeight}px`}
+      spacing="1"
+      borderColor={borderColor}
+      onMouseOver={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <Flex direction="row" justifyContent="space-between" alignItems="center">
         <Text fontSize="2xl">{workout.activity.icon}</Text>
-        <Stack>
-          <Text fontSize="m" color="gray.600" textAlign="right">
-            {constraints.join(' | ')}
-          </Text>
-          <Text
-            fontSize="xs"
-            color="gray.900"
-            isTruncated
-            noOfLines="2"
-            textAlign="right"
+        <ButtonWrapper>
+          <Button
+            size="xs"
+            colorScheme="green"
+            as={RouterLink}
+            to={routes.editPlanWorkout({
+              planWeekID: planWeek.id,
+              id: workout.id,
+            })}
           >
+            Edit
+          </Button>
+        </ButtonWrapper>
+      </Flex>
+      <Stack spacing="0.5">
+        <Text fontSize="sm" color="gray.600">
+          {constraints.join(' | ')}
+        </Text>
+        <Tooltip label={workout.targetNotes}>
+          <Text fontSize="xs" color="gray.900" isTruncated noOfLines="1">
             {workout.targetNotes}
           </Text>
-        </Stack>
-      </Flex>
+        </Tooltip>
+      </Stack>
     </Stack>
   )
 }
