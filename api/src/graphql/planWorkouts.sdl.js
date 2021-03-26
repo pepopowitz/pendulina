@@ -40,6 +40,7 @@ export const schema = gql`
     targetTimeInMinutes: String
     targetNotes: String
     activityId: Int
+    planWeekId: Int!
   }
 
   type Mutation {
