@@ -47,11 +47,14 @@ export const Loading = () => <div>Loading...</div>
 
 export const Success = ({ planWeek, planWorkout, activities }) => {
   const { addMessage } = useFlash()
+  const {
+    plan: { id: planID },
+  } = planWeek
   const [updatePlanWorkout, { loading, error }] = useMutation(
     UPDATE_PLAN_WORKOUT_MUTATION,
     {
       onCompleted: () => {
-        navigate(routes.planWorkouts())
+        navigate(routes.editPlan({ id: planID }))
         addMessage('PlanWorkout updated.', { classes: 'rw-flash-success' })
       },
     }
