@@ -1,9 +1,9 @@
 import { AuthProvider } from '@redwoodjs/auth'
 import netlifyIdentity from 'netlify-identity-widget'
 import { ChakraProvider } from '@chakra-ui/react'
+import { isBrowser } from '@redwoodjs/prerender/browserUtils'
 import { FatalErrorBoundary } from '@redwoodjs/web'
 import { RedwoodApolloProvider } from '@redwoodjs/web/apollo'
-import ReactDOM from 'react-dom'
 
 import FatalErrorPage from 'src/pages/FatalErrorPage'
 import Routes from 'src/Routes'
@@ -11,9 +11,11 @@ import Routes from 'src/Routes'
 import './scaffold.css'
 import './index.css'
 
-netlifyIdentity.init()
+if (isBrowser) {
+  netlifyIdentity.init()
+}
 
-ReactDOM.render(
+const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
     <ChakraProvider>
       <AuthProvider client={netlifyIdentity} type="netlify">
@@ -22,6 +24,7 @@ ReactDOM.render(
         </RedwoodApolloProvider>
       </AuthProvider>
     </ChakraProvider>
-  </FatalErrorBoundary>,
-  document.getElementById('redwood-app')
+  </FatalErrorBoundary>
 )
+
+export default App
