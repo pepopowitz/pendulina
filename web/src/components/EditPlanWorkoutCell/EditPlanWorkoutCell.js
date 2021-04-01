@@ -7,6 +7,7 @@ export const QUERY = gql`
     planWorkout: planWorkout(id: $id) {
       id
       dayOfWeek
+      isKeyWorkout
       targetMiles
       targetTimeInMinutes
       targetNotes
