@@ -27,12 +27,13 @@ export const schema = gql`
   }
 
   input CreatePlanWorkoutInput {
+    activityId: Int!
+    planWeekId: Int!
     dayOfWeek: DayOfWeek!
+    isKeyWorkout: Boolean!
     targetMiles: String
     targetTimeInMinutes: String
     targetNotes: String!
-    activityId: Int!
-    planWeekId: Int!
   }
 
   input UpdatePlanWorkoutInput {
