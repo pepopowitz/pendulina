@@ -38,6 +38,7 @@ export const schema = gql`
 
   input UpdatePlanWorkoutInput {
     dayOfWeek: DayOfWeek
+    isKeyWorkout: Boolean!
     targetMiles: String
     targetTimeInMinutes: String
     targetNotes: String
