@@ -1,13 +1,14 @@
 export const schema = gql`
   type PlanWorkout {
     id: Int!
+    planWeek: PlanWeek!
     dayOfWeek: DayOfWeek!
+    activityId: Int!
     activity: Activity!
+    isKeyWorkout: Boolean!
     targetMiles: String
     targetTimeInMinutes: String
     targetNotes: String!
-    activityId: Int!
-    planWeek: PlanWeek!
   }
 
   enum DayOfWeek {
@@ -26,16 +27,18 @@ export const schema = gql`
   }
 
   input CreatePlanWorkoutInput {
+    activityId: Int!
+    planWeekId: Int!
     dayOfWeek: DayOfWeek!
+    isKeyWorkout: Boolean!
     targetMiles: String
     targetTimeInMinutes: String
     targetNotes: String!
-    activityId: Int!
-    planWeekId: Int!
   }
 
   input UpdatePlanWorkoutInput {
     dayOfWeek: DayOfWeek
+    isKeyWorkout: Boolean!
     targetMiles: String
     targetTimeInMinutes: String
     targetNotes: String

@@ -133,11 +133,12 @@ const PlanWorkout = ({ planWeek, workout }) => {
   if (workout.targetTimeInMinutes) {
     constraints.push(`${workout.targetTimeInMinutes} minutes`)
   }
+  const bgColor = workout.isKeyWorkout ? 'green.50' : 'white'
 
   return (
     <Stack
       borderWidth="1px"
-      bgColor="white"
+      bgColor={bgColor}
       m="2"
       p="2"
       h={`${workoutCardHeight}px`}

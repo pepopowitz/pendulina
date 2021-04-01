@@ -1,11 +1,11 @@
 import {
+  CheckboxField,
   Form,
   FormError,
   FieldError,
   Label,
   SelectField,
   TextField,
-  NumberField,
   Submit,
   HiddenField,
 } from '@redwoodjs/forms'
@@ -27,10 +27,6 @@ const PlanWorkoutForm = (props) => {
           listClassName="rw-form-error-list"
         />
 
-        {/*
-          HiddenField doesn't work -- `id` is an int here, but when it gets submitted to graphql it is a string;
-          `api | Error: Variable "$input" got invalid value "2" at "input.planWeekId"; Int cannot represent non-integer value: "2"`
-        */}
         <HiddenField
           name="planWeekId"
           value={planWeek.id}
@@ -130,6 +126,20 @@ const PlanWorkoutForm = (props) => {
           <ActivityOptions activities={props.activities} />
         </SelectField>
         <FieldError name="activityId" className="rw-field-error" />
+
+        <Label
+          name="isKeyWorkout"
+          className="rw-label"
+          errorClassName="rw-label rw-label-error"
+        >
+          Key workout?
+        </Label>
+        <CheckboxField
+          name="isKeyWorkout"
+          className="rw-input"
+          errorClassName="rw-input rw-input-error"
+          defaultChecked={props.planWorkout?.isKeyWorkout}
+        />
 
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">

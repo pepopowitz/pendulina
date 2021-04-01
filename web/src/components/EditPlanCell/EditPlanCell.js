@@ -17,6 +17,7 @@ export const QUERY = gql`
             name
             icon
           }
+          isKeyWorkout
           targetMiles
           targetTimeInMinutes
           targetNotes
