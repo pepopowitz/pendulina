@@ -9,6 +9,13 @@ export const schema = gql`
     targetMiles: String
     targetTimeInMinutes: String
     targetNotes: String!
+    status: WorkoutStatus!
+    actualMiles: String
+    actualTimeInMinutes: String
+    actualElevationInFeet: Int
+    actualNotes: String
+    actualMantras: String
+    actualReflection: String
   }
 
   enum DayOfWeek {
@@ -19,6 +26,12 @@ export const schema = gql`
     THURSDAY
     FRIDAY
     SATURDAY
+  }
+
+  enum WorkoutStatus {
+    UPCOMING
+    COMPLETED
+    MISSED
   }
 
   type Query {
