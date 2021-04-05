@@ -7,6 +7,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react'
+import { PlanWorkoutModalForm } from '../PlanWorkoutModalForm'
 
 export const QUERY = gql`
   query EditPlanWorkoutModalQuery($planWeekID: Int!, $id: Int!) {
@@ -42,16 +43,23 @@ export const Empty = () => <div>Empty</div>
 export const Failure = ({ error }) => <div>Error: {error.message}</div>
 
 export const Success = ({ planWorkout, activities, planWeek, onClose }) => {
+  const onSave = (input, id) => {
+    console.log('saving')
+    onClose()
+  }
+
   return (
     <Modal isOpen onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
+        <ModalHeader>Edit Workout</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <p>planWorkout: {JSON.stringify(planWorkout)}</p>
-          <p>activities: {JSON.stringify(activities)}</p>
-          <p>planWeek: {JSON.stringify(planWeek)}</p>
+          <PlanWorkoutModalForm
+            planWeek={planWeek}
+            planWorkout={planWorkout}
+            onSave={onSave}
+          />
         </ModalBody>
       </ModalContent>
     </Modal>
