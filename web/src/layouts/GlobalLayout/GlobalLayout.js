@@ -1,5 +1,6 @@
 import { Link, routes } from '@redwoodjs/router'
 import { useAuth } from '@redwoodjs/auth'
+import { Toaster } from '@redwoodjs/web/toast'
 import { Box, Button, Flex, Heading, HStack, Spacer } from '@chakra-ui/react'
 
 const GlobalLayout = ({ children }) => {
@@ -22,7 +23,10 @@ const GlobalLayout = ({ children }) => {
           </Flex>
         </nav>
       </header>
-      <main>{children}</main>
+      <main>
+        <Toaster />
+        {children}
+      </main>
     </>
   )
 }
