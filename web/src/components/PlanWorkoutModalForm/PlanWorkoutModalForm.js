@@ -1,71 +1,84 @@
 import {
-  CheckboxField,
-  Form,
-  FormError,
-  FieldError,
-  Label,
-  SelectField,
-  TextField,
-  Submit,
-  HiddenField,
-} from '@redwoodjs/forms'
-import { FormControl, FormLabel, Text } from '@chakra-ui/react'
+  FormErrorMessage,
+  FormControl,
+  FormLabel,
+  Input,
+  Text,
+  Button,
+} from '@chakra-ui/react'
+import { useForm } from 'react-hook-form'
 
 import { ActivityOptions } from '../ActivityOptions'
 
 export const PlanWorkoutModalForm = (props) => {
   const { planWeek, planWorkout } = props
+  const { handleSubmit, errors, register, formState } = useForm()
   const onSubmit = (data) => {
     props.onSave(data, planWorkout?.id)
   }
 
   return (
     <div>
-      <Form onSubmit={onSubmit} error={props.error}>
-        <FormError
-          error={props.error}
-          wrapperClassName="rw-form-error-wrapper"
-          titleClassName="rw-form-error-title"
-          listClassName="rw-form-error-list"
-        />
-
-        <FormControl id="planWeek">
-          <FormLabel textColor="gray.600">Plan Week</FormLabel>
-          <Text>
-            Week {planWeek.weekNumber}: {planWeek.intention}
-          </Text>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormControl isDisabled>
+          <FormLabel htmlFor="planWeek">Plan Week</FormLabel>
+          <Input
+            name="planWeek"
+            value={`Week ${planWeek.weekNumber}: ${planWeek.intention}`}
+          />
         </FormControl>
 
-        <Label name="planWeekID" className="rw-label">
-          Plan Week
-        </Label>
-        <div className="rw-input">
-          Week {planWeek.weekNumber}: {planWeek.intention}
-        </div>
+        <FormControl isInvalid={errors.targetMiles}>
+          <FormLabel htmlFor="targetMiles">Target miles</FormLabel>
+          <Input
+            name="targetMiles"
+            placeholder="Target miles"
+            ref={register({ required: true })}
+            defaultValue={planWorkout?.targetMiles}
+          />
 
-        <Label
-          name="targetMiles"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Target miles
-        </Label>
-        <TextField
-          name="targetMiles"
-          defaultValue={props.planWorkout?.targetMiles}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-        />
-        <FieldError name="targetMiles" className="rw-field-error" />
+          <FormErrorMessage>
+            {errors.targetMiles && 'Target miles is required'}
+          </FormErrorMessage>
+        </FormControl>
 
         {/* ... */}
 
-        <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
-            Save
-          </Submit>
-        </div>
-      </Form>
+        <Button
+          mt={4}
+          colorScheme="green"
+          isLoading={formState.isSubmitting || props.loading}
+          type="submit"
+          disabled={formState.isSubmitting || props.loading}
+        >
+          Save
+        </Button>
+      </form>
     </div>
   )
 }
+
+// This abstraction doesn't work, I _think_ because `useForm` is called at a different level, so it's using
+//  a different context or something.
+// //CR = Chakra/Redwood
+// // validations={{ required: true }}
+// const CRInput = ({ id, label, defaultValue, errors, registervalidations = {} }) => {
+//   const { errors, register } = useForm()
+
+//   return (
+//     <FormControl isInvalid={errors[id]}>
+//       <FormLabel htmlFor={id}>{label}</FormLabel>
+//       <Input
+//         name={id}
+//         placeholder={label}
+//         ref={register(validations)}
+//         defaultValue={defaultValue}
+//       />
+
+//       <FormErrorMessage>
+//         {/* TODO: a more robust solution for error messages */}
+//         {errors[id] && `${label} is required`}
+//       </FormErrorMessage>
+//     </FormControl>
+//   )
+// }
