@@ -46,9 +46,16 @@ export const schema = gql`
     planWeekId: Int!
   }
 
+  # TODO: remove this once the entire form is converted!!!!
+  input UpdatePlanWorkoutInput2 {
+    targetMiles: String
+  }
+
   type Mutation {
     createPlanWorkout(input: CreatePlanWorkoutInput!): PlanWorkout!
     updatePlanWorkout(id: Int!, input: UpdatePlanWorkoutInput!): PlanWorkout!
+    # TODO: remove this once the entire form is converted!!!!
+    updatePlanWorkout2(id: Int!, input: UpdatePlanWorkoutInput2!): PlanWorkout!
     deletePlanWorkout(id: Int!): PlanWorkout!
   }
 `

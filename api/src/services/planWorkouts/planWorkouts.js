@@ -26,6 +26,15 @@ export const updatePlanWorkout = ({ id, input }) => {
   })
 }
 
+// TODO: remove this once the entire form is converted!!!
+export const updatePlanWorkout2 = ({ id, input }) => {
+  requireAuth()
+  return db.planWorkout.update({
+    data: input,
+    where: { id },
+  })
+}
+
 export const deletePlanWorkout = ({ id }) => {
   requireAuth()
   return db.planWorkout.delete({

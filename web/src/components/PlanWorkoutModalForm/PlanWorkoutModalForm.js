@@ -9,6 +9,8 @@ import {
   Submit,
   HiddenField,
 } from '@redwoodjs/forms'
+import { FormControl, FormLabel, Text } from '@chakra-ui/react'
+
 import { ActivityOptions } from '../ActivityOptions'
 
 export const PlanWorkoutModalForm = (props) => {
@@ -27,11 +29,13 @@ export const PlanWorkoutModalForm = (props) => {
           listClassName="rw-form-error-list"
         />
 
-        <HiddenField
-          name="planWeekId"
-          value={planWeek.id}
-          transformValue="Int"
-        />
+        <FormControl id="planWeek">
+          <FormLabel textColor="gray.600">Plan Week</FormLabel>
+          <Text>
+            Week {planWeek.weekNumber}: {planWeek.intention}
+          </Text>
+        </FormControl>
+
         <Label name="planWeekID" className="rw-label">
           Plan Week
         </Label>
@@ -40,28 +44,19 @@ export const PlanWorkoutModalForm = (props) => {
         </div>
 
         <Label
-          name="dayOfWeek"
+          name="targetMiles"
           className="rw-label"
           errorClassName="rw-label rw-label-error"
         >
-          Day of week
+          Target miles
         </Label>
-        <SelectField
-          name="dayOfWeek"
-          defaultValue={planWorkout?.dayOfWeek}
+        <TextField
+          name="targetMiles"
+          defaultValue={props.planWorkout?.targetMiles}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        >
-          <option>MONDAY</option>
-          <option>TUESDAY</option>
-          <option>WEDNESDAY</option>
-          <option>THURSDAY</option>
-          <option>FRIDAY</option>
-          <option>SATURDAY</option>
-          <option>SUNDAY</option>
-        </SelectField>
-        <FieldError name="dayOfWeek" className="rw-field-error" />
+        />
+        <FieldError name="targetMiles" className="rw-field-error" />
 
         {/* ... */}
 
