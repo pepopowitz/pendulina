@@ -46,6 +46,7 @@ const UPDATE_PLAN_WORKOUT_MUTATION = gql`
   ) {
     updatePlanWorkout2(id: $id, input: $input) {
       id
+      dayOfWeek
       targetMiles
     }
   }

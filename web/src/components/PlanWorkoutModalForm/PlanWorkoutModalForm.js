@@ -3,8 +3,8 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Text,
   Button,
+  Select,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 
@@ -14,6 +14,12 @@ export const PlanWorkoutModalForm = (props) => {
   const { planWeek, planWorkout } = props
   const { handleSubmit, errors, register, formState } = useForm()
   const onSubmit = (data) => {
+    data = {
+      ...data,
+      // this kinda stinks. Redwood forms handled this for us with `<HiddenField transformValue="Int">`.
+      //   with chakra forms we have to massage this ourselves.
+      planWeekId: parseInt(data.planWeekId),
+    }
     props.onSave(data, planWorkout?.id)
   }
 
@@ -27,19 +33,44 @@ export const PlanWorkoutModalForm = (props) => {
             value={`Week ${planWeek.weekNumber}: ${planWeek.intention}`}
           />
         </FormControl>
+        <FormControl>
+          <Input
+            name="planWeekId"
+            type="hidden"
+            value={planWeek.id}
+            ref={register()}
+          />
+        </FormControl>
+
+        <FormControl isInvalid={errors.dayOfWeek}>
+          <FormLabel htmlFor="dayOfWeek">Day of week</FormLabel>
+          <Select
+            name="dayOfWeek"
+            ref={register({ required: true })}
+            defaultValue={planWorkout?.dayOfWeek}
+          >
+            <option>MONDAY</option>
+            <option>TUESDAY</option>
+            <option>WEDNESDAY</option>
+            <option>THURSDAY</option>
+            <option>FRIDAY</option>
+            <option>SATURDAY</option>
+            <option>SUNDAY</option>
+          </Select>
+
+          <FormErrorMessage>
+            {errors.dayOfWeek && 'Day of week is required'}
+          </FormErrorMessage>
+        </FormControl>
 
         <FormControl isInvalid={errors.targetMiles}>
           <FormLabel htmlFor="targetMiles">Target miles</FormLabel>
           <Input
             name="targetMiles"
             placeholder="Target miles"
-            ref={register({ required: true })}
+            ref={register()}
             defaultValue={planWorkout?.targetMiles}
           />
-
-          <FormErrorMessage>
-            {errors.targetMiles && 'Target miles is required'}
-          </FormErrorMessage>
         </FormControl>
 
         {/* ... */}

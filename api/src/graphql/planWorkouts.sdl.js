@@ -48,6 +48,8 @@ export const schema = gql`
 
   # TODO: remove this once the entire form is converted!!!!
   input UpdatePlanWorkoutInput2 {
+    planWeekId: Int!
+    dayOfWeek: DayOfWeek
     targetMiles: String
   }
 
