@@ -50,6 +50,7 @@ export const schema = gql`
   input UpdatePlanWorkoutInput2 {
     planWeekId: Int!
     dayOfWeek: DayOfWeek
+    activityId: Int
     targetMiles: String
   }
 

@@ -47,6 +47,7 @@ const UPDATE_PLAN_WORKOUT_MUTATION = gql`
     updatePlanWorkout2(id: $id, input: $input) {
       id
       dayOfWeek
+      activityId
       targetMiles
     }
   }
@@ -90,6 +91,7 @@ export const Success = ({ planWorkout, activities, planWeek, onClose }) => {
         <ModalCloseButton />
         <ModalBody>
           <PlanWorkoutModalForm
+            activities={activities}
             planWeek={planWeek}
             planWorkout={planWorkout}
             onSave={onSave}

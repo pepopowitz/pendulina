@@ -1,9 +1,11 @@
 import {
-  FormErrorMessage,
-  FormControl,
-  FormLabel,
-  Input,
   Button,
+  Divider,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Heading,
+  Input,
   Select,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
@@ -23,6 +25,7 @@ export const PlanWorkoutModalForm = (props) => {
       // this kinda stinks. Redwood forms handled this for us with `<HiddenField transformValue="Int">`.
       //   with chakra forms we have to massage this ourselves.
       planWeekId: parseInt(data.planWeekId),
+      activityId: parseInt(data.activityId),
     }
     props.onSave(data, planWorkout?.id)
   }
@@ -66,6 +69,27 @@ export const PlanWorkoutModalForm = (props) => {
             {errors.dayOfWeek && 'Day of week is required'}
           </FormErrorMessage>
         </FormControl>
+
+        <FormControl isInvalid={errors.activityId}>
+          <FormLabel htmlFor="activityId">Activity</FormLabel>
+          <Select
+            name="activityId"
+            {...register('activityId', { required: true })}
+            defaultValue={planWorkout?.activityId}
+          >
+            <ActivityOptions activities={props.activities} />
+          </Select>
+
+          <FormErrorMessage>
+            {errors.activityId && 'Activity is required'}
+          </FormErrorMessage>
+        </FormControl>
+
+        <Divider my={3} />
+
+        <Heading as="h3" size="md" my={3}>
+          Goals
+        </Heading>
 
         <FormControl isInvalid={errors.targetMiles}>
           <FormLabel htmlFor="targetMiles">Target miles</FormLabel>
