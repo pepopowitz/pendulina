@@ -42,17 +42,15 @@ export const PlanWorkoutModalForm = (props) => {
         </FormControl>
         <FormControl>
           <Input
-            name="planWeekId"
+            {...register('planWeekId')}
             type="hidden"
             value={planWeek.id}
-            {...register('planWeekId')}
           />
         </FormControl>
 
         <FormControl isInvalid={errors.dayOfWeek}>
           <FormLabel htmlFor="dayOfWeek">Day of week</FormLabel>
           <Select
-            name="dayOfWeek"
             {...register('dayOfWeek', { required: true })}
             defaultValue={planWorkout?.dayOfWeek}
           >
@@ -73,7 +71,6 @@ export const PlanWorkoutModalForm = (props) => {
         <FormControl isInvalid={errors.activityId}>
           <FormLabel htmlFor="activityId">Activity</FormLabel>
           <Select
-            name="activityId"
             {...register('activityId', { required: true })}
             defaultValue={planWorkout?.activityId}
           >
@@ -94,9 +91,8 @@ export const PlanWorkoutModalForm = (props) => {
         <FormControl isInvalid={errors.targetMiles}>
           <FormLabel htmlFor="targetMiles">Target miles</FormLabel>
           <Input
-            name="targetMiles"
-            placeholder="Target miles"
             {...register('targetMiles')}
+            placeholder="Target miles"
             defaultValue={planWorkout?.targetMiles}
           />
         </FormControl>
