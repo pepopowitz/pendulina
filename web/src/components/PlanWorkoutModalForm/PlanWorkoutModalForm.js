@@ -14,11 +14,12 @@ import { ActivityOptions } from '../ActivityOptions'
 
 export const PlanWorkoutModalForm = (props) => {
   const { planWeek, planWorkout } = props
+  const form = useForm()
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm()
+  } = form
   const onSubmit = (data) => {
     data = {
       ...data,
@@ -48,39 +49,31 @@ export const PlanWorkoutModalForm = (props) => {
           />
         </FormControl>
 
-        <FormControl isInvalid={errors.dayOfWeek}>
-          <FormLabel htmlFor="dayOfWeek">Day of week</FormLabel>
-          <Select
-            {...register('dayOfWeek', { required: true })}
-            defaultValue={planWorkout?.dayOfWeek}
-          >
-            <option>MONDAY</option>
-            <option>TUESDAY</option>
-            <option>WEDNESDAY</option>
-            <option>THURSDAY</option>
-            <option>FRIDAY</option>
-            <option>SATURDAY</option>
-            <option>SUNDAY</option>
-          </Select>
+        <PdlSelect
+          form={form}
+          id="dayOfWeek"
+          label="Day of week"
+          defaultValue={planWorkout?.dayOfWeek}
+          validations={{ required: true }}
+        >
+          <option>MONDAY</option>
+          <option>TUESDAY</option>
+          <option>WEDNESDAY</option>
+          <option>THURSDAY</option>
+          <option>FRIDAY</option>
+          <option>SATURDAY</option>
+          <option>SUNDAY</option>
+        </PdlSelect>
 
-          <FormErrorMessage>
-            {errors.dayOfWeek && 'Day of week is required'}
-          </FormErrorMessage>
-        </FormControl>
-
-        <FormControl isInvalid={errors.activityId}>
-          <FormLabel htmlFor="activityId">Activity</FormLabel>
-          <Select
-            {...register('activityId', { required: true })}
-            defaultValue={planWorkout?.activityId}
-          >
-            <ActivityOptions activities={props.activities} />
-          </Select>
-
-          <FormErrorMessage>
-            {errors.activityId && 'Activity is required'}
-          </FormErrorMessage>
-        </FormControl>
+        <PdlSelect
+          form={form}
+          id="activityId"
+          label="Activity"
+          defaultValue={planWorkout?.activityId}
+          validations={{ required: true }}
+        >
+          <ActivityOptions activities={props.activities} />
+        </PdlSelect>
 
         <Divider my={3} />
 
@@ -88,14 +81,12 @@ export const PlanWorkoutModalForm = (props) => {
           Goals
         </Heading>
 
-        <FormControl isInvalid={errors.targetMiles}>
-          <FormLabel htmlFor="targetMiles">Target miles</FormLabel>
-          <Input
-            {...register('targetMiles')}
-            placeholder="Target miles"
-            defaultValue={planWorkout?.targetMiles}
-          />
-        </FormControl>
+        <PdlInput
+          form={form}
+          id="targetMiles"
+          label="Target miles"
+          defaultValue={planWorkout?.targetMiles}
+        />
 
         {/* ... */}
 
@@ -113,27 +104,55 @@ export const PlanWorkoutModalForm = (props) => {
   )
 }
 
-// This abstraction doesn't work, I _think_ because `useForm` is called at a different level, so it's using
-//  a different context or something.
-// //CR = Chakra/Redwood
-// // validations={{ required: true }}
-// const CRInput = ({ id, label, defaultValue, errors, registervalidations = {} }) => {
-//   const { errors, register } = useForm()
+const PdlInput = ({ form, id, label, defaultValue, validations }) => {
+  const {
+    register,
+    formState: { errors },
+  } = form
 
-//   return (
-//     <FormControl isInvalid={errors[id]}>
-//       <FormLabel htmlFor={id}>{label}</FormLabel>
-//       <Input
-//         name={id}
-//         placeholder={label}
-//         ref={register(validations)}
-//         defaultValue={defaultValue}
-//       />
+  return (
+    <PdlField errors={errors} id={id} label={label}>
+      <Input
+        {...register(id, validations)}
+        placeholder={label}
+        defaultValue={defaultValue}
+      />
+    </PdlField>
+  )
+}
 
-//       <FormErrorMessage>
-//         {/* TODO: a more robust solution for error messages */}
-//         {errors[id] && `${label} is required`}
-//       </FormErrorMessage>
-//     </FormControl>
-//   )
-// }
+const PdlSelect = ({
+  children,
+  form,
+  id,
+  label,
+  defaultValue,
+  validations,
+}) => {
+  const {
+    register,
+    formState: { errors },
+  } = form
+
+  return (
+    <PdlField errors={errors} id={id} label={label}>
+      <Select {...register(id, validations)} defaultValue={defaultValue}>
+        {children}
+      </Select>
+    </PdlField>
+  )
+}
+
+const PdlField = ({ children, errors, id, label }) => {
+  return (
+    <FormControl isInvalid={errors[id]}>
+      <FormLabel htmlFor={id}>{label}</FormLabel>
+      {children}
+
+      <FormErrorMessage>
+        {/* TODO: a more robust solution for error messages */}
+        {errors[id] && `${label} is required`}
+      </FormErrorMessage>
+    </FormControl>
+  )
+}
