@@ -12,7 +12,11 @@ import { ActivityOptions } from '../ActivityOptions'
 
 export const PlanWorkoutModalForm = (props) => {
   const { planWeek, planWorkout } = props
-  const { handleSubmit, errors, register, formState } = useForm()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm()
   const onSubmit = (data) => {
     data = {
       ...data,
@@ -38,7 +42,7 @@ export const PlanWorkoutModalForm = (props) => {
             name="planWeekId"
             type="hidden"
             value={planWeek.id}
-            ref={register()}
+            {...register('planWeekId')}
           />
         </FormControl>
 
@@ -46,7 +50,7 @@ export const PlanWorkoutModalForm = (props) => {
           <FormLabel htmlFor="dayOfWeek">Day of week</FormLabel>
           <Select
             name="dayOfWeek"
-            ref={register({ required: true })}
+            {...register('dayOfWeek', { required: true })}
             defaultValue={planWorkout?.dayOfWeek}
           >
             <option>MONDAY</option>
@@ -68,7 +72,7 @@ export const PlanWorkoutModalForm = (props) => {
           <Input
             name="targetMiles"
             placeholder="Target miles"
-            ref={register()}
+            {...register('targetMiles')}
             defaultValue={planWorkout?.targetMiles}
           />
         </FormControl>
@@ -78,9 +82,9 @@ export const PlanWorkoutModalForm = (props) => {
         <Button
           mt={4}
           colorScheme="green"
-          isLoading={formState.isSubmitting || props.loading}
+          isLoading={isSubmitting || props.loading}
           type="submit"
-          disabled={formState.isSubmitting || props.loading}
+          disabled={isSubmitting || props.loading}
         >
           Save
         </Button>
