@@ -1,5 +1,6 @@
 import {
   Button,
+  Checkbox,
   Divider,
   FormControl,
   FormErrorMessage,
@@ -75,6 +76,13 @@ export const PlanWorkoutModalForm = (props) => {
           <ActivityOptions activities={props.activities} />
         </PdlSelect>
 
+        <PdlCheckbox
+          form={form}
+          id="isKeyWorkout"
+          label="Key workout?"
+          defaultValue={planWorkout?.isKeyWorkout}
+        />
+
         <Divider my={3} />
 
         <Heading as="h3" size="md" my={3}>
@@ -143,9 +151,24 @@ const PdlSelect = ({
   )
 }
 
+const PdlCheckbox = ({ form, id, label, defaultValue }) => {
+  const {
+    register,
+    formState: { errors },
+  } = form
+
+  return (
+    <PdlField errors={errors} id={id} label={label}>
+      <Checkbox {...register(id)} defaultChecked={defaultValue}>
+        {label}
+      </Checkbox>
+    </PdlField>
+  )
+}
+
 const PdlField = ({ children, errors, id, label }) => {
   return (
-    <FormControl isInvalid={errors[id]}>
+    <FormControl isInvalid={errors[id]} my={3}>
       <FormLabel htmlFor={id}>{label}</FormLabel>
       {children}
 

@@ -51,6 +51,7 @@ export const schema = gql`
     planWeekId: Int!
     dayOfWeek: DayOfWeek
     activityId: Int
+    isKeyWorkout: Boolean!
     targetMiles: String
   }
 

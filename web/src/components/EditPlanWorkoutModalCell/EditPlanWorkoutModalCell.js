@@ -48,6 +48,7 @@ const UPDATE_PLAN_WORKOUT_MUTATION = gql`
       id
       dayOfWeek
       activityId
+      isKeyWorkout
       targetMiles
     }
   }
