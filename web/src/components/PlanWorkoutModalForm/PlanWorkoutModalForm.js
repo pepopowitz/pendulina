@@ -2,12 +2,14 @@ import {
   Button,
   Checkbox,
   Divider,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Heading,
   Input,
   Select,
+  Spacer,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 
@@ -35,13 +37,31 @@ export const PlanWorkoutModalForm = (props) => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isDisabled>
-          <FormLabel htmlFor="planWeek">Plan Week</FormLabel>
-          <Input
-            name="planWeek"
-            value={`Week ${planWeek.weekNumber}: ${planWeek.intention}`}
-          />
-        </FormControl>
+        <Flex flexDirection="row">
+          <FormControl isDisabled>
+            <FormLabel htmlFor="planWeek">Plan Week</FormLabel>
+            <Input
+              name="planWeek"
+              value={`Week ${planWeek.weekNumber}: ${planWeek.intention}`}
+            />
+          </FormControl>
+          <Spacer mx={5} />
+          <PdlSelect
+            form={form}
+            id="dayOfWeek"
+            label="Day of week"
+            defaultValue={planWorkout?.dayOfWeek}
+            validations={{ required: true }}
+          >
+            <option>MONDAY</option>
+            <option>TUESDAY</option>
+            <option>WEDNESDAY</option>
+            <option>THURSDAY</option>
+            <option>FRIDAY</option>
+            <option>SATURDAY</option>
+            <option>SUNDAY</option>
+          </PdlSelect>
+        </Flex>
         <FormControl>
           <Input
             {...register('planWeekId')}
@@ -50,39 +70,26 @@ export const PlanWorkoutModalForm = (props) => {
           />
         </FormControl>
 
-        <PdlSelect
-          form={form}
-          id="dayOfWeek"
-          label="Day of week"
-          defaultValue={planWorkout?.dayOfWeek}
-          validations={{ required: true }}
-        >
-          <option>MONDAY</option>
-          <option>TUESDAY</option>
-          <option>WEDNESDAY</option>
-          <option>THURSDAY</option>
-          <option>FRIDAY</option>
-          <option>SATURDAY</option>
-          <option>SUNDAY</option>
-        </PdlSelect>
+        <Flex flexDirection="row">
+          <PdlSelect
+            form={form}
+            id="activityId"
+            label="Activity"
+            defaultValue={planWorkout?.activityId}
+            validations={{ required: true }}
+          >
+            <ActivityOptions activities={props.activities} />
+          </PdlSelect>
 
-        <PdlSelect
-          form={form}
-          id="activityId"
-          label="Activity"
-          defaultValue={planWorkout?.activityId}
-          validations={{ required: true }}
-        >
-          <ActivityOptions activities={props.activities} />
-        </PdlSelect>
+          <Spacer mx={5} />
 
-        <PdlCheckbox
-          form={form}
-          id="isKeyWorkout"
-          label="Key workout?"
-          defaultValue={planWorkout?.isKeyWorkout}
-        />
-
+          <PdlCheckbox
+            form={form}
+            id="isKeyWorkout"
+            label="Key workout?"
+            defaultValue={planWorkout?.isKeyWorkout}
+          />
+        </Flex>
         <Divider my={3} />
 
         <Heading as="h3" size="md" my={3}>
@@ -168,7 +175,7 @@ const PdlCheckbox = ({ form, id, label, defaultValue }) => {
 
 const PdlField = ({ children, errors, id, label }) => {
   return (
-    <FormControl isInvalid={errors[id]} my={3}>
+    <FormControl isInvalid={errors[id]} mb={3}>
       <FormLabel htmlFor={id}>{label}</FormLabel>
       {children}
 

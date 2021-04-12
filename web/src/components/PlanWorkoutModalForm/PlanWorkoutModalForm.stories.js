@@ -1,4 +1,4 @@
-import PlanWorkoutModalForm from './PlanWorkoutModalForm'
+import { PlanWorkoutModalForm } from './PlanWorkoutModalForm'
 
 export const generated = () => {
   return <PlanWorkoutModalForm />

@@ -27,7 +27,7 @@ const EditPlan = ({ plan }) => {
   return (
     <Container maxW="container.xl" centerContent>
       <Stack>
-        <Box textAlign="center">
+        <Box textAlign="center" my={5}>
           <Heading>{plan.name}</Heading>
         </Box>
         <Divider my="5" />
