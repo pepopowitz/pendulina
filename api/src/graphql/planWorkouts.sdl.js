@@ -53,6 +53,7 @@ export const schema = gql`
     activityId: Int
     isKeyWorkout: Boolean!
     targetMiles: String
+    targetTimeInMinutes: String
   }
 
   type Mutation {

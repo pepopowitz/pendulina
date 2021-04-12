@@ -96,13 +96,23 @@ export const PlanWorkoutModalForm = (props) => {
           Goals
         </Heading>
 
-        <PdlInput
-          form={form}
-          id="targetMiles"
-          label="Target miles"
-          defaultValue={planWorkout?.targetMiles}
-        />
+        <Flex flexDirection="row">
+          <PdlInput
+            form={form}
+            id="targetMiles"
+            label="Target miles"
+            defaultValue={planWorkout?.targetMiles}
+          />
 
+          <Spacer mx={5} />
+
+          <PdlInput
+            form={form}
+            id="targetTimeInMinutes"
+            label="Target time (minutes)"
+            defaultValue={planWorkout?.targetTimeInMinutes}
+          />
+        </Flex>
         {/* ... */}
 
         <Button
