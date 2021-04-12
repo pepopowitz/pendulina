@@ -37,17 +37,6 @@ export const schema = gql`
   }
 
   input UpdatePlanWorkoutInput {
-    dayOfWeek: DayOfWeek
-    isKeyWorkout: Boolean!
-    targetMiles: String
-    targetTimeInMinutes: String
-    targetNotes: String
-    activityId: Int
-    planWeekId: Int!
-  }
-
-  # TODO: remove this once the entire form is converted!!!!
-  input UpdatePlanWorkoutInput2 {
     planWeekId: Int!
     dayOfWeek: DayOfWeek
     activityId: Int
@@ -60,8 +49,6 @@ export const schema = gql`
   type Mutation {
     createPlanWorkout(input: CreatePlanWorkoutInput!): PlanWorkout!
     updatePlanWorkout(id: Int!, input: UpdatePlanWorkoutInput!): PlanWorkout!
-    # TODO: remove this once the entire form is converted!!!!
-    updatePlanWorkout2(id: Int!, input: UpdatePlanWorkoutInput2!): PlanWorkout!
     deletePlanWorkout(id: Int!): PlanWorkout!
   }
 `

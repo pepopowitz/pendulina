@@ -38,13 +38,12 @@ export const QUERY = gql`
   }
 `
 
-// TODO: remove 2 suffix from all of these once the entire form is converted!!!
 const UPDATE_PLAN_WORKOUT_MUTATION = gql`
-  mutation UpdatePlanWorkoutMutation2(
+  mutation UpdatePlanWorkoutMutation(
     $id: Int!
-    $input: UpdatePlanWorkoutInput2!
+    $input: UpdatePlanWorkoutInput!
   ) {
-    updatePlanWorkout2(id: $id, input: $input) {
+    updatePlanWorkout(id: $id, input: $input) {
       id
       dayOfWeek
       activityId
