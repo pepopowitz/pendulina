@@ -70,6 +70,8 @@ export const PlanWorkoutModalForm = (props) => {
           />
         </FormControl>
 
+        <Spacer my={5} />
+
         <Flex flexDirection="row">
           <PdlSelect
             form={form}
@@ -90,7 +92,8 @@ export const PlanWorkoutModalForm = (props) => {
             defaultValue={planWorkout?.isKeyWorkout}
           />
         </Flex>
-        <Divider my={3} />
+
+        <Divider my={5} />
 
         <Heading as="h3" size="md" my={3}>
           Goals
@@ -113,10 +116,19 @@ export const PlanWorkoutModalForm = (props) => {
             defaultValue={planWorkout?.targetTimeInMinutes}
           />
         </Flex>
-        {/* ... */}
+
+        <Spacer my={5} />
+
+        <PdlInput
+          form={form}
+          id="targetNotes"
+          label="Target notes"
+          defaultValue={planWorkout?.targetNotes}
+        />
+
+        <Divider my={5} />
 
         <Button
-          mt={4}
           colorScheme="green"
           isLoading={isSubmitting || props.loading}
           type="submit"
@@ -185,7 +197,7 @@ const PdlCheckbox = ({ form, id, label, defaultValue }) => {
 
 const PdlField = ({ children, errors, id, label }) => {
   return (
-    <FormControl isInvalid={errors[id]} mb={3}>
+    <FormControl isInvalid={errors[id]}>
       <FormLabel htmlFor={id}>{label}</FormLabel>
       {children}
 

@@ -51,6 +51,7 @@ const UPDATE_PLAN_WORKOUT_MUTATION = gql`
       isKeyWorkout
       targetMiles
       targetTimeInMinutes
+      targetNotes
     }
   }
 `
