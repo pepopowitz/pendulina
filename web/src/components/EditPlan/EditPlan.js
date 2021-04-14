@@ -16,6 +16,7 @@ import {
 import { Link as RouterLink, routes } from '@redwoodjs/router'
 import { useState } from 'react'
 import EditPlanWorkoutModalCell from '../EditPlanWorkoutModalCell'
+import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
@@ -53,6 +54,12 @@ const EditPlan = ({ plan }) => {
 const workoutCardHeight = 100
 const PlanWeeks = ({ planWeeks }) => {
   return planWeeks.map((planWeek) => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const modal = isOpen ? (
+      <NewPlanWorkoutModalCell planWeekID={planWeek.id} onClose={onClose} />
+    ) : null
+
     const planWeekDays = mapPlanWorkoutsToDays(planWeek.planWorkouts || [])
 
     /*
@@ -72,37 +79,36 @@ const PlanWeeks = ({ planWeeks }) => {
     )
 
     return (
-      <Stack key={planWeek.id}>
-        <Divider mt="3" mb="2" />
-        <Flex direction="row" justifyContent="space-between">
-          <HStack>
-            <Heading fontSize="lg" as="h3" color="gray.500">
-              Week {planWeek.weekNumber} ({startDateFormatted} -{' '}
-              {endDateFormatted}):
-            </Heading>
-            <Heading fontSize="lg" as="h4">
-              {planWeek.intention}
-            </Heading>
+      <>
+        <Stack key={planWeek.id}>
+          <Divider mt="3" mb="2" />
+          <Flex direction="row" justifyContent="space-between">
+            <HStack>
+              <Heading fontSize="lg" as="h3" color="gray.500">
+                Week {planWeek.weekNumber} ({startDateFormatted} -{' '}
+                {endDateFormatted}):
+              </Heading>
+              <Heading fontSize="lg" as="h4">
+                {planWeek.intention}
+              </Heading>
+            </HStack>
+            <Button size="xs" colorScheme="green" onClick={onOpen}>
+              Add workout
+            </Button>
+          </Flex>
+          <HStack spacing="2">
+            {planWeekDays.map((planWeekDay) => (
+              <PlanWeekDay
+                planWeek={planWeek}
+                planWeekDay={planWeekDay}
+                height={`${height}px`}
+                key={`${planWeek.id}|${planWeekDay.dayOfWeek}`}
+              />
+            ))}
           </HStack>
-          <Link
-            to={routes.newPlanWorkout({ planWeekID: planWeek.id })}
-            as={RouterLink}
-            color="green.600"
-          >
-            + Add a workout
-          </Link>
-        </Flex>
-        <HStack spacing="2">
-          {planWeekDays.map((planWeekDay) => (
-            <PlanWeekDay
-              planWeek={planWeek}
-              planWeekDay={planWeekDay}
-              height={`${height}px`}
-              key={`${planWeek.id}|${planWeekDay.dayOfWeek}`}
-            />
-          ))}
-        </HStack>
-      </Stack>
+        </Stack>
+        {modal}
+      </>
     )
   })
 }
