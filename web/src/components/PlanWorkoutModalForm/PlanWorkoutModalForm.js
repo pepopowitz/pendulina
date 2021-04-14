@@ -21,7 +21,7 @@ export const PlanWorkoutModalForm = (props) => {
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = form
   const onSubmit = (data) => {
     data = {
