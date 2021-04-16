@@ -34,23 +34,16 @@ model PlanWeek {
 }
 
 model PlanWorkout {
-  id                    Int           @id @default(autoincrement())
-  PlanWeek              PlanWeek      @relation(fields: [planWeekId], references: [id])
-  planWeekId            Int
-  dayOfWeek             DayOfWeek
-  activityId            Int
-  activity              Activity      @relation(fields: [activityId], references: [id])
-  isKeyWorkout          Boolean       @default(false)
-  targetMiles           String?
-  targetTimeInMinutes   String?
-  targetNotes           String?
-  status                WorkoutStatus @default(UPCOMING)
-  actualMiles           String?
-  actualTimeInMinutes   String?
-  actualElevationInFeet Int?
-  actualNotes           String?
-  actualMantras         String?
-  actualReflection      String?
+  id                  Int       @id @default(autoincrement())
+  PlanWeek            PlanWeek  @relation(fields: [planWeekId], references: [id])
+  planWeekId          Int
+  dayOfWeek           DayOfWeek
+  activityId          Int
+  activity            Activity  @relation(fields: [activityId], references: [id])
+  isKeyWorkout        Boolean   @default(false)
+  targetMiles         String?
+  targetTimeInMinutes String?
+  targetNotes         String?
 
 }
 
