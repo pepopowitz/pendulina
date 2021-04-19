@@ -6,21 +6,20 @@ import {
   Flex,
   Heading,
   HStack,
-  Link,
   Stack,
   Text,
   Tooltip,
   useDisclosure,
   VisuallyHidden,
 } from '@chakra-ui/react'
-import { Link as RouterLink, routes } from '@redwoodjs/router'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import EditPlanWorkoutModalCell from '../EditPlanWorkoutModalCell'
 import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
+import { EditPlanContext } from '../EditPlanCell/EditPlanContext'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
-const EditPlan = ({ plan, refetch }) => {
+const EditPlan = ({ plan }) => {
   if (!plan) {
     return null
   }
@@ -44,7 +43,7 @@ const EditPlan = ({ plan, refetch }) => {
           })}
         </HStack>
         <Stack>
-          <PlanWeeks planWeeks={plan.planWeeks} refetch={refetch} />
+          <PlanWeeks planWeeks={plan.planWeeks} />
         </Stack>
       </Stack>
     </Container>
@@ -52,7 +51,9 @@ const EditPlan = ({ plan, refetch }) => {
 }
 
 const workoutCardHeight = 100
-const PlanWeeks = ({ planWeeks, refetch }) => {
+const PlanWeeks = ({ planWeeks }) => {
+  const { refetch } = useContext(EditPlanContext)
+
   return planWeeks.map((planWeek) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -109,7 +110,6 @@ const PlanWeeks = ({ planWeeks, refetch }) => {
                 planWeekDay={planWeekDay}
                 height={`${height}px`}
                 key={`${planWeek.id}|${planWeekDay.dayOfWeek}`}
-                refetch={refetch}
               />
             ))}
           </HStack>
@@ -120,7 +120,7 @@ const PlanWeeks = ({ planWeeks, refetch }) => {
   })
 }
 
-export const PlanWeekDay = ({ planWeek, planWeekDay, height, refetch }) => {
+export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
   return (
     <Box w="160px" h={height} bgColor="gray.100">
       {planWeekDay?.workouts.map((workout) => {
@@ -129,7 +129,6 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height, refetch }) => {
             planWeek={planWeek}
             workout={workout}
             key={`workout-${workout.id}`}
-            refetch={refetch}
           />
         )
       })}
@@ -137,7 +136,8 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height, refetch }) => {
   )
 }
 
-const PlanWorkout = ({ planWeek, workout, refetch }) => {
+const PlanWorkout = ({ planWeek, workout }) => {
+  const { refetch } = useContext(EditPlanContext)
   const [hovered, setHovered] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const borderColor = hovered ? 'green.600' : 'gray.200'

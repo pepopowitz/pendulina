@@ -1,4 +1,5 @@
 import EditPlan from '../EditPlan'
+import { EditPlanContextProvider } from './EditPlanContext'
 
 export const QUERY = gql`
   query EditPlanQuery($id: Int!) {
@@ -34,5 +35,9 @@ export const Empty = () => <div>Empty</div>
 export const Failure = ({ error }) => <div>Error: {error.message}</div>
 
 export const Success = ({ plan, refetch }) => {
-  return <EditPlan plan={plan} refetch={refetch}></EditPlan>
+  return (
+    <EditPlanContextProvider refetch={refetch}>
+      <EditPlan plan={plan} />
+    </EditPlanContextProvider>
+  )
 }
