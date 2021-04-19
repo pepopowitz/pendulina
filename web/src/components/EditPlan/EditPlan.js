@@ -6,17 +6,16 @@ import {
   Flex,
   Heading,
   HStack,
-  Link,
   Stack,
   Text,
   Tooltip,
   useDisclosure,
   VisuallyHidden,
 } from '@chakra-ui/react'
-import { Link as RouterLink, routes } from '@redwoodjs/router'
 import { useState } from 'react'
 import EditPlanWorkoutModalCell from '../EditPlanWorkoutModalCell'
 import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
+import { useEditPlanContext } from '../EditPlanCell/EditPlanContext'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
@@ -53,11 +52,19 @@ const EditPlan = ({ plan }) => {
 
 const workoutCardHeight = 100
 const PlanWeeks = ({ planWeeks }) => {
+  const { refetch } = useEditPlanContext()
+
   return planWeeks.map((planWeek) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const modal = isOpen ? (
-      <NewPlanWorkoutModalCell planWeekID={planWeek.id} onClose={onClose} />
+      <NewPlanWorkoutModalCell
+        planWeekID={planWeek.id}
+        onClose={() => {
+          onClose()
+          refetch()
+        }}
+      />
     ) : null
 
     const planWeekDays = mapPlanWorkoutsToDays(planWeek.planWorkouts || [])
@@ -79,8 +86,8 @@ const PlanWeeks = ({ planWeeks }) => {
     )
 
     return (
-      <>
-        <Stack key={planWeek.id}>
+      <React.Fragment key={planWeek.id}>
+        <Stack>
           <Divider mt="3" mb="2" />
           <Flex direction="row" justifyContent="space-between">
             <HStack>
@@ -108,7 +115,7 @@ const PlanWeeks = ({ planWeeks }) => {
           </HStack>
         </Stack>
         {modal}
-      </>
+      </React.Fragment>
     )
   })
 }
@@ -130,6 +137,7 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
 }
 
 const PlanWorkout = ({ planWeek, workout }) => {
+  const { refetch } = useEditPlanContext()
   const [hovered, setHovered] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const borderColor = hovered ? 'green.600' : 'gray.200'
@@ -148,7 +156,10 @@ const PlanWorkout = ({ planWeek, workout }) => {
     <EditPlanWorkoutModalCell
       id={workout.id}
       planWeekID={planWeek.id}
-      onClose={onClose}
+      onClose={() => {
+        onClose()
+        refetch()
+      }}
     />
   ) : null
 
