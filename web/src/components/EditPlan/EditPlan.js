@@ -12,10 +12,10 @@ import {
   useDisclosure,
   VisuallyHidden,
 } from '@chakra-ui/react'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import EditPlanWorkoutModalCell from '../EditPlanWorkoutModalCell'
 import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
-import { EditPlanContext } from '../EditPlanCell/EditPlanContext'
+import { useEditPlanContext } from '../EditPlanCell/EditPlanContext'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
@@ -52,7 +52,7 @@ const EditPlan = ({ plan }) => {
 
 const workoutCardHeight = 100
 const PlanWeeks = ({ planWeeks }) => {
-  const { refetch } = useContext(EditPlanContext)
+  const { refetch } = useEditPlanContext()
 
   return planWeeks.map((planWeek) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -137,7 +137,7 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
 }
 
 const PlanWorkout = ({ planWeek, workout }) => {
-  const { refetch } = useContext(EditPlanContext)
+  const { refetch } = useEditPlanContext()
   const [hovered, setHovered] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const borderColor = hovered ? 'green.600' : 'gray.200'

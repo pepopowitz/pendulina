@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+
 export const EditPlanContext = React.createContext({})
 
 export function EditPlanContextProvider({ refetch, children }) {
@@ -7,4 +9,10 @@ export function EditPlanContextProvider({ refetch, children }) {
       {children}
     </EditPlanContext.Provider>
   )
+}
+
+export function useEditPlanContext() {
+  const value = useContext(EditPlanContext)
+
+  return value
 }
