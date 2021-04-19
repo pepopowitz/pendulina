@@ -37,13 +37,13 @@ export const schema = gql`
   }
 
   input UpdatePlanWorkoutInput {
+    planWeekId: Int!
     dayOfWeek: DayOfWeek
+    activityId: Int
     isKeyWorkout: Boolean!
     targetMiles: String
     targetTimeInMinutes: String
     targetNotes: String
-    activityId: Int
-    planWeekId: Int!
   }
 
   type Mutation {

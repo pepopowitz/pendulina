@@ -10,10 +10,13 @@ import {
   Stack,
   Text,
   Tooltip,
+  useDisclosure,
   VisuallyHidden,
 } from '@chakra-ui/react'
 import { Link as RouterLink, routes } from '@redwoodjs/router'
 import { useState } from 'react'
+import EditPlanWorkoutModalCell from '../EditPlanWorkoutModalCell'
+import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
@@ -25,7 +28,7 @@ const EditPlan = ({ plan }) => {
   return (
     <Container maxW="container.xl" centerContent>
       <Stack>
-        <Box textAlign="center">
+        <Box textAlign="center" my={5}>
           <Heading>{plan.name}</Heading>
         </Box>
         <Divider my="5" />
@@ -51,6 +54,12 @@ const EditPlan = ({ plan }) => {
 const workoutCardHeight = 100
 const PlanWeeks = ({ planWeeks }) => {
   return planWeeks.map((planWeek) => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const modal = isOpen ? (
+      <NewPlanWorkoutModalCell planWeekID={planWeek.id} onClose={onClose} />
+    ) : null
+
     const planWeekDays = mapPlanWorkoutsToDays(planWeek.planWorkouts || [])
 
     /*
@@ -70,37 +79,36 @@ const PlanWeeks = ({ planWeeks }) => {
     )
 
     return (
-      <Stack key={planWeek.id}>
-        <Divider mt="3" mb="2" />
-        <Flex direction="row" justifyContent="space-between">
-          <HStack>
-            <Heading fontSize="lg" as="h3" color="gray.500">
-              Week {planWeek.weekNumber} ({startDateFormatted} -{' '}
-              {endDateFormatted}):
-            </Heading>
-            <Heading fontSize="lg" as="h4">
-              {planWeek.intention}
-            </Heading>
+      <>
+        <Stack key={planWeek.id}>
+          <Divider mt="3" mb="2" />
+          <Flex direction="row" justifyContent="space-between">
+            <HStack>
+              <Heading fontSize="lg" as="h3" color="gray.500">
+                Week {planWeek.weekNumber} ({startDateFormatted} -{' '}
+                {endDateFormatted}):
+              </Heading>
+              <Heading fontSize="lg" as="h4">
+                {planWeek.intention}
+              </Heading>
+            </HStack>
+            <Button size="xs" colorScheme="green" onClick={onOpen}>
+              Add workout
+            </Button>
+          </Flex>
+          <HStack spacing="2">
+            {planWeekDays.map((planWeekDay) => (
+              <PlanWeekDay
+                planWeek={planWeek}
+                planWeekDay={planWeekDay}
+                height={`${height}px`}
+                key={`${planWeek.id}|${planWeekDay.dayOfWeek}`}
+              />
+            ))}
           </HStack>
-          <Link
-            to={routes.newPlanWorkout({ planWeekID: planWeek.id })}
-            as={RouterLink}
-            color="green.600"
-          >
-            + Add a workout
-          </Link>
-        </Flex>
-        <HStack spacing="2">
-          {planWeekDays.map((planWeekDay) => (
-            <PlanWeekDay
-              planWeek={planWeek}
-              planWeekDay={planWeekDay}
-              height={`${height}px`}
-              key={`${planWeek.id}|${planWeekDay.dayOfWeek}`}
-            />
-          ))}
-        </HStack>
-      </Stack>
+        </Stack>
+        {modal}
+      </>
     )
   })
 }
@@ -123,6 +131,7 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
 
 const PlanWorkout = ({ planWeek, workout }) => {
   const [hovered, setHovered] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const borderColor = hovered ? 'green.600' : 'gray.200'
   const ButtonWrapper = hovered ? React.Fragment : VisuallyHidden
 
@@ -135,45 +144,52 @@ const PlanWorkout = ({ planWeek, workout }) => {
   }
   const bgColor = workout.isKeyWorkout ? 'green.50' : 'white'
 
+  const modal = isOpen ? (
+    <EditPlanWorkoutModalCell
+      id={workout.id}
+      planWeekID={planWeek.id}
+      onClose={onClose}
+    />
+  ) : null
+
   return (
-    <Stack
-      borderWidth="1px"
-      bgColor={bgColor}
-      m="2"
-      p="2"
-      h={`${workoutCardHeight}px`}
-      spacing="1"
-      borderColor={borderColor}
-      onMouseOver={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <Flex direction="row" justifyContent="space-between" alignItems="center">
-        <Text fontSize="2xl">{workout.activity.icon}</Text>
-        <ButtonWrapper>
-          <Button
-            size="xs"
-            colorScheme="green"
-            as={RouterLink}
-            to={routes.editPlanWorkout({
-              planWeekID: planWeek.id,
-              id: workout.id,
-            })}
-          >
-            Edit
-          </Button>
-        </ButtonWrapper>
-      </Flex>
-      <Stack spacing="0.5">
-        <Text fontSize="sm" color="gray.600">
-          {constraints.join(' | ')}
-        </Text>
-        <Tooltip label={workout.targetNotes}>
-          <Text fontSize="xs" color="gray.900" isTruncated noOfLines="1">
-            {workout.targetNotes}
+    <>
+      <Stack
+        borderWidth="1px"
+        bgColor={bgColor}
+        m="2"
+        p="2"
+        h={`${workoutCardHeight}px`}
+        spacing="1"
+        borderColor={borderColor}
+        onMouseOver={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <Flex
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Text fontSize="2xl">{workout.activity.icon}</Text>
+          <ButtonWrapper>
+            <Button size="xs" colorScheme="green" onClick={onOpen}>
+              Edit
+            </Button>
+          </ButtonWrapper>
+        </Flex>
+        <Stack spacing="0.5">
+          <Text fontSize="sm" color="gray.600">
+            {constraints.join(' | ')}
           </Text>
-        </Tooltip>
+          <Tooltip label={workout.targetNotes}>
+            <Text fontSize="xs" color="gray.900" isTruncated noOfLines="1">
+              {workout.targetNotes}
+            </Text>
+          </Tooltip>
+        </Stack>
       </Stack>
-    </Stack>
+      {modal}
+    </>
   )
 }
 
