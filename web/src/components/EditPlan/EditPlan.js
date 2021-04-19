@@ -86,8 +86,8 @@ const PlanWeeks = ({ planWeeks }) => {
     )
 
     return (
-      <>
-        <Stack key={planWeek.id}>
+      <React.Fragment key={planWeek.id}>
+        <Stack>
           <Divider mt="3" mb="2" />
           <Flex direction="row" justifyContent="space-between">
             <HStack>
@@ -115,7 +115,7 @@ const PlanWeeks = ({ planWeeks }) => {
           </HStack>
         </Stack>
         {modal}
-      </>
+      </React.Fragment>
     )
   })
 }
