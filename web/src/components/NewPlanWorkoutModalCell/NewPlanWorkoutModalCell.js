@@ -55,7 +55,6 @@ export const Success = ({ activities, planWeek, onClose }) => {
 
   const onSave = (input) => {
     createPlanWorkout({ variables: { input } })
-    // onClose()
   }
 
   return (
