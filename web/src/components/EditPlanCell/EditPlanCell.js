@@ -33,6 +33,6 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }) => <div>Error: {error.message}</div>
 
-export const Success = ({ plan }) => {
-  return <EditPlan plan={plan}></EditPlan>
+export const Success = ({ plan, refetch }) => {
+  return <EditPlan plan={plan} refetch={refetch}></EditPlan>
 }

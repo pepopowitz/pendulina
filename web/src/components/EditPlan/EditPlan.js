@@ -20,7 +20,7 @@ import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
-const EditPlan = ({ plan }) => {
+const EditPlan = ({ plan, refetch }) => {
   if (!plan) {
     return null
   }
@@ -44,7 +44,7 @@ const EditPlan = ({ plan }) => {
           })}
         </HStack>
         <Stack>
-          <PlanWeeks planWeeks={plan.planWeeks} />
+          <PlanWeeks planWeeks={plan.planWeeks} refetch={refetch} />
         </Stack>
       </Stack>
     </Container>
@@ -52,12 +52,18 @@ const EditPlan = ({ plan }) => {
 }
 
 const workoutCardHeight = 100
-const PlanWeeks = ({ planWeeks }) => {
+const PlanWeeks = ({ planWeeks, refetch }) => {
   return planWeeks.map((planWeek) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const modal = isOpen ? (
-      <NewPlanWorkoutModalCell planWeekID={planWeek.id} onClose={onClose} />
+      <NewPlanWorkoutModalCell
+        planWeekID={planWeek.id}
+        onClose={() => {
+          onClose()
+          refetch()
+        }}
+      />
     ) : null
 
     const planWeekDays = mapPlanWorkoutsToDays(planWeek.planWorkouts || [])
@@ -103,6 +109,7 @@ const PlanWeeks = ({ planWeeks }) => {
                 planWeekDay={planWeekDay}
                 height={`${height}px`}
                 key={`${planWeek.id}|${planWeekDay.dayOfWeek}`}
+                refetch={refetch}
               />
             ))}
           </HStack>
@@ -113,7 +120,7 @@ const PlanWeeks = ({ planWeeks }) => {
   })
 }
 
-export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
+export const PlanWeekDay = ({ planWeek, planWeekDay, height, refetch }) => {
   return (
     <Box w="160px" h={height} bgColor="gray.100">
       {planWeekDay?.workouts.map((workout) => {
@@ -122,6 +129,7 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
             planWeek={planWeek}
             workout={workout}
             key={`workout-${workout.id}`}
+            refetch={refetch}
           />
         )
       })}
@@ -129,7 +137,7 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
   )
 }
 
-const PlanWorkout = ({ planWeek, workout }) => {
+const PlanWorkout = ({ planWeek, workout, refetch }) => {
   const [hovered, setHovered] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const borderColor = hovered ? 'green.600' : 'gray.200'
@@ -148,7 +156,10 @@ const PlanWorkout = ({ planWeek, workout }) => {
     <EditPlanWorkoutModalCell
       id={workout.id}
       planWeekID={planWeek.id}
-      onClose={onClose}
+      onClose={() => {
+        onClose()
+        refetch()
+      }}
     />
   ) : null
 
