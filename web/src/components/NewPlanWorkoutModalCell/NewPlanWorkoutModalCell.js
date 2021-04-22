@@ -3,7 +3,6 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react'
 import { useMutation } from '@redwoodjs/web'
@@ -57,6 +56,8 @@ export const Success = ({ activities, planWeek, onClose }) => {
     createPlanWorkout({ variables: { input } })
   }
 
+  // todo: move this into EditPlan, & control things from there
+  //   so that loading in this component appears in the modal.
   return (
     <Modal
       size="xl"
@@ -69,15 +70,13 @@ export const Success = ({ activities, planWeek, onClose }) => {
       <ModalContent>
         <ModalHeader>Add Workout</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          <PlanWorkoutModalForm
-            activities={activities}
-            planWeek={planWeek}
-            onSave={onSave}
-            loading={loading}
-            error={error}
-          />
-        </ModalBody>
+        <PlanWorkoutModalForm
+          activities={activities}
+          planWeek={planWeek}
+          onSave={onSave}
+          loading={loading}
+          error={error}
+        />
       </ModalContent>
     </Modal>
   )
