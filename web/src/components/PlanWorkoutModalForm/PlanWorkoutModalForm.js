@@ -8,6 +8,8 @@ import {
   FormLabel,
   Heading,
   Input,
+  ModalBody,
+  ModalFooter,
   Select,
   Spacer,
 } from '@chakra-ui/react'
@@ -34,9 +36,20 @@ export const PlanWorkoutModalForm = (props) => {
     props.onSave(data, planWorkout?.id)
   }
 
+  const deleteButton = planWorkout?.id && props.onDelete && (
+    <Button
+      ml={3}
+      colorScheme="red"
+      variant="outline"
+      onClick={() => props.onDelete(planWorkout?.id)}
+    >
+      Delete
+    </Button>
+  )
+
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <ModalBody>
         <Flex flexDirection="row">
           <FormControl isDisabled>
             <FormLabel htmlFor="planWeek">Plan Week</FormLabel>
@@ -125,9 +138,8 @@ export const PlanWorkoutModalForm = (props) => {
           label="Target notes"
           defaultValue={planWorkout?.targetNotes}
         />
-
-        <Divider my={5} />
-
+      </ModalBody>
+      <ModalFooter>
         <Button
           colorScheme="green"
           isLoading={isSubmitting || props.loading}
@@ -136,8 +148,9 @@ export const PlanWorkoutModalForm = (props) => {
         >
           Save
         </Button>
-      </form>
-    </div>
+        {deleteButton}
+      </ModalFooter>
+    </form>
   )
 }
 

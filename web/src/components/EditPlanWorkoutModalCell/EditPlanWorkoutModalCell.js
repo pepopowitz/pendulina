@@ -3,7 +3,6 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react'
 import { useMutation } from '@redwoodjs/web'
@@ -54,6 +53,14 @@ const UPDATE_PLAN_WORKOUT_MUTATION = gql`
   }
 `
 
+const DELETE_PLAN_WORKOUT_MUTATION = gql`
+  mutation DeletePlanWorkoutMutation($id: Int!) {
+    deletePlanWorkout(id: $id) {
+      id
+    }
+  }
+`
+
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
@@ -65,16 +72,25 @@ export const Success = ({ planWorkout, activities, planWeek, onClose }) => {
     UPDATE_PLAN_WORKOUT_MUTATION,
     {
       onCompleted: () => {
-        //navigate(routes.editPlan({ id: planID }))
-        // TODO: why does this update the parent screen??? It's great, but I'm confused why it happens.
         toast.success('Workout updated!')
         onClose()
       },
     }
   )
 
+  const [deletePlanWorkout] = useMutation(DELETE_PLAN_WORKOUT_MUTATION, {
+    onCompleted: () => {
+      toast.success('Workout deleted!')
+      onClose()
+    },
+  })
+
   const onSave = (input, id) => {
     updatePlanWorkout({ variables: { id, input } })
+  }
+
+  const onDelete = (id) => {
+    deletePlanWorkout({ variables: { id } })
   }
 
   return (
@@ -89,16 +105,15 @@ export const Success = ({ planWorkout, activities, planWeek, onClose }) => {
       <ModalContent>
         <ModalHeader>Edit Workout</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          <PlanWorkoutModalForm
-            activities={activities}
-            planWeek={planWeek}
-            planWorkout={planWorkout}
-            onSave={onSave}
-            loading={loading}
-            error={error}
-          />
-        </ModalBody>
+        <PlanWorkoutModalForm
+          activities={activities}
+          planWeek={planWeek}
+          planWorkout={planWorkout}
+          onSave={onSave}
+          onDelete={onDelete}
+          loading={loading}
+          error={error}
+        />
       </ModalContent>
     </Modal>
   )
