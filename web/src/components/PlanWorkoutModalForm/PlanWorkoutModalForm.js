@@ -138,6 +138,71 @@ export const PlanWorkoutModalForm = (props) => {
           label="Target notes"
           defaultValue={planWorkout?.targetNotes}
         />
+
+        <Divider my={5} />
+
+        <Heading as="h3" size="md" my={3}>
+          Actuals
+        </Heading>
+
+        <Flex flexDirection="row">
+          <PdlSelect
+            form={form}
+            id="status"
+            label="Status"
+            defaultValue={planWorkout?.status}
+            validations={{ required: true }}
+          >
+            <option>UPCOMING</option>
+            <option>COMPLETED</option>
+            <option>MISSED</option>
+          </PdlSelect>
+          <Spacer mx={5} />
+          <PdlInput
+            form={form}
+            id="actualMiles"
+            label="Actual miles"
+            defaultValue={planWorkout?.actualMiles}
+          />
+        </Flex>
+        <Spacer my={5} />
+
+        <Flex flexDirection="row">
+          <PdlInput
+            form={form}
+            id="actualTimeInMinutes"
+            label="Actual time (minutes)"
+            defaultValue={planWorkout?.actualTimeInMinutes}
+          />
+          <Spacer mx={5} />
+          <PdlInput
+            form={form}
+            id="actualElevationInFeet"
+            label="Actual elevation (ft)"
+            defaultValue={planWorkout?.actualElevationInFeet}
+          />
+        </Flex>
+        <Spacer my={5} />
+        <PdlInput
+          form={form}
+          id="actualNotes"
+          label="Actual notes"
+          defaultValue={planWorkout?.actualNotes}
+        />
+        <Spacer my={5} />
+        <PdlInput
+          form={form}
+          id="actualMantras"
+          label="Actual mantras"
+          defaultValue={planWorkout?.actualMantras}
+        />
+        <Spacer my={5} />
+        <PdlInput
+          form={form}
+          id="actualReflection"
+          label="Actual reflection"
+          defaultValue={planWorkout?.actualReflection}
+        />
       </ModalBody>
       <ModalFooter>
         <Button

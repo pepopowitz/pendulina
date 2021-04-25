@@ -19,6 +19,13 @@ export const QUERY = gql`
       targetTimeInMinutes
       targetNotes
       activityId
+      status
+      actualMiles
+      actualTimeInMinutes
+      actualElevationInFeet
+      actualNotes
+      actualMantras
+      actualReflection
     }
     activities {
       id
@@ -49,6 +56,13 @@ const UPDATE_PLAN_WORKOUT_MUTATION = gql`
       targetMiles
       targetTimeInMinutes
       targetNotes
+      status
+      actualMiles
+      actualTimeInMinutes
+      actualElevationInFeet
+      actualNotes
+      actualMantras
+      actualReflection
     }
   }
 `
@@ -97,7 +111,7 @@ export const Success = ({ planWorkout, activities, planWeek, onClose }) => {
     <Modal
       size="xl"
       closeOnOverlayClick={false}
-      scrollBehavior="inside"
+      scrollBehavior="outside"
       isOpen
       onClose={onClose}
     >

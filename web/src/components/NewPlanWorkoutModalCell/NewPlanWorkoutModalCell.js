@@ -62,7 +62,7 @@ export const Success = ({ activities, planWeek, onClose }) => {
     <Modal
       size="xl"
       closeOnOverlayClick={false}
-      scrollBehavior="inside"
+      scrollBehavior="outside"
       isOpen
       onClose={onClose}
     >
