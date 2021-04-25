@@ -47,7 +47,7 @@ model PlanWorkout {
   status                WorkoutStatus @default(UPCOMING)
   actualMiles           String?
   actualTimeInMinutes   String?
-  actualElevationInFeet Int?
+  actualElevationInFeet String?
   actualNotes           String?
   actualMantras         String?
   actualReflection      String?
