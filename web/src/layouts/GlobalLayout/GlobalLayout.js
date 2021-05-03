@@ -53,7 +53,7 @@ const LogInOrLogOut = () => {
   if (isAuthenticated) {
     return (
       <>
-        <Box>{currentUser.user_metadata.full_name}</Box>
+        <Box>{currentUser?.user_metadata?.full_name}</Box>
         <Button colorScheme="green" onClick={logOut}>
           Log Out
         </Button>
