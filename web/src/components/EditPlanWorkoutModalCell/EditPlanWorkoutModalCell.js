@@ -1,10 +1,3 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-} from '@chakra-ui/react'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 import { PlanWorkoutModalForm } from '../PlanWorkoutModalForm'
@@ -81,13 +74,13 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }) => <div>Error: {error.message}</div>
 
-export const Success = ({ planWorkout, activities, planWeek, onClose }) => {
+export const Success = ({ planWorkout, activities, planWeek, onSaved }) => {
   const [updatePlanWorkout, { loading, error }] = useMutation(
     UPDATE_PLAN_WORKOUT_MUTATION,
     {
       onCompleted: () => {
         toast.success('Workout updated!')
-        onClose()
+        onSaved()
       },
     }
   )
@@ -95,7 +88,7 @@ export const Success = ({ planWorkout, activities, planWeek, onClose }) => {
   const [deletePlanWorkout] = useMutation(DELETE_PLAN_WORKOUT_MUTATION, {
     onCompleted: () => {
       toast.success('Workout deleted!')
-      onClose()
+      onSaved()
     },
   })
 
@@ -108,27 +101,14 @@ export const Success = ({ planWorkout, activities, planWeek, onClose }) => {
   }
 
   return (
-    <Modal
-      size="xl"
-      closeOnOverlayClick={false}
-      scrollBehavior="outside"
-      isOpen
-      onClose={onClose}
-    >
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Edit Workout</ModalHeader>
-        <ModalCloseButton />
-        <PlanWorkoutModalForm
-          activities={activities}
-          planWeek={planWeek}
-          planWorkout={planWorkout}
-          onSave={onSave}
-          onDelete={onDelete}
-          loading={loading}
-          error={error}
-        />
-      </ModalContent>
-    </Modal>
+    <PlanWorkoutModalForm
+      activities={activities}
+      planWeek={planWeek}
+      planWorkout={planWorkout}
+      onSave={onSave}
+      onDelete={onDelete}
+      loading={loading}
+      error={error}
+    />
   )
 }
