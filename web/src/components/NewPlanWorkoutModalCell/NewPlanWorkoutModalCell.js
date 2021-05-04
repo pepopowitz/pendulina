@@ -1,10 +1,3 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-} from '@chakra-ui/react'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 import { PlanWorkoutModalForm } from '../PlanWorkoutModalForm'
@@ -41,13 +34,13 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }) => <div>Error: {error.message}</div>
 
-export const Success = ({ activities, planWeek, onClose }) => {
+export const Success = ({ activities, planWeek, onSaved }) => {
   const [createPlanWorkout, { loading, error }] = useMutation(
     CREATE_PLAN_WORKOUT_MUTATION,
     {
       onCompleted: () => {
         toast.success('Workout created!')
-        onClose()
+        onSaved()
       },
     }
   )
@@ -59,25 +52,12 @@ export const Success = ({ activities, planWeek, onClose }) => {
   // todo: move this into EditPlan, & control things from there
   //   so that loading in this component appears in the modal.
   return (
-    <Modal
-      size="xl"
-      closeOnOverlayClick={false}
-      scrollBehavior="outside"
-      isOpen
-      onClose={onClose}
-    >
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Add Workout</ModalHeader>
-        <ModalCloseButton />
-        <PlanWorkoutModalForm
-          activities={activities}
-          planWeek={planWeek}
-          onSave={onSave}
-          loading={loading}
-          error={error}
-        />
-      </ModalContent>
-    </Modal>
+    <PlanWorkoutModalForm
+      activities={activities}
+      planWeek={planWeek}
+      onSave={onSave}
+      loading={loading}
+      error={error}
+    />
   )
 }

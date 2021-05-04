@@ -13,6 +13,7 @@ import {
   VisuallyHidden,
 } from '@chakra-ui/react'
 import { useState } from 'react'
+import { PlanWorkoutModal } from '../PlanWorkoutModal'
 import EditPlanWorkoutModalCell from '../EditPlanWorkoutModalCell'
 import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
 import { useEditPlanContext } from '../EditPlanCell/EditPlanContext'
@@ -56,16 +57,6 @@ const PlanWeeks = ({ planWeeks }) => {
 
   return planWeeks.map((planWeek) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-
-    const modal = isOpen ? (
-      <NewPlanWorkoutModalCell
-        planWeekID={planWeek.id}
-        onClose={() => {
-          onClose()
-          refetch()
-        }}
-      />
-    ) : null
 
     const planWeekDays = mapPlanWorkoutsToDays(planWeek.planWorkouts || [])
 
@@ -114,7 +105,15 @@ const PlanWeeks = ({ planWeeks }) => {
             ))}
           </HStack>
         </Stack>
-        {modal}
+        <PlanWorkoutModal title="Add Workout" isOpen={isOpen} onClose={onClose}>
+          <NewPlanWorkoutModalCell
+            planWeekID={planWeek.id}
+            onSaved={() => {
+              onClose()
+              refetch()
+            }}
+          />
+        </PlanWorkoutModal>
       </React.Fragment>
     )
   })
@@ -152,17 +151,6 @@ const PlanWorkout = ({ planWeek, workout }) => {
   }
   const bgColor = workout.isKeyWorkout ? 'green.50' : 'white'
 
-  const modal = isOpen ? (
-    <EditPlanWorkoutModalCell
-      id={workout.id}
-      planWeekID={planWeek.id}
-      onClose={() => {
-        onClose()
-        refetch()
-      }}
-    />
-  ) : null
-
   return (
     <>
       <Stack
@@ -199,7 +187,16 @@ const PlanWorkout = ({ planWeek, workout }) => {
           </Tooltip>
         </Stack>
       </Stack>
-      {modal}
+      <PlanWorkoutModal title="Edit Workout" isOpen={isOpen} onClose={onClose}>
+        <EditPlanWorkoutModalCell
+          id={workout.id}
+          planWeekID={planWeek.id}
+          onSaved={() => {
+            onClose()
+            refetch()
+          }}
+        />
+      </PlanWorkoutModal>
     </>
   )
 }
