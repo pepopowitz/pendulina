@@ -17,6 +17,7 @@ import { PlanWorkoutModal } from '../PlanWorkoutModal'
 import EditPlanWorkoutModalCell from '../EditPlanWorkoutModalCell'
 import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
 import { useEditPlanContext } from '../EditPlanCell/EditPlanContext'
+import { ActivityIcon } from '../ActivityIcon'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
@@ -169,7 +170,7 @@ const PlanWorkout = ({ planWeek, workout }) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Text fontSize="2xl">{workout.activity.icon}</Text>
+          <ActivityIcon activity={workout.activity} />
           <ButtonWrapper>
             <Button size="xs" colorScheme="green" onClick={onOpen}>
               Edit
