@@ -8,16 +8,15 @@ import {
   HStack,
   Stack,
   Text,
-  Tooltip,
   useDisclosure,
   VisuallyHidden,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { PlanWorkoutModal } from '../PlanWorkoutModal'
+import { useEditPlanContext } from '../EditPlanCell/EditPlanContext'
 import EditPlanWorkoutModalCell from '../EditPlanWorkoutModalCell'
 import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
-import { useEditPlanContext } from '../EditPlanCell/EditPlanContext'
-import { ActivityIcon } from '../ActivityIcon'
+import { PlanWorkoutModal } from '../PlanWorkoutModal'
+import { Workout } from '../Workout'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
@@ -36,7 +35,7 @@ const EditPlan = ({ plan }) => {
         <HStack spacing="2">
           {daysOfWeek.map((dayOfWeek, index) => {
             return (
-              <Box w="160px" p="4" bg="green.800" key={`dow-${index}`}>
+              <Box w="120px" p="4" bg="green.800" key={`dow-${index}`}>
                 <Text fontSize="md" color="white" textAlign="center">
                   {dayOfWeek}
                 </Text>
@@ -122,7 +121,7 @@ const PlanWeeks = ({ planWeeks }) => {
 
 export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
   return (
-    <Box w="160px" h={height} bgColor="gray.100">
+    <Box w="120px" h={height} bgColor="gray.50" p={1} boxShadow="sm">
       {planWeekDay?.workouts.map((workout) => {
         return (
           <PlanWorkout
@@ -138,10 +137,7 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
 
 const PlanWorkout = ({ planWeek, workout }) => {
   const { refetch } = useEditPlanContext()
-  const [hovered, setHovered] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const borderColor = hovered ? 'green.600' : 'gray.200'
-  const ButtonWrapper = hovered ? React.Fragment : VisuallyHidden
 
   const constraints = []
   if (workout.targetMiles) {
@@ -150,43 +146,21 @@ const PlanWorkout = ({ planWeek, workout }) => {
   if (workout.targetTimeInMinutes) {
     constraints.push(`${workout.targetTimeInMinutes} minutes`)
   }
-  const bgColor = workout.isKeyWorkout ? 'green.50' : 'white'
+
+  // h={`${workoutCardHeight}px`}
 
   return (
     <>
-      <Stack
-        borderWidth="1px"
-        bgColor={bgColor}
-        m="2"
-        p="2"
-        h={`${workoutCardHeight}px`}
-        spacing="1"
-        borderColor={borderColor}
-        onMouseOver={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <Flex
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
+      <Stack spacing="2">
+        <Workout {...workout} title={workout.targetNotes} />
+        <Button
+          size="xs"
+          colorScheme="green"
+          variant="outline"
+          onClick={onOpen}
         >
-          <ActivityIcon activity={workout.activity} />
-          <ButtonWrapper>
-            <Button size="xs" colorScheme="green" onClick={onOpen}>
-              Edit
-            </Button>
-          </ButtonWrapper>
-        </Flex>
-        <Stack spacing="0.5">
-          <Text fontSize="sm" color="gray.600">
-            {constraints.join(' | ')}
-          </Text>
-          <Tooltip label={workout.targetNotes}>
-            <Text fontSize="xs" color="gray.900" isTruncated noOfLines="1">
-              {workout.targetNotes}
-            </Text>
-          </Tooltip>
-        </Stack>
+          Edit
+        </Button>
       </Stack>
       <PlanWorkoutModal title="Edit Workout" isOpen={isOpen} onClose={onClose}>
         <EditPlanWorkoutModalCell
