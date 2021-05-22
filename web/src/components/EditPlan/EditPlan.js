@@ -35,7 +35,7 @@ const EditPlan = ({ plan }) => {
         <HStack spacing="2">
           {daysOfWeek.map((dayOfWeek, index) => {
             return (
-              <Box w="160px" p="4" bg="green.800" key={`dow-${index}`}>
+              <Box w="120px" p="4" bg="green.800" key={`dow-${index}`}>
                 <Text fontSize="md" color="white" textAlign="center">
                   {dayOfWeek}
                 </Text>
@@ -121,7 +121,7 @@ const PlanWeeks = ({ planWeeks }) => {
 
 export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
   return (
-    <Box w="160px" h={height} bgColor="gray.100">
+    <Box w="120px" h={height} bgColor="gray.50" p={1} boxShadow="sm">
       {planWeekDay?.workouts.map((workout) => {
         return (
           <PlanWorkout
@@ -151,9 +151,14 @@ const PlanWorkout = ({ planWeek, workout }) => {
 
   return (
     <>
-      <Stack spacing="1">
+      <Stack spacing="2">
         <Workout {...workout} title={workout.targetNotes} />
-        <Button size="xs" colorScheme="green" onClick={onOpen}>
+        <Button
+          size="xs"
+          colorScheme="green"
+          variant="outline"
+          onClick={onOpen}
+        >
           Edit
         </Button>
       </Stack>
