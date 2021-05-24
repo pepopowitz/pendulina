@@ -58,7 +58,7 @@ const PlanWeeks = ({ planWeeks }) => {
   return planWeeks.map((planWeek) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const planWeekDays = mapPlanWorkoutsToDays(planWeek.planWorkouts || [])
+    const planWeekDays = mapPlanWeekToDays(planWeek)
 
     /*
       heights:
@@ -122,15 +122,20 @@ const PlanWeeks = ({ planWeeks }) => {
 export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
   return (
     <Box w="120px" h={height} bgColor="gray.50" p={1} boxShadow="sm">
-      {planWeekDay?.workouts.map((workout) => {
-        return (
-          <PlanWorkout
-            planWeek={planWeek}
-            workout={workout}
-            key={`workout-${workout.id}`}
-          />
-        )
-      })}
+      <Stack spacing={2}>
+        <Text color="gray.600" fontSize="xs">
+          {planWeekDay.date.getDate()}
+        </Text>
+        {planWeekDay?.workouts.map((workout) => {
+          return (
+            <PlanWorkout
+              planWeek={planWeek}
+              workout={workout}
+              key={`workout-${workout.id}`}
+            />
+          )
+        })}
+      </Stack>
     </Box>
   )
 }
@@ -190,28 +195,66 @@ function formatStartAndEndDates(planWeek) {
   return { startDateFormatted, endDateFormatted }
 }
 
-export function mapPlanWorkoutsToDays(planWorkouts) {
+function addDays(date, days) {
+  const result = new Date(date)
+  result.setDate(result.getUTCDate() + days)
+  return result
+}
+
+export function mapPlanWeekToDays(planWeek) {
+  const startDate = new Date(planWeek.startDate)
   const days = {
-    MONDAY: { dayOfWeek: 'MONDAY', workouts: [] },
-    TUESDAY: { dayOfWeek: 'TUESDAY', workouts: [] },
-    WEDNESDAY: { dayOfWeek: 'WEDNESDAY', workouts: [] },
-    THURSDAY: { dayOfWeek: 'THURSDAY', workouts: [] },
-    FRIDAY: { dayOfWeek: 'FRIDAY', workouts: [] },
-    SATURDAY: { dayOfWeek: 'SATURDAY', workouts: [] },
-    SUNDAY: { dayOfWeek: 'SUNDAY', workouts: [] },
+    MONDAY: {
+      dayOfWeek: 'MONDAY',
+      workouts: [],
+      date: addDays(startDate, 0),
+    },
+    TUESDAY: {
+      dayOfWeek: 'TUESDAY',
+      workouts: [],
+      date: addDays(startDate, 1),
+    },
+    WEDNESDAY: {
+      dayOfWeek: 'WEDNESDAY',
+      workouts: [],
+      date: addDays(startDate, 2),
+    },
+    THURSDAY: {
+      dayOfWeek: 'THURSDAY',
+      workouts: [],
+      date: addDays(startDate, 3),
+    },
+    FRIDAY: {
+      dayOfWeek: 'FRIDAY',
+      workouts: [],
+      date: addDays(startDate, 4),
+    },
+    SATURDAY: {
+      dayOfWeek: 'SATURDAY',
+      workouts: [],
+      date: addDays(startDate, 5),
+    },
+    SUNDAY: {
+      dayOfWeek: 'SUNDAY',
+      workouts: [],
+      date: addDays(startDate, 6),
+    },
   }
 
-  const daysWithWorkoutsAsObject = planWorkouts.reduce((daysSoFar, curr) => {
-    const day = daysSoFar[curr.dayOfWeek]
-    const y = {
-      ...daysSoFar,
-      [day.dayOfWeek]: {
-        ...day,
-        workouts: [...day.workouts, curr],
-      },
-    }
-    return y
-  }, days)
+  const daysWithWorkoutsAsObject = planWeek.planWorkouts.reduce(
+    (daysSoFar, curr) => {
+      const day = daysSoFar[curr.dayOfWeek]
+      const y = {
+        ...daysSoFar,
+        [day.dayOfWeek]: {
+          ...day,
+          workouts: [...day.workouts, curr],
+        },
+      }
+      return y
+    },
+    days
+  )
 
   return Object.keys(daysWithWorkoutsAsObject).map((key) => {
     return daysWithWorkoutsAsObject[key]

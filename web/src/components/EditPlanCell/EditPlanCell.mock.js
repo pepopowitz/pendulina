@@ -39,6 +39,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
         weekNumber: 2,
         startDate: '2021-02-04T00:00:00.000',
         intention: 'finish it',
+        planWorkouts: [],
       },
     ],
   },
