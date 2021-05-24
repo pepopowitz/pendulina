@@ -12,7 +12,6 @@ import { ActivityIcon } from '../ActivityIcon'
 
 export function Workout({ status, activity, title, onClick }) {
   const statusTheme = statusThemes[status || 'UPCOMING']
-  console.log(status, statusTheme)
   return (
     <Flex
       flexDirection="column"

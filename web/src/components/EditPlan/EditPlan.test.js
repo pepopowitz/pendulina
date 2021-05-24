@@ -1,6 +1,6 @@
 import { render } from '@redwoodjs/testing'
 import { standard } from '../EditPlanCell/EditPlanCell.mock'
-import EditPlan, { mapPlanWorkoutsToDays } from './EditPlan'
+import EditPlan, { mapPlanWeekToDays } from './EditPlan'
 
 describe('EditPlan', () => {
   it('renders successfully', () => {
@@ -10,59 +10,44 @@ describe('EditPlan', () => {
   })
 })
 
-describe('mapPlanWorkoutsToDays', () => {
+describe('mapPlanWeekToDays', () => {
   describe('when there are no workouts', () => {
     it('returns 7 empty days', () => {
-      const planWorkouts = []
+      const planWeek = { startDate: '2021-01-26T12:00:00', planWorkouts: [] }
 
-      const result = mapPlanWorkoutsToDays(planWorkouts)
+      const result = mapPlanWeekToDays(planWeek)
 
       expect(result.length).toEqual(7)
+      expect(result.map((x) => x.date.getDate())).toEqual([
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        1,
+      ])
       expect(result.map((x) => x.workouts).flat()).toEqual([])
     })
   })
 
   describe('when there are workouts', () => {
-    let planWorkouts
-    beforeEach(() => {
-      planWorkouts = [
-        {
-          id: 111,
-          dayOfWeek: 'TUESDAY',
-          activity: {
-            name: 'Cycling',
-            icon: '🚴‍♂️',
-          },
-          targetMiles: null,
-          targetTimeInMinutes: 60,
-          targetNotes: 'Recovery ride',
-        },
-        {
-          id: 222,
-          dayOfWeek: 'THURSDAY',
-          activity: {
-            name: 'Running',
-            icon: '🏃‍♂️',
-          },
-          targetMiles: 5,
-          targetTimeInMinutes: null,
-          targetNotes: 'Recovery run',
-        },
-      ]
-    })
+    const planWeek = standard().plan.planWeeks[0]
     it('assigns them to the correct days', () => {
-      const result = mapPlanWorkoutsToDays(planWorkouts)
+      const result = mapPlanWeekToDays(planWeek)
 
       expect(result.length).toEqual(7)
       expect(result.map((x) => x.workouts).flat().length).toEqual(2)
 
       const tuesday = result.find((x) => x.dayOfWeek === 'TUESDAY')
+      expect(tuesday.date.getDate()).toEqual(27)
       expect(tuesday.workouts.length).toEqual(1)
-      expect(tuesday.workouts[0]).toEqual(planWorkouts[0])
+      expect(tuesday.workouts[0]).toEqual(planWeek.planWorkouts[0])
 
       const thursday = result.find((x) => x.dayOfWeek === 'THURSDAY')
+      expect(thursday.date.getDate()).toEqual(29)
       expect(thursday.workouts.length).toEqual(1)
-      expect(thursday.workouts[0]).toEqual(planWorkouts[1])
+      expect(thursday.workouts[0]).toEqual(planWeek.planWorkouts[1])
     })
   })
 })
