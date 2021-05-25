@@ -1,25 +1,29 @@
 import { Avatar, Box, Flex, Icon, Text, Tooltip } from '@chakra-ui/react'
-import {
-  FaRegTimesCircle,
-  FaRegQuestionCircle,
-  FaRegCheckCircle,
-  FaCheck,
-  FaQuestion,
-  FaTimes,
-} from 'react-icons/fa'
+import { useState } from 'react'
+import { FaCheck, FaTimes } from 'react-icons/fa'
 
 import { ActivityIcon } from '../ActivityIcon'
 
 export function Workout({ status, activity, title, onClick }) {
+  const [hovered, setHovered] = useState(false)
+
   const statusTheme = statusThemes[status || 'UPCOMING']
+
+  const borderColor = hovered ? statusTheme.hoverBorderColor : 'none'
+
   return (
     <Flex
       flexDirection="column"
       borderRadius={2}
       bg={statusTheme.bg}
-      p={1}
+      py={1}
+      px={2}
       onClick={onClick}
       boxShadow="md"
+      onMouseOver={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      borderColor={borderColor}
+      borderWidth={1}
     >
       <Flex flexDirection="column" alignItems="center" pt={2}>
         <Avatar
@@ -73,17 +77,20 @@ const statusThemes = {
     bg: 'gray.200',
     iconColor: 'gray.500',
     textColor: 'gray.500',
+    hoverBorderColor: 'gray.400',
   },
   COMPLETED: {
     bg: 'green.100',
     iconColor: 'green.700',
     textColor: 'green.500',
     icon: FaCheck,
+    hoverBorderColor: 'green.300',
   },
   MISSED: {
     bg: 'red.100',
     iconColor: 'red.700',
     textColor: 'red.400',
     icon: FaTimes,
+    hoverBorderColor: 'red.300',
   },
 }
