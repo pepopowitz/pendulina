@@ -51,7 +51,7 @@ const EditPlan = ({ plan }) => {
   )
 }
 
-const workoutCardHeight = 100
+const workoutCardHeight = 114
 const PlanWeeks = ({ planWeeks }) => {
   const { refetch } = useEditPlanContext()
 
@@ -62,16 +62,18 @@ const PlanWeeks = ({ planWeeks }) => {
 
     /*
       heights:
-      - 100px = card height
-      - 116px = background for one card
-        - 100 + 16
-        - (100*ct) + (8 * (ct + 1))
+      - 18px = date
+        - 8px for margin-bottom
+      - 114px = card height
+      - 130px = background for one card
+        - 114 + 16
+        - (114*ct) + (8 * (ct + 1))
     */
     const maxWorkoutsPerDay = Math.max(
       ...planWeekDays.map((day) => day.workouts.length)
     )
     const height =
-      workoutCardHeight * maxWorkoutsPerDay + 8 * (maxWorkoutsPerDay + 1)
+      workoutCardHeight * maxWorkoutsPerDay + 26 + 8 * (maxWorkoutsPerDay + 1)
     const { startDateFormatted, endDateFormatted } = formatStartAndEndDates(
       planWeek
     )
@@ -157,12 +159,13 @@ const PlanWorkout = ({ planWeek, workout }) => {
   return (
     <>
       <Stack spacing="2">
-        <Workout {...workout} title={workout.targetNotes} />
+        <Workout {...workout} title={getTitleForWorkout(workout)} />
         <Button
           size="xs"
           colorScheme="green"
           variant="outline"
           onClick={onOpen}
+          boxShadow="md"
         >
           Edit
         </Button>
@@ -179,6 +182,20 @@ const PlanWorkout = ({ planWeek, workout }) => {
       </PlanWorkoutModal>
     </>
   )
+}
+
+function getTitleForWorkout(workout) {
+  const fields = [
+    { key: 'actualNotes', format: (value) => value },
+    { key: 'actualMiles', format: (value) => value + ' mi' },
+    { key: 'actualTimeInMinutes', format: (value) => value + 'min' },
+    { key: 'targetNotes', format: (value) => value },
+    { key: 'targetMiles', format: (value) => value + ' mi' },
+    { key: 'targetTimeInMinutes', format: (value) => value + 'min' },
+  ]
+
+  const match = fields.find((x) => workout[x.key])
+  return match.format(workout[match.key])
 }
 
 function formatStartAndEndDates(planWeek) {

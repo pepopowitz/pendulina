@@ -23,6 +23,9 @@ export const QUERY = gql`
           targetMiles
           targetTimeInMinutes
           targetNotes
+          actualMiles
+          actualTimeInMinutes
+          actualNotes
         }
       }
     }
