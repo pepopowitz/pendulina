@@ -159,7 +159,11 @@ const PlanWorkout = ({ planWeek, workout }) => {
   return (
     <>
       <Stack spacing="2">
-        <Workout {...workout} title={getTitleForWorkout(workout)} />
+        <Workout
+          {...workout}
+          title={getTitleForWorkout(workout)}
+          onClick={() => console.log('selecting....', workout)}
+        />
         <Button
           size="xs"
           colorScheme="green"
@@ -186,9 +190,9 @@ const PlanWorkout = ({ planWeek, workout }) => {
 
 function getTitleForWorkout(workout) {
   const fields = [
-    { key: 'actualNotes', format: (value) => value },
     { key: 'actualMiles', format: (value) => value + ' mi' },
     { key: 'actualTimeInMinutes', format: (value) => value + 'min' },
+    { key: 'actualNotes', format: (value) => value },
     { key: 'targetNotes', format: (value) => value },
     { key: 'targetMiles', format: (value) => value + ' mi' },
     { key: 'targetTimeInMinutes', format: (value) => value + 'min' },
