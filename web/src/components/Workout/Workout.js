@@ -1,28 +1,31 @@
-import { Avatar, Flex, Icon, Text, Tooltip } from '@chakra-ui/react'
-import {
-  FaRegTimesCircle,
-  FaRegQuestionCircle,
-  FaRegCheckCircle,
-  FaCheck,
-  FaQuestion,
-  FaTimes,
-} from 'react-icons/fa'
+import { Avatar, Box, Flex, Icon, Text, Tooltip } from '@chakra-ui/react'
+import { useState } from 'react'
+import { FaCheck, FaTimes } from 'react-icons/fa'
 
 import { ActivityIcon } from '../ActivityIcon'
 
 export function Workout({ status, activity, title, onClick }) {
+  const [hovered, setHovered] = useState(false)
+
   const statusTheme = statusThemes[status || 'UPCOMING']
+
+  const borderColor = hovered ? statusTheme.hoverBorderColor : 'none'
+
   return (
     <Flex
       flexDirection="column"
-      borderRadius="20px"
+      borderRadius={2}
       bg={statusTheme.bg}
-      height="60px"
-      p={1}
+      py={1}
+      px={2}
       onClick={onClick}
       boxShadow="md"
+      onMouseOver={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      borderColor={borderColor}
+      borderWidth={1}
     >
-      <Flex alignItems="center" justifyContent="space-between">
+      <Flex flexDirection="column" alignItems="center" pt={2}>
         <Avatar
           bg="white"
           width="8"
@@ -30,22 +33,27 @@ export function Workout({ status, activity, title, onClick }) {
           icon={
             <ActivityIcon activity={activity} color={statusTheme.iconColor} />
           }
-          borderColor={statusTheme.iconColor}
-          showBorder
         />
-        <Avatar
-          bg="white"
-          width="6"
-          height="6"
-          icon={
-            <Icon
-              as={statusTheme.icon2}
-              color={statusTheme.iconColor}
-              width="3"
-            />
-          }
-          showBorder
-        />
+        {statusTheme.icon ? (
+          <Avatar
+            bg="white"
+            width="4"
+            height="4"
+            mt={-2}
+            ml={6}
+            borderColor={statusTheme.iconColor}
+            showBorder
+            icon={
+              <Icon
+                as={statusTheme.icon}
+                color={statusTheme.iconColor}
+                width="2"
+              />
+            }
+          />
+        ) : (
+          <Box height={2} />
+        )}
       </Flex>
       <Tooltip label={title}>
         <Text
@@ -53,10 +61,11 @@ export function Workout({ status, activity, title, onClick }) {
           fontSize="xs"
           textAlign="center"
           px={1}
+          my={1}
           isTruncated
           noOfLines={1}
         >
-          {title}
+          {title || ''}
         </Text>
       </Tooltip>
     </Flex>
@@ -68,21 +77,20 @@ const statusThemes = {
     bg: 'gray.200',
     iconColor: 'gray.500',
     textColor: 'gray.500',
-    icon: FaRegQuestionCircle,
-    icon2: FaQuestion,
+    hoverBorderColor: 'gray.400',
   },
   COMPLETED: {
     bg: 'green.100',
     iconColor: 'green.700',
     textColor: 'green.500',
-    icon: FaRegCheckCircle,
-    icon2: FaCheck,
+    icon: FaCheck,
+    hoverBorderColor: 'green.300',
   },
   MISSED: {
     bg: 'red.100',
     iconColor: 'red.700',
     textColor: 'red.400',
-    icon: FaRegTimesCircle,
-    icon2: FaTimes,
+    icon: FaTimes,
+    hoverBorderColor: 'red.300',
   },
 }
