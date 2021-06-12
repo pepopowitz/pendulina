@@ -12,7 +12,7 @@ import { Private, Router, Route } from '@redwoodjs/router'
 const Routes = () => {
   return (
     <Router>
-      <Private>
+      <Private unauthenticated="home">
         <Route path="/admin/activities/new" page={NewActivityPage} name="newActivity" whileLoading={() => 'Loading...'} />
         <Route path="/admin/activities/{id:Int}/edit" page={EditActivityPage} name="editActivity" />
         <Route path="/admin/activities/{id:Int}" page={ActivityPage} name="activity" />
