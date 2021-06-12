@@ -9,7 +9,17 @@ import {
   FaTrophy,
 } from 'react-icons/fa'
 
-export const ActivityIcon = ({ activity, color = 'gray.500' }) => {
+interface ActivityIconProps {
+  activity: {
+    name: string
+  }
+  color: string
+}
+
+export const ActivityIcon = ({
+  activity,
+  color = 'gray.500',
+}: ActivityIconProps) => {
   const activityTheme = activityThemes[activity.name]
   return <Icon as={activityTheme.icon} color={color} />
 }

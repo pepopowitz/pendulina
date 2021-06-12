@@ -1,10 +1,17 @@
 import { Avatar, Box, Flex, Icon, Text, Tooltip } from '@chakra-ui/react'
-import { useState } from 'react'
+import { MouseEventHandler, useState } from 'react'
 import { FaCheck, FaTimes } from 'react-icons/fa'
 
 import { ActivityIcon } from '../ActivityIcon'
 
-export function Workout({ status, activity, title, onClick }) {
+interface WorkoutProps {
+  status: string
+  activity: any
+  title: string
+  onClick: MouseEventHandler<HTMLDivElement>
+}
+
+export function Workout({ status, activity, title, onClick }: WorkoutProps) {
   const [hovered, setHovered] = useState(false)
 
   const statusTheme = statusThemes[status || 'UPCOMING']
