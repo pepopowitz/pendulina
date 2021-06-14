@@ -18,7 +18,7 @@ const NewActivity = () => {
     CREATE_ACTIVITY_MUTATION,
     {
       onCompleted: () => {
-        navigate(routes.activities())
+        navigate(routes.adminActivities())
         addMessage('Activity created.', { classes: 'rw-flash-success' })
       },
     }

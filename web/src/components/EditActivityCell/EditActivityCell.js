@@ -29,7 +29,7 @@ export const Success = ({ activity }) => {
     UPDATE_ACTIVITY_MUTATION,
     {
       onCompleted: () => {
-        navigate(routes.activities())
+        navigate(routes.adminActivities())
         addMessage('Activity updated.', { classes: 'rw-flash-success' })
       },
     }

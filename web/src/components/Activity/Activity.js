@@ -35,7 +35,7 @@ const Activity = ({ activity }) => {
   const { addMessage } = useFlash()
   const [deleteActivity] = useMutation(DELETE_ACTIVITY_MUTATION, {
     onCompleted: () => {
-      navigate(routes.activities())
+      navigate(routes.adminActivities())
       addMessage('Activity deleted.', { classes: 'rw-flash-success' })
     },
   })
@@ -73,7 +73,7 @@ const Activity = ({ activity }) => {
       </div>
       <nav className="rw-button-group">
         <Link
-          to={routes.editActivity({ id: activity.id })}
+          to={routes.adminEditActivity({ id: activity.id })}
           className="rw-button rw-button-blue"
         >
           Edit

@@ -18,7 +18,7 @@ export const Empty = () => {
   return (
     <div className="rw-text-center">
       {'No activities yet. '}
-      <Link to={routes.newActivity()} className="rw-link">
+      <Link to={routes.adminNewActivity()} className="rw-link">
         {'Create one?'}
       </Link>
     </div>

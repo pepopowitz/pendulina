@@ -76,14 +76,14 @@ const ActivitiesList = ({ activities }) => {
               <td>
                 <nav className="rw-table-actions">
                   <Link
-                    to={routes.activity({ id: activity.id })}
+                    to={routes.adminActivity({ id: activity.id })}
                     title={'Show activity ' + activity.id + ' detail'}
                     className="rw-button rw-button-small"
                   >
                     Show
                   </Link>
                   <Link
-                    to={routes.editActivity({ id: activity.id })}
+                    to={routes.adminEditActivity({ id: activity.id })}
                     title={'Edit activity ' + activity.id}
                     className="rw-button rw-button-small rw-button-blue"
                   >

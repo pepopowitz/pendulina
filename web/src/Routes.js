@@ -9,8 +9,9 @@
 
 import { Set, Private, Router, Route } from '@redwoodjs/router'
 
-import PlansLayout from 'src/layouts/Admin/PlansLayout'
 import ActivitiesLayout from 'src/layouts/Admin/ActivitiesLayout'
+import GlobalLayout from 'src/layouts/GlobalLayout/GlobalLayout'
+import PlansLayout from 'src/layouts/Admin/PlansLayout'
 
 const Routes = () => {
   return (
@@ -23,10 +24,13 @@ const Routes = () => {
           <Route path="/admin/plans" page={AdminPlansPage} name="adminPlans" />
         </Set>
         <Set wrap={ActivitiesLayout}>
-          <Route path="/admin/activities/new" page={AdminNewActivityPage} name="newActivity" whileLoading={() => 'Loading...'} />
-          <Route path="/admin/activities/{id:Int}/edit" page={AdminEditActivityPage} name="editActivity" />
-          <Route path="/admin/activities/{id:Int}" page={AdminActivityPage} name="activity" />
-          <Route path="/admin/activities" page={AdminActivitiesPage} name="activities" whileLoading={() => 'Loading...'} />
+          <Route path="/admin/activities/new" page={AdminNewActivityPage} name="adminNewActivity" whileLoading={() => 'Loading...'} />
+          <Route path="/admin/activities/{id:Int}/edit" page={AdminEditActivityPage} name="adminEditActivity" />
+          <Route path="/admin/activities/{id:Int}" page={AdminActivityPage} name="adminActivity" />
+          <Route path="/admin/activities" page={AdminActivitiesPage} name="adminActivities" whileLoading={() => 'Loading...'} />
+        </Set>
+        <Set wrap={GlobalLayout}>
+          <Route path="/admin/" page={AdminAdminHomePage} name="adminHome" />
         </Set>
       </Private>
       <Private unauthenticated="home">
