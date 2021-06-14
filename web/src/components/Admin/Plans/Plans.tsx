@@ -95,6 +95,13 @@ const PlansList = ({ plans }) => {
                   >
                     Delete
                   </a>
+                  <Link
+                    to={routes.managePlan({ id: plan.id })}
+                    title={'Manage plan ' + plan.id}
+                    className="rw-button rw-button-small"
+                  >
+                    Manage
+                  </Link>
                 </nav>
               </td>
             </tr>
