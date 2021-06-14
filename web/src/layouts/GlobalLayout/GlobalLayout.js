@@ -33,7 +33,7 @@ const GlobalLayout = ({ children }) => {
       </header>
       <main>
         <Toaster />
-        <Container>{children}</Container>
+        <Container mb={10}>{children}</Container>
       </main>
     </>
   )
