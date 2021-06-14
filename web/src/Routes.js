@@ -23,10 +23,10 @@ const Routes = () => {
           <Route path="/admin/plans" page={AdminPlansPage} name="adminPlans" />
         </Set>
         <Set wrap={ActivitiesLayout}>
-          <Route path="/admin/activities/new" page={NewActivityPage} name="newActivity" whileLoading={() => 'Loading...'} />
-          <Route path="/admin/activities/{id:Int}/edit" page={EditActivityPage} name="editActivity" />
-          <Route path="/admin/activities/{id:Int}" page={ActivityPage} name="activity" />
-          <Route path="/admin/activities" page={ActivitiesPage} name="activities" whileLoading={() => 'Loading...'} />
+          <Route path="/admin/activities/new" page={AdminNewActivityPage} name="newActivity" whileLoading={() => 'Loading...'} />
+          <Route path="/admin/activities/{id:Int}/edit" page={AdminEditActivityPage} name="editActivity" />
+          <Route path="/admin/activities/{id:Int}" page={AdminActivityPage} name="activity" />
+          <Route path="/admin/activities" page={AdminActivitiesPage} name="activities" whileLoading={() => 'Loading...'} />
         </Set>
       </Private>
       <Private unauthenticated="home">
