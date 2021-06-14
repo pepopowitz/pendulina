@@ -10,6 +10,7 @@
 import { Set, Private, Router, Route } from '@redwoodjs/router'
 
 import PlansLayout from 'src/layouts/Admin/PlansLayout'
+import ActivitiesLayout from 'src/layouts/Admin/ActivitiesLayout'
 
 const Routes = () => {
   return (
@@ -21,10 +22,12 @@ const Routes = () => {
           <Route path="/admin/plans/{id:Int}" page={AdminPlanPage} name="adminPlan" />
           <Route path="/admin/plans" page={AdminPlansPage} name="adminPlans" />
         </Set>
-        <Route path="/admin/activities/new" page={NewActivityPage} name="newActivity" whileLoading={() => 'Loading...'} />
-        <Route path="/admin/activities/{id:Int}/edit" page={EditActivityPage} name="editActivity" />
-        <Route path="/admin/activities/{id:Int}" page={ActivityPage} name="activity" />
-        <Route path="/admin/activities" page={ActivitiesPage} name="activities" whileLoading={() => 'Loading...'} />
+        <Set wrap={ActivitiesLayout}>
+          <Route path="/admin/activities/new" page={NewActivityPage} name="newActivity" whileLoading={() => 'Loading...'} />
+          <Route path="/admin/activities/{id:Int}/edit" page={EditActivityPage} name="editActivity" />
+          <Route path="/admin/activities/{id:Int}" page={ActivityPage} name="activity" />
+          <Route path="/admin/activities" page={ActivitiesPage} name="activities" whileLoading={() => 'Loading...'} />
+        </Set>
       </Private>
       <Private unauthenticated="home">
         <Route path="/plan/{id:Int}/manage" page={ManagePlanPage} name="managePlan" />
