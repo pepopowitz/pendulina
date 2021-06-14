@@ -1,4 +1,4 @@
-import ActivitiesCell from 'src/components/ActivitiesCell'
+import ActivitiesCell from 'src/components/Admin/ActivitiesCell'
 
 const ActivitiesPage = () => {
   return <ActivitiesCell />

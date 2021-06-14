@@ -1,6 +1,6 @@
 import { Link, routes } from '@redwoodjs/router'
 
-import Activities from 'src/components/Activities'
+import Activities from 'src/components/Admin/Activities'
 
 export const QUERY = gql`
   query ACTIVITIES {

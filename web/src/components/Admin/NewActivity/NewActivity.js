@@ -1,8 +1,8 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
-import ActivityForm from 'src/components/ActivityForm'
+import ActivityForm from 'src/components/Admin/ActivityForm'
 
-import { QUERY } from 'src/components/ActivitiesCell'
+import { QUERY } from 'src/components/Admin/ActivitiesCell'
 
 const CREATE_ACTIVITY_MUTATION = gql`
   mutation CreateActivityMutation($input: CreateActivityInput!) {

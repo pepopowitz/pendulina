@@ -284,6 +284,20 @@ export type Find_Activity_By_Id = (
   )> }
 );
 
+export type UpdateActivityMutationVariables = Exact<{
+  id: Scalars['Int'];
+  input: UpdateActivityInput;
+}>;
+
+
+export type UpdateActivityMutation = (
+  { __typename?: 'Mutation' }
+  & { updateActivity: (
+    { __typename?: 'Activity' }
+    & Pick<Activity, 'id' | 'name' | 'icon'>
+  ) }
+);
+
 export type FindPlanByIdVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -308,6 +322,19 @@ export type UpdatePlanMutation = (
   & { updatePlan: (
     { __typename?: 'Plan' }
     & Pick<Plan, 'id' | 'name'>
+  ) }
+);
+
+export type CreateActivityMutationVariables = Exact<{
+  input: CreateActivityInput;
+}>;
+
+
+export type CreateActivityMutation = (
+  { __typename?: 'Mutation' }
+  & { createActivity: (
+    { __typename?: 'Activity' }
+    & Pick<Activity, 'id'>
   ) }
 );
 
@@ -346,20 +373,6 @@ export type Plans = (
     { __typename?: 'Plan' }
     & Pick<Plan, 'id' | 'name'>
   )> }
-);
-
-export type UpdateActivityMutationVariables = Exact<{
-  id: Scalars['Int'];
-  input: UpdateActivityInput;
-}>;
-
-
-export type UpdateActivityMutation = (
-  { __typename?: 'Mutation' }
-  & { updateActivity: (
-    { __typename?: 'Activity' }
-    & Pick<Activity, 'id' | 'name' | 'icon'>
-  ) }
 );
 
 export type EditPlanWorkoutModalQueryVariables = Exact<{
@@ -436,19 +449,6 @@ export type ManagePlanQuery = (
       )>> }
     )>> }
   )> }
-);
-
-export type CreateActivityMutationVariables = Exact<{
-  input: CreateActivityInput;
-}>;
-
-
-export type CreateActivityMutation = (
-  { __typename?: 'Mutation' }
-  & { createActivity: (
-    { __typename?: 'Activity' }
-    & Pick<Activity, 'id'>
-  ) }
 );
 
 export type NewPlanWorkoutModalQueryVariables = Exact<{

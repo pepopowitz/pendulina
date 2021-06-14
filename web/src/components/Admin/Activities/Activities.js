@@ -1,7 +1,7 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
 
-import { QUERY } from 'src/components/ActivitiesCell'
+import { QUERY } from 'src/components/Admin/ActivitiesCell'
 
 const DELETE_ACTIVITY_MUTATION = gql`
   mutation DeleteActivityMutation($id: Int!) {

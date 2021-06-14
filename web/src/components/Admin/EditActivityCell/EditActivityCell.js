@@ -1,6 +1,6 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
-import ActivityForm from 'src/components/ActivityForm'
+import ActivityForm from 'src/components/Admin/ActivityForm'
 
 export const QUERY = gql`
   query FIND_ACTIVITY_BY_ID($id: Int!) {

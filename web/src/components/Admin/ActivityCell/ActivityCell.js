@@ -1,4 +1,4 @@
-import Activity from 'src/components/Activity'
+import Activity from 'src/components/Admin/Activity'
 
 export const QUERY = gql`
   query FIND_ACTIVITY_BY_ID($id: Int!) {
