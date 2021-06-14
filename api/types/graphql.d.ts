@@ -74,16 +74,24 @@ export enum DayOfWeek {
 export type Mutation = {
   __typename?: 'Mutation';
   createActivity: Activity;
+  createPlan: Plan;
   createPlanWorkout: PlanWorkout;
   deleteActivity: Activity;
+  deletePlan: Plan;
   deletePlanWorkout: PlanWorkout;
   updateActivity: Activity;
+  updatePlan: Plan;
   updatePlanWorkout: PlanWorkout;
 };
 
 
 export type MutationCreateActivityArgs = {
   input: CreateActivityInput;
+};
+
+
+export type MutationCreatePlanArgs = {
+  input: CreatePlanInput;
 };
 
 
@@ -97,6 +105,11 @@ export type MutationDeleteActivityArgs = {
 };
 
 
+export type MutationDeletePlanArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationDeletePlanWorkoutArgs = {
   id: Scalars['Int'];
 };
@@ -105,6 +118,12 @@ export type MutationDeletePlanWorkoutArgs = {
 export type MutationUpdateActivityArgs = {
   id: Scalars['Int'];
   input: UpdateActivityInput;
+};
+
+
+export type MutationUpdatePlanArgs = {
+  id: Scalars['Int'];
+  input: UpdatePlanInput;
 };
 
 
@@ -387,10 +406,13 @@ export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<Resolver
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createActivity?: Resolver<ResolversTypes['Activity'], ParentType, ContextType, RequireFields<MutationCreateActivityArgs, 'input'>>;
+  createPlan?: Resolver<ResolversTypes['Plan'], ParentType, ContextType, RequireFields<MutationCreatePlanArgs, 'input'>>;
   createPlanWorkout?: Resolver<ResolversTypes['PlanWorkout'], ParentType, ContextType, RequireFields<MutationCreatePlanWorkoutArgs, 'input'>>;
   deleteActivity?: Resolver<ResolversTypes['Activity'], ParentType, ContextType, RequireFields<MutationDeleteActivityArgs, 'id'>>;
+  deletePlan?: Resolver<ResolversTypes['Plan'], ParentType, ContextType, RequireFields<MutationDeletePlanArgs, 'id'>>;
   deletePlanWorkout?: Resolver<ResolversTypes['PlanWorkout'], ParentType, ContextType, RequireFields<MutationDeletePlanWorkoutArgs, 'id'>>;
   updateActivity?: Resolver<ResolversTypes['Activity'], ParentType, ContextType, RequireFields<MutationUpdateActivityArgs, 'id' | 'input'>>;
+  updatePlan?: Resolver<ResolversTypes['Plan'], ParentType, ContextType, RequireFields<MutationUpdatePlanArgs, 'id' | 'input'>>;
   updatePlanWorkout?: Resolver<ResolversTypes['PlanWorkout'], ParentType, ContextType, RequireFields<MutationUpdatePlanWorkoutArgs, 'id' | 'input'>>;
 };
 

@@ -17,4 +17,10 @@ export const schema = gql`
   input UpdatePlanInput {
     name: String
   }
+
+  type Mutation {
+    createPlan(input: CreatePlanInput!): Plan!
+    updatePlan(id: Int!, input: UpdatePlanInput!): Plan!
+    deletePlan(id: Int!): Plan!
+  }
 `

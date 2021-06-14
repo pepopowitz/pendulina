@@ -72,16 +72,24 @@ export enum DayOfWeek {
 export type Mutation = {
   __typename?: 'Mutation';
   createActivity: Activity;
+  createPlan: Plan;
   createPlanWorkout: PlanWorkout;
   deleteActivity: Activity;
+  deletePlan: Plan;
   deletePlanWorkout: PlanWorkout;
   updateActivity: Activity;
+  updatePlan: Plan;
   updatePlanWorkout: PlanWorkout;
 };
 
 
 export type MutationCreateActivityArgs = {
   input: CreateActivityInput;
+};
+
+
+export type MutationCreatePlanArgs = {
+  input: CreatePlanInput;
 };
 
 
@@ -95,6 +103,11 @@ export type MutationDeleteActivityArgs = {
 };
 
 
+export type MutationDeletePlanArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationDeletePlanWorkoutArgs = {
   id: Scalars['Int'];
 };
@@ -103,6 +116,12 @@ export type MutationDeletePlanWorkoutArgs = {
 export type MutationUpdateActivityArgs = {
   id: Scalars['Int'];
   input: UpdateActivityInput;
+};
+
+
+export type MutationUpdatePlanArgs = {
+  id: Scalars['Int'];
+  input: UpdatePlanInput;
 };
 
 
@@ -262,6 +281,70 @@ export type Find_Activity_By_Id = (
   & { activity?: Maybe<(
     { __typename?: 'Activity' }
     & Pick<Activity, 'id' | 'name' | 'icon'>
+  )> }
+);
+
+export type FindPlanByIdVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type FindPlanById = (
+  { __typename?: 'Query' }
+  & { plan?: Maybe<(
+    { __typename?: 'Plan' }
+    & Pick<Plan, 'id' | 'name'>
+  )> }
+);
+
+export type UpdatePlanMutationVariables = Exact<{
+  id: Scalars['Int'];
+  input: UpdatePlanInput;
+}>;
+
+
+export type UpdatePlanMutation = (
+  { __typename?: 'Mutation' }
+  & { updatePlan: (
+    { __typename?: 'Plan' }
+    & Pick<Plan, 'id' | 'name'>
+  ) }
+);
+
+export type CreatePlanMutationVariables = Exact<{
+  input: CreatePlanInput;
+}>;
+
+
+export type CreatePlanMutation = (
+  { __typename?: 'Mutation' }
+  & { createPlan: (
+    { __typename?: 'Plan' }
+    & Pick<Plan, 'id'>
+  ) }
+);
+
+export type DeletePlanMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeletePlanMutation = (
+  { __typename?: 'Mutation' }
+  & { deletePlan: (
+    { __typename?: 'Plan' }
+    & Pick<Plan, 'id'>
+  ) }
+);
+
+export type PlansVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Plans = (
+  { __typename?: 'Query' }
+  & { plans: Array<(
+    { __typename?: 'Plan' }
+    & Pick<Plan, 'id' | 'name'>
   )> }
 );
 
