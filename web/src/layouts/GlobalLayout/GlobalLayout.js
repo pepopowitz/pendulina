@@ -1,7 +1,15 @@
 import { Link, routes } from '@redwoodjs/router'
 import { useAuth } from '@redwoodjs/auth'
 import { Toaster } from '@redwoodjs/web/toast'
-import { Box, Button, Flex, Heading, HStack, Spacer } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  HStack,
+  Spacer,
+} from '@chakra-ui/react'
 
 const GlobalLayout = ({ children }) => {
   return (
@@ -25,7 +33,7 @@ const GlobalLayout = ({ children }) => {
       </header>
       <main>
         <Toaster />
-        {children}
+        <Container mb={10}>{children}</Container>
       </main>
     </>
   )
@@ -42,8 +50,7 @@ const AuthorizedLinks = () => {
 
   return (
     <>
-      <Link to={routes.me()}>Me</Link>
-      <Link to={routes.myPlan()}>My Plan</Link>
+      <Link to={routes.adminHome()}>Admin</Link>
     </>
   )
 }
