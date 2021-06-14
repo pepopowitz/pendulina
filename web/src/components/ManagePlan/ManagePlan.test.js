@@ -1,11 +1,11 @@
 import { render } from '@redwoodjs/testing'
-import { standard } from '../EditPlanCell/EditPlanCell.mock'
-import EditPlan, { mapPlanWeekToDays } from './EditPlan'
+import { standard } from '../ManagePlanCell/ManagePlanCell.mock'
+import ManagePlan, { mapPlanWeekToDays } from './ManagePlan'
 
-describe('EditPlan', () => {
+describe('ManagePlan', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<EditPlan plan={standard().plan} />)
+      render(<ManagePlan plan={standard().plan} />)
     }).not.toThrow()
   })
 })

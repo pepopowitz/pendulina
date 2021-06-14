@@ -1,6 +1,6 @@
 import StorybookLayout from 'src/layouts/StorybookLayout/StorybookLayout'
-import { Loading, Empty, Failure, Success } from './EditPlanCell'
-import { standard } from './EditPlanCell.mock'
+import { Loading, Empty, Failure, Success } from './ManagePlanCell'
+import { standard } from './ManagePlanCell.mock'
 
 export const loading = () => {
   return Loading ? <Loading /> : null
@@ -22,4 +22,4 @@ export const success = () => {
   ) : null
 }
 
-export default { title: 'Cells/EditPlanCell' }
+export default { title: 'Cells/ManagePlanCell' }

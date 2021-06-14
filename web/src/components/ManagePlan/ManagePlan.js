@@ -9,10 +9,8 @@ import {
   Stack,
   Text,
   useDisclosure,
-  VisuallyHidden,
 } from '@chakra-ui/react'
-import { useState } from 'react'
-import { useEditPlanContext } from '../EditPlanCell/EditPlanContext'
+import { useManagePlanContext } from '../ManagePlanCell/ManagePlanContext'
 import EditPlanWorkoutModalCell from '../EditPlanWorkoutModalCell'
 import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
 import { PlanWorkoutModal } from '../PlanWorkoutModal'
@@ -20,7 +18,7 @@ import { Workout } from '../Workout'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
 
-const EditPlan = ({ plan }) => {
+const ManagePlan = ({ plan }) => {
   if (!plan) {
     return null
   }
@@ -53,7 +51,7 @@ const EditPlan = ({ plan }) => {
 
 const workoutCardHeight = 114
 const PlanWeeks = ({ planWeeks }) => {
-  const { refetch } = useEditPlanContext()
+  const { refetch } = useManagePlanContext()
 
   return planWeeks.map((planWeek) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -143,7 +141,7 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
 }
 
 const PlanWorkout = ({ planWeek, workout }) => {
-  const { refetch } = useEditPlanContext()
+  const { refetch } = useManagePlanContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const constraints = []
@@ -282,4 +280,4 @@ export function mapPlanWeekToDays(planWeek) {
   })
 }
 
-export default EditPlan
+export default ManagePlan

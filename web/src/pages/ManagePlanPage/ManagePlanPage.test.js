@@ -1,11 +1,11 @@
 import { render } from '@redwoodjs/testing'
 
-import EditPlanPage from './EditPlanPage'
+import ManagePlanPage from './ManagePlanPage'
 
-describe('EditPlanPage', () => {
+describe('ManagePlanPage', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<EditPlanPage />)
+      render(<ManagePlanPage />)
     }).not.toThrow()
   })
 })
