@@ -9,6 +9,8 @@
 
 import { Set, Private, Router, Route } from '@redwoodjs/router'
 
+import PlanWeeksLayout from 'src/layouts/Admin/PlanWeeksLayout'
+
 import ActivitiesLayout from 'src/layouts/Admin/ActivitiesLayout'
 import GlobalLayout from 'src/layouts/GlobalLayout/GlobalLayout'
 import PlansLayout from 'src/layouts/Admin/PlansLayout'
@@ -22,6 +24,12 @@ const Routes = () => {
           <Route path="/admin/plans/{id:Int}/edit" page={AdminEditPlanPage} name="adminEditPlan" />
           <Route path="/admin/plans/{id:Int}" page={AdminPlanPage} name="adminPlan" />
           <Route path="/admin/plans" page={AdminPlansPage} name="adminPlans" />
+        </Set>
+        <Set wrap={PlanWeeksLayout}>
+          <Route path="/admin/plan-weeks/new" page={AdminNewPlanWeekPage} name="adminNewPlanWeek" />
+          <Route path="/admin/plan-weeks/{id:Int}/edit" page={AdminEditPlanWeekPage} name="adminEditPlanWeek" />
+          <Route path="/admin/plan-weeks/{id:Int}" page={AdminPlanWeekPage} name="adminPlanWeek" />
+          <Route path="/admin/plan-weeks" page={AdminPlanWeeksPage} name="adminPlanWeeks" />
         </Set>
         <Set wrap={ActivitiesLayout}>
           <Route path="/admin/activities/new" page={AdminNewActivityPage} name="adminNewActivity" whileLoading={() => 'Loading...'} />

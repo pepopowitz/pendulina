@@ -36,6 +36,7 @@ export type CreatePlanInput = {
 
 export type CreatePlanWeekInput = {
   weekNumber: Scalars['Int'];
+  startDate: Scalars['DateTime'];
   intention?: Maybe<Scalars['String']>;
   planId?: Maybe<Scalars['Int']>;
 };
@@ -75,12 +76,15 @@ export type Mutation = {
   __typename?: 'Mutation';
   createActivity: Activity;
   createPlan: Plan;
+  createPlanWeek: PlanWeek;
   createPlanWorkout: PlanWorkout;
   deleteActivity: Activity;
   deletePlan: Plan;
+  deletePlanWeek: PlanWeek;
   deletePlanWorkout: PlanWorkout;
   updateActivity: Activity;
   updatePlan: Plan;
+  updatePlanWeek: PlanWeek;
   updatePlanWorkout: PlanWorkout;
 };
 
@@ -92,6 +96,11 @@ export type MutationCreateActivityArgs = {
 
 export type MutationCreatePlanArgs = {
   input: CreatePlanInput;
+};
+
+
+export type MutationCreatePlanWeekArgs = {
+  input: CreatePlanWeekInput;
 };
 
 
@@ -110,6 +119,11 @@ export type MutationDeletePlanArgs = {
 };
 
 
+export type MutationDeletePlanWeekArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationDeletePlanWorkoutArgs = {
   id: Scalars['Int'];
 };
@@ -124,6 +138,12 @@ export type MutationUpdateActivityArgs = {
 export type MutationUpdatePlanArgs = {
   id: Scalars['Int'];
   input: UpdatePlanInput;
+};
+
+
+export type MutationUpdatePlanWeekArgs = {
+  id: Scalars['Int'];
+  input: UpdatePlanWeekInput;
 };
 
 
@@ -222,6 +242,7 @@ export type UpdatePlanInput = {
 
 export type UpdatePlanWeekInput = {
   weekNumber?: Maybe<Scalars['Int']>;
+  startDate?: Maybe<Scalars['DateTime']>;
   intention?: Maybe<Scalars['String']>;
   planId?: Maybe<Scalars['Int']>;
 };
@@ -407,12 +428,15 @@ export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<Resolver
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createActivity?: Resolver<ResolversTypes['Activity'], ParentType, ContextType, RequireFields<MutationCreateActivityArgs, 'input'>>;
   createPlan?: Resolver<ResolversTypes['Plan'], ParentType, ContextType, RequireFields<MutationCreatePlanArgs, 'input'>>;
+  createPlanWeek?: Resolver<ResolversTypes['PlanWeek'], ParentType, ContextType, RequireFields<MutationCreatePlanWeekArgs, 'input'>>;
   createPlanWorkout?: Resolver<ResolversTypes['PlanWorkout'], ParentType, ContextType, RequireFields<MutationCreatePlanWorkoutArgs, 'input'>>;
   deleteActivity?: Resolver<ResolversTypes['Activity'], ParentType, ContextType, RequireFields<MutationDeleteActivityArgs, 'id'>>;
   deletePlan?: Resolver<ResolversTypes['Plan'], ParentType, ContextType, RequireFields<MutationDeletePlanArgs, 'id'>>;
+  deletePlanWeek?: Resolver<ResolversTypes['PlanWeek'], ParentType, ContextType, RequireFields<MutationDeletePlanWeekArgs, 'id'>>;
   deletePlanWorkout?: Resolver<ResolversTypes['PlanWorkout'], ParentType, ContextType, RequireFields<MutationDeletePlanWorkoutArgs, 'id'>>;
   updateActivity?: Resolver<ResolversTypes['Activity'], ParentType, ContextType, RequireFields<MutationUpdateActivityArgs, 'id' | 'input'>>;
   updatePlan?: Resolver<ResolversTypes['Plan'], ParentType, ContextType, RequireFields<MutationUpdatePlanArgs, 'id' | 'input'>>;
+  updatePlanWeek?: Resolver<ResolversTypes['PlanWeek'], ParentType, ContextType, RequireFields<MutationUpdatePlanWeekArgs, 'id' | 'input'>>;
   updatePlanWorkout?: Resolver<ResolversTypes['PlanWorkout'], ParentType, ContextType, RequireFields<MutationUpdatePlanWorkoutArgs, 'id' | 'input'>>;
 };
 

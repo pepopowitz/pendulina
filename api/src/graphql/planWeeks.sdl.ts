@@ -16,13 +16,21 @@ export const schema = gql`
 
   input CreatePlanWeekInput {
     weekNumber: Int!
+    startDate: DateTime!
     intention: String
     planId: Int
   }
 
   input UpdatePlanWeekInput {
     weekNumber: Int
+    startDate: DateTime
     intention: String
     planId: Int
+  }
+
+  type Mutation {
+    createPlanWeek(input: CreatePlanWeekInput!): PlanWeek!
+    updatePlanWeek(id: Int!, input: UpdatePlanWeekInput!): PlanWeek!
+    deletePlanWeek(id: Int!): PlanWeek!
   }
 `

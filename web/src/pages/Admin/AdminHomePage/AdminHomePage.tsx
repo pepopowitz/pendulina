@@ -14,7 +14,6 @@ import {
 } from '@chakra-ui/react'
 
 const AdminHomePage = () => {
-  console.log(routes)
   return (
     <Stack>
       <Box textAlign="center" my={5}>
@@ -28,6 +27,9 @@ const AdminHomePage = () => {
         </Link>
         <Link as={RedwoodLink} color="green.700" to={routes.adminPlans()}>
           Manage Plans
+        </Link>
+        <Link as={RedwoodLink} color="green.700" to={routes.adminPlanWeeks()}>
+          Manage Plan Weeks
         </Link>
       </Stack>
     </Stack>

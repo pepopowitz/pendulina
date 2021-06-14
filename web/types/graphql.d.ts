@@ -34,6 +34,7 @@ export type CreatePlanInput = {
 
 export type CreatePlanWeekInput = {
   weekNumber: Scalars['Int'];
+  startDate: Scalars['DateTime'];
   intention?: Maybe<Scalars['String']>;
   planId?: Maybe<Scalars['Int']>;
 };
@@ -73,12 +74,15 @@ export type Mutation = {
   __typename?: 'Mutation';
   createActivity: Activity;
   createPlan: Plan;
+  createPlanWeek: PlanWeek;
   createPlanWorkout: PlanWorkout;
   deleteActivity: Activity;
   deletePlan: Plan;
+  deletePlanWeek: PlanWeek;
   deletePlanWorkout: PlanWorkout;
   updateActivity: Activity;
   updatePlan: Plan;
+  updatePlanWeek: PlanWeek;
   updatePlanWorkout: PlanWorkout;
 };
 
@@ -90,6 +94,11 @@ export type MutationCreateActivityArgs = {
 
 export type MutationCreatePlanArgs = {
   input: CreatePlanInput;
+};
+
+
+export type MutationCreatePlanWeekArgs = {
+  input: CreatePlanWeekInput;
 };
 
 
@@ -108,6 +117,11 @@ export type MutationDeletePlanArgs = {
 };
 
 
+export type MutationDeletePlanWeekArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationDeletePlanWorkoutArgs = {
   id: Scalars['Int'];
 };
@@ -122,6 +136,12 @@ export type MutationUpdateActivityArgs = {
 export type MutationUpdatePlanArgs = {
   id: Scalars['Int'];
   input: UpdatePlanInput;
+};
+
+
+export type MutationUpdatePlanWeekArgs = {
+  id: Scalars['Int'];
+  input: UpdatePlanWeekInput;
 };
 
 
@@ -220,6 +240,7 @@ export type UpdatePlanInput = {
 
 export type UpdatePlanWeekInput = {
   weekNumber?: Maybe<Scalars['Int']>;
+  startDate?: Maybe<Scalars['DateTime']>;
   intention?: Maybe<Scalars['String']>;
   planId?: Maybe<Scalars['Int']>;
 };
@@ -325,6 +346,33 @@ export type UpdatePlanMutation = (
   ) }
 );
 
+export type FindPlanWeekByIdVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type FindPlanWeekById = (
+  { __typename?: 'Query' }
+  & { planWeek?: Maybe<(
+    { __typename?: 'PlanWeek' }
+    & Pick<PlanWeek, 'id' | 'weekNumber' | 'startDate' | 'intention' | 'planId'>
+  )> }
+);
+
+export type UpdatePlanWeekMutationVariables = Exact<{
+  id: Scalars['Int'];
+  input: UpdatePlanWeekInput;
+}>;
+
+
+export type UpdatePlanWeekMutation = (
+  { __typename?: 'Mutation' }
+  & { updatePlanWeek: (
+    { __typename?: 'PlanWeek' }
+    & Pick<PlanWeek, 'id' | 'weekNumber' | 'startDate' | 'intention' | 'planId'>
+  ) }
+);
+
 export type CreateActivityMutationVariables = Exact<{
   input: CreateActivityInput;
 }>;
@@ -351,6 +399,19 @@ export type CreatePlanMutation = (
   ) }
 );
 
+export type CreatePlanWeekMutationVariables = Exact<{
+  input: CreatePlanWeekInput;
+}>;
+
+
+export type CreatePlanWeekMutation = (
+  { __typename?: 'Mutation' }
+  & { createPlanWeek: (
+    { __typename?: 'PlanWeek' }
+    & Pick<PlanWeek, 'id'>
+  ) }
+);
+
 export type DeletePlanMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -362,6 +423,30 @@ export type DeletePlanMutation = (
     { __typename?: 'Plan' }
     & Pick<Plan, 'id'>
   ) }
+);
+
+export type DeletePlanWeekMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeletePlanWeekMutation = (
+  { __typename?: 'Mutation' }
+  & { deletePlanWeek: (
+    { __typename?: 'PlanWeek' }
+    & Pick<PlanWeek, 'id'>
+  ) }
+);
+
+export type Plan_WeeksVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Plan_Weeks = (
+  { __typename?: 'Query' }
+  & { planWeeks: Array<(
+    { __typename?: 'PlanWeek' }
+    & Pick<PlanWeek, 'id' | 'weekNumber' | 'startDate' | 'intention' | 'planId'>
+  )> }
 );
 
 export type PlansVariables = Exact<{ [key: string]: never; }>;
