@@ -1,8 +1,8 @@
-import EditPlan from '../EditPlan'
-import { EditPlanContextProvider } from './EditPlanContext'
+import ManagePlan from '../ManagePlan'
+import { ManagePlanContextProvider } from './ManagePlanContext'
 
 export const QUERY = gql`
-  query EditPlanQuery($id: Int!) {
+  query ManagePlanQuery($id: Int!) {
     plan: plan(id: $id) {
       id
       name
@@ -40,8 +40,8 @@ export const Failure = ({ error }) => <div>Error: {error.message}</div>
 
 export const Success = ({ plan, refetch }) => {
   return (
-    <EditPlanContextProvider refetch={refetch}>
-      <EditPlan plan={plan} />
-    </EditPlanContextProvider>
+    <ManagePlanContextProvider refetch={refetch}>
+      <ManagePlan plan={plan} />
+    </ManagePlanContextProvider>
   )
 }

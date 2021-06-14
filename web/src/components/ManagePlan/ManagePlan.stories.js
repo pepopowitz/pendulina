@@ -1,12 +1,12 @@
 import { HStack } from '@chakra-ui/react'
 import StorybookLayout from 'src/layouts/StorybookLayout/StorybookLayout'
-import EditPlan, { PlanWeekDay } from './EditPlan'
-import { standard } from '../EditPlanCell/EditPlanCell.mock'
+import ManagePlan, { PlanWeekDay } from './ManagePlan'
+import { standard } from '../ManagePlanCell/ManagePlanCell.mock'
 
 export const generated = () => {
   return (
     <StorybookLayout>
-      <EditPlan plan={standard().plan} />
+      <ManagePlan plan={standard().plan} />
     </StorybookLayout>
   )
 }
@@ -30,4 +30,4 @@ export const planWeekDay = () => {
   )
 }
 
-export default { title: 'Components/EditPlan' }
+export default { title: 'Components/ManagePlan' }

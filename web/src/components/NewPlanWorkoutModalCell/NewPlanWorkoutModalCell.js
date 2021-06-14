@@ -49,8 +49,6 @@ export const Success = ({ activities, planWeek, onSaved }) => {
     createPlanWorkout({ variables: { input } })
   }
 
-  // todo: move this into EditPlan, & control things from there
-  //   so that loading in this component appears in the modal.
   return (
     <PlanWorkoutModalForm
       activities={activities}

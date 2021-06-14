@@ -279,31 +279,6 @@ export type UpdateActivityMutation = (
   ) }
 );
 
-export type EditPlanQueryVariables = Exact<{
-  id: Scalars['Int'];
-}>;
-
-
-export type EditPlanQuery = (
-  { __typename?: 'Query' }
-  & { plan?: Maybe<(
-    { __typename?: 'Plan' }
-    & Pick<Plan, 'id' | 'name'>
-    & { planWeeks: Array<Maybe<(
-      { __typename?: 'PlanWeek' }
-      & Pick<PlanWeek, 'id' | 'weekNumber' | 'startDate' | 'intention'>
-      & { planWorkouts: Array<Maybe<(
-        { __typename?: 'PlanWorkout' }
-        & Pick<PlanWorkout, 'id' | 'dayOfWeek' | 'isKeyWorkout' | 'status' | 'targetMiles' | 'targetTimeInMinutes' | 'targetNotes' | 'actualMiles' | 'actualTimeInMinutes' | 'actualNotes'>
-        & { activity: (
-          { __typename?: 'Activity' }
-          & Pick<Activity, 'name' | 'icon'>
-        ) }
-      )>> }
-    )>> }
-  )> }
-);
-
 export type EditPlanWorkoutModalQueryVariables = Exact<{
   planWeekID: Scalars['Int'];
   id: Scalars['Int'];
@@ -353,6 +328,31 @@ export type DeletePlanWorkoutMutation = (
     { __typename?: 'PlanWorkout' }
     & Pick<PlanWorkout, 'id'>
   ) }
+);
+
+export type ManagePlanQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type ManagePlanQuery = (
+  { __typename?: 'Query' }
+  & { plan?: Maybe<(
+    { __typename?: 'Plan' }
+    & Pick<Plan, 'id' | 'name'>
+    & { planWeeks: Array<Maybe<(
+      { __typename?: 'PlanWeek' }
+      & Pick<PlanWeek, 'id' | 'weekNumber' | 'startDate' | 'intention'>
+      & { planWorkouts: Array<Maybe<(
+        { __typename?: 'PlanWorkout' }
+        & Pick<PlanWorkout, 'id' | 'dayOfWeek' | 'isKeyWorkout' | 'status' | 'targetMiles' | 'targetTimeInMinutes' | 'targetNotes' | 'actualMiles' | 'actualTimeInMinutes' | 'actualNotes'>
+        & { activity: (
+          { __typename?: 'Activity' }
+          & Pick<Activity, 'name' | 'icon'>
+        ) }
+      )>> }
+    )>> }
+  )> }
 );
 
 export type CreateActivityMutationVariables = Exact<{
