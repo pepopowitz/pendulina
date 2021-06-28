@@ -16,6 +16,7 @@ import EditPlanWorkoutModalCell from '../EditPlanWorkoutModalCell'
 import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
 import { PlanWorkoutModal } from '../PlanWorkoutModal'
 import { Workout } from '../Workout'
+import { WorkoutDetails } from './WorkoutDetails'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'Sa', 'Su']
 
@@ -25,26 +26,29 @@ const ManagePlan = ({ plan }) => {
   }
 
   return (
-    <Grid templateColumns="5fr 1fr">
-      <Stack>
-        <Box textAlign="center" my={5}>
-          <Heading>{plan.name}</Heading>
-        </Box>
-        <Divider my="5" />
-        <Grid templateColumns="repeat(7, 1fr)" gridColumnGap={2}>
-          {daysOfWeek.map((dayOfWeek, index) => {
-            return (
-              <Box p="4" bg="green.800" key={`dow-${index}`}>
-                <Text fontSize="md" color="white" textAlign="center">
-                  {dayOfWeek}
-                </Text>
-              </Box>
-            )
-          })}
-          <PlanWeeks planWeeks={plan.planWeeks} />
-        </Grid>
-      </Stack>
-    </Grid>
+    <React.Fragment>
+      <Box textAlign="center" my={5}>
+        <Heading>{plan.name}</Heading>
+      </Box>
+      <Divider my="5" />
+      <Grid templateColumns="5fr 1fr" gridColumnGap={5}>
+        <Stack>
+          <Grid templateColumns="repeat(7, 1fr)" gridColumnGap={2}>
+            {daysOfWeek.map((dayOfWeek, index) => {
+              return (
+                <Box p="3" bg="green.800" key={`dow-${index}`}>
+                  <Text fontSize="md" color="white" textAlign="center">
+                    {dayOfWeek}
+                  </Text>
+                </Box>
+              )
+            })}
+            <PlanWeeks planWeeks={plan.planWeeks} />
+          </Grid>
+        </Stack>
+        <WorkoutDetails />
+      </Grid>
+    </React.Fragment>
   )
 }
 
