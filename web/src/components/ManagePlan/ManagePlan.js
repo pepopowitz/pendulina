@@ -16,7 +16,7 @@ import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
 import { PlanWorkoutModal } from '../PlanWorkoutModal'
 import { Workout } from '../Workout'
 
-const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'S', 'S']
+const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'Sa', 'Su']
 
 const ManagePlan = ({ plan }) => {
   if (!plan) {
@@ -72,9 +72,8 @@ const PlanWeeks = ({ planWeeks }) => {
     )
     const height =
       workoutCardHeight * maxWorkoutsPerDay + 26 + 8 * (maxWorkoutsPerDay + 1)
-    const { startDateFormatted, endDateFormatted } = formatStartAndEndDates(
-      planWeek
-    )
+    const { startDateFormatted, endDateFormatted } =
+      formatStartAndEndDates(planWeek)
 
     return (
       <React.Fragment key={planWeek.id}>
