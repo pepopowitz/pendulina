@@ -4,6 +4,7 @@ import {
   Container,
   Divider,
   Flex,
+  Grid,
   Heading,
   HStack,
   Stack,
@@ -24,28 +25,26 @@ const ManagePlan = ({ plan }) => {
   }
 
   return (
-    <Container maxW="container.xl" centerContent>
+    <Grid templateColumns="5fr 1fr">
       <Stack>
         <Box textAlign="center" my={5}>
           <Heading>{plan.name}</Heading>
         </Box>
         <Divider my="5" />
-        <HStack spacing="2">
+        <Grid templateColumns="repeat(7, 1fr)" gridColumnGap={2}>
           {daysOfWeek.map((dayOfWeek, index) => {
             return (
-              <Box w="120px" p="4" bg="green.800" key={`dow-${index}`}>
+              <Box p="4" bg="green.800" key={`dow-${index}`}>
                 <Text fontSize="md" color="white" textAlign="center">
                   {dayOfWeek}
                 </Text>
               </Box>
             )
           })}
-        </HStack>
-        <Stack>
           <PlanWeeks planWeeks={plan.planWeeks} />
-        </Stack>
+        </Grid>
       </Stack>
-    </Container>
+    </Grid>
   )
 }
 
@@ -77,33 +76,34 @@ const PlanWeeks = ({ planWeeks }) => {
 
     return (
       <React.Fragment key={planWeek.id}>
-        <Stack>
-          <Divider mt="3" mb="2" />
-          <Flex direction="row" justifyContent="space-between">
-            <HStack>
-              <Heading fontSize="lg" as="h3" color="gray.500">
-                Week {planWeek.weekNumber} ({startDateFormatted} -{' '}
-                {endDateFormatted}):
-              </Heading>
-              <Heading fontSize="lg" as="h4">
-                {planWeek.intention}
-              </Heading>
-            </HStack>
-            <Button size="xs" colorScheme="green" onClick={onOpen}>
-              Add workout
-            </Button>
-          </Flex>
-          <HStack spacing="2">
-            {planWeekDays.map((planWeekDay) => (
-              <PlanWeekDay
-                planWeek={planWeek}
-                planWeekDay={planWeekDay}
-                height={`${height}px`}
-                key={`${planWeek.id}|${planWeekDay.dayOfWeek}`}
-              />
-            ))}
-          </HStack>
-        </Stack>
+        <Divider my="3" gridColumnStart="span 7" />
+        <HStack gridColumnStart="span 6" mb={2}>
+          <Heading fontSize="lg" as="h3" color="gray.500">
+            Week {planWeek.weekNumber} ({startDateFormatted} -{' '}
+            {endDateFormatted}):
+          </Heading>
+          <Heading fontSize="lg" as="h4">
+            {planWeek.intention}
+          </Heading>
+        </HStack>
+
+        <Button
+          size="xs"
+          colorScheme="green"
+          onClick={onOpen}
+          gridColumnStart="span 1"
+          mb={2}
+        >
+          Add workout
+        </Button>
+        {planWeekDays.map((planWeekDay) => (
+          <PlanWeekDay
+            planWeek={planWeek}
+            planWeekDay={planWeekDay}
+            height={`${height}px`}
+            key={`${planWeek.id}|${planWeekDay.dayOfWeek}`}
+          />
+        ))}
         <PlanWorkoutModal title="Add Workout" isOpen={isOpen} onClose={onClose}>
           <NewPlanWorkoutModalCell
             planWeekID={planWeek.id}
@@ -120,7 +120,7 @@ const PlanWeeks = ({ planWeeks }) => {
 
 export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
   return (
-    <Box w="120px" h={height} bgColor="gray.50" p={1} boxShadow="sm">
+    <Box h={height} bgColor="gray.50" p={1} boxShadow="sm">
       <Stack spacing={2}>
         <Text color="gray.600" fontSize="xs">
           {planWeekDay.date.getDate()}

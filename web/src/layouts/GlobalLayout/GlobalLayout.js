@@ -33,7 +33,9 @@ const GlobalLayout = ({ children }) => {
       </header>
       <main>
         <Toaster />
-        <Container mb={10}>{children}</Container>
+        <Container mb={10} maxW="container.xl">
+          {children}
+        </Container>
       </main>
     </>
   )
