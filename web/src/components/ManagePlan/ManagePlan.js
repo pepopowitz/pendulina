@@ -16,11 +16,14 @@ import EditPlanWorkoutModalCell from '../EditPlanWorkoutModalCell'
 import NewPlanWorkoutModalCell from '../NewPlanWorkoutModalCell'
 import { PlanWorkoutModal } from '../PlanWorkoutModal'
 import { Workout } from '../Workout'
-import { WorkoutDetails } from './WorkoutDetails'
+import WorkoutDetailCell from '../WorkoutDetailCell'
+import { useState } from 'react'
 
 const daysOfWeek = ['M', 'T', 'W', 'R', 'F', 'Sa', 'Su']
 
 const ManagePlan = ({ plan }) => {
+  const [selectedWorkoutId, setSelectedWorkoutId] = useState(-1)
+
   if (!plan) {
     return null
   }
@@ -43,17 +46,23 @@ const ManagePlan = ({ plan }) => {
                 </Box>
               )
             })}
-            <PlanWeeks planWeeks={plan.planWeeks} />
+            <PlanWeeks
+              planWeeks={plan.planWeeks}
+              onWorkoutSelected={(workout) => {
+                console.log('hi', workout)
+                setSelectedWorkoutId(workout.id)
+              }}
+            />
           </Grid>
         </Stack>
-        <WorkoutDetails />
+        <WorkoutDetailCell id={selectedWorkoutId} />
       </Grid>
     </React.Fragment>
   )
 }
 
 const workoutCardHeight = 114
-const PlanWeeks = ({ planWeeks }) => {
+const PlanWeeks = ({ planWeeks, onWorkoutSelected }) => {
   const { refetch } = useManagePlanContext()
 
   return planWeeks.map((planWeek) => {
@@ -106,6 +115,7 @@ const PlanWeeks = ({ planWeeks }) => {
             planWeekDay={planWeekDay}
             height={`${height}px`}
             key={`${planWeek.id}|${planWeekDay.dayOfWeek}`}
+            onWorkoutSelected={onWorkoutSelected}
           />
         ))}
         <PlanWorkoutModal title="Add Workout" isOpen={isOpen} onClose={onClose}>
@@ -122,7 +132,12 @@ const PlanWeeks = ({ planWeeks }) => {
   })
 }
 
-export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
+export const PlanWeekDay = ({
+  planWeek,
+  planWeekDay,
+  height,
+  onWorkoutSelected,
+}) => {
   return (
     <Box h={height} bgColor="gray.50" p={1} boxShadow="sm">
       <Stack spacing={2}>
@@ -135,6 +150,7 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
               planWeek={planWeek}
               workout={workout}
               key={`workout-${workout.id}`}
+              onWorkoutSelected={onWorkoutSelected}
             />
           )
         })}
@@ -143,7 +159,7 @@ export const PlanWeekDay = ({ planWeek, planWeekDay, height }) => {
   )
 }
 
-const PlanWorkout = ({ planWeek, workout }) => {
+const PlanWorkout = ({ planWeek, workout, onWorkoutSelected }) => {
   const { refetch } = useManagePlanContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -163,7 +179,7 @@ const PlanWorkout = ({ planWeek, workout }) => {
         <Workout
           {...workout}
           title={getTitleForWorkout(workout)}
-          onClick={() => console.log('selecting....', workout)}
+          onClick={() => onWorkoutSelected(workout)}
         />
         <Button
           size="xs"

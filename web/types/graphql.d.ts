@@ -568,3 +568,20 @@ export type CreatePlanWorkoutMutation = (
     & Pick<PlanWorkout, 'id'>
   ) }
 );
+
+export type FindWorkoutDetailQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type FindWorkoutDetailQuery = (
+  { __typename?: 'Query' }
+  & { planWorkout?: Maybe<(
+    { __typename?: 'PlanWorkout' }
+    & Pick<PlanWorkout, 'id' | 'dayOfWeek' | 'isKeyWorkout' | 'status' | 'targetMiles' | 'targetTimeInMinutes' | 'targetNotes' | 'actualMiles' | 'actualTimeInMinutes' | 'actualNotes' | 'actualElevationInFeet' | 'actualMantras' | 'actualReflection'>
+    & { activity: (
+      { __typename?: 'Activity' }
+      & Pick<Activity, 'name' | 'icon'>
+    ) }
+  )> }
+);
