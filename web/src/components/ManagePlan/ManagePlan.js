@@ -49,7 +49,6 @@ const ManagePlan = ({ plan }) => {
             <PlanWeeks
               planWeeks={plan.planWeeks}
               onWorkoutSelected={(workout) => {
-                console.log('hi', workout)
                 setSelectedWorkoutId(workout.id)
               }}
             />
