@@ -19,18 +19,6 @@ const jsonDisplay = (obj) => {
   )
 }
 
-const timeTag = (datetime) => {
-  return (
-    <time dateTime={datetime} title={datetime}>
-      {new Date(datetime).toUTCString()}
-    </time>
-  )
-}
-
-const checkboxInputTag = (checked) => {
-  return <input type="checkbox" checked={checked} disabled />
-}
-
 const Activity = ({ activity }) => {
   const { addMessage } = useFlash()
   const [deleteActivity] = useMutation(DELETE_ACTIVITY_MUTATION, {
