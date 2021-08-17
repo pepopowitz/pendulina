@@ -7,6 +7,7 @@ import {
   Grid,
   Heading,
   HStack,
+  Spacer,
   Stack,
   Text,
   useDisclosure,
@@ -34,28 +35,29 @@ const ManagePlan = ({ plan }) => {
         <Heading>{plan.name}</Heading>
       </Box>
       <Divider my="5" />
-      <Grid templateColumns="5fr 1fr" gridColumnGap={5}>
-        <Stack>
-          <Grid templateColumns="repeat(7, 1fr)" gridColumnGap={2}>
-            {daysOfWeek.map((dayOfWeek, index) => {
-              return (
-                <Box p="3" bg="green.800" key={`dow-${index}`}>
-                  <Text fontSize="md" color="white" textAlign="center">
-                    {dayOfWeek}
-                  </Text>
-                </Box>
-              )
-            })}
-            <PlanWeeks
-              planWeeks={plan.planWeeks}
-              onWorkoutSelected={(workout) => {
-                setSelectedWorkoutId(workout.id)
-              }}
-            />
-          </Grid>
-        </Stack>
-        <WorkoutDetailCell id={selectedWorkoutId} />
-      </Grid>
+      <Flex alignItems="flex-start">
+        <Grid templateColumns="repeat(7, 1fr)" gridColumnGap={2} mx="auto">
+          {daysOfWeek.map((dayOfWeek, index) => {
+            return (
+              <Box p="3" bg="green.800" key={`dow-${index}`}>
+                <Text fontSize="md" color="white" textAlign="center">
+                  {dayOfWeek}
+                </Text>
+              </Box>
+            )
+          })}
+          <PlanWeeks
+            planWeeks={plan.planWeeks}
+            onWorkoutSelected={(workout) => {
+              setSelectedWorkoutId(workout.id)
+            }}
+          />
+        </Grid>
+        <Spacer flex="20px 0 0" />
+        <Box position="sticky" top="20px" mx="auto">
+          <WorkoutDetailCell id={selectedWorkoutId} />
+        </Box>
+      </Flex>
     </React.Fragment>
   )
 }

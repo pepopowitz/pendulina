@@ -81,6 +81,7 @@ export function Workout({ status, activity, title, onClick }: WorkoutProps) {
             my={1}
             isTruncated
             noOfLines={1}
+            maxWidth={28}
           >
             {title || ''}
           </Text>
