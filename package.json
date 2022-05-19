@@ -19,6 +19,7 @@
     "yarn": ">=1.15"
   },
   "scripts": {
-    "start": "yarn redwood dev"
+    "start": "yarn redwood dev",
+    "db:migrate": "yarn redwood prisma migrate dev"
   }
 }
