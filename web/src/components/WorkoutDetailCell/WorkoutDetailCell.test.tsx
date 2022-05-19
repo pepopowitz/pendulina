@@ -1,4 +1,4 @@
-import { render, screen } from '@redwoodjs/testing'
+import { render } from '@redwoodjs/testing'
 import { Loading, Empty, Failure, Success } from './WorkoutDetailCell'
 import { standard } from './WorkoutDetailCell.mock'
 
@@ -29,7 +29,7 @@ describe('WorkoutDetailCell', () => {
 
   it('renders Success successfully', async () => {
     expect(() => {
-      render(<Success workoutDetail={standard().workoutDetail} />)
+      render(<Success planWorkout={standard().planWorkout} />)
     }).not.toThrow()
   })
 })

@@ -26,7 +26,7 @@ describe('planWeeks', () => {
     })
 
     expect(result.weekNumber).toEqual(6817684)
-    expect(result.startDate).toEqual('2021-06-14T04:28:05Z')
+    expect(result.startDate.toISOString()).toEqual('2021-06-14T04:28:05.000Z')
   })
 
   scenario('updates a planWeek', async (scenario: StandardScenario) => {
