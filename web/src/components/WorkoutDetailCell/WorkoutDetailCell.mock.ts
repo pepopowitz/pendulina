@@ -1,11 +1,6 @@
 // Define your own mock data here:
 export const standard = (/* vars, { ctx, req } */) => ({
-  planWorkout: {
+  workoutDetail: {
     id: 42,
-    status: 'UPCOMING',
-    activity: {
-      name: 'Running',
-      icon: '🏃‍♂️',
-    },
   },
 })
